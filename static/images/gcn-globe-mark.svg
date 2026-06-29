@@ -1,0 +1,46 @@
+<svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <linearGradient id="gcnOuterGrad" x1="30" y1="82" x2="218" y2="158" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ff625d"/>
+      <stop offset="0.48" stop-color="#d73531"/>
+      <stop offset="1" stop-color="#8f1419"/>
+    </linearGradient>
+    <linearGradient id="gcnBandGrad" x1="28" y1="120" x2="212" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ff6a66"/>
+      <stop offset="0.54" stop-color="#dc3d36"/>
+      <stop offset="1" stop-color="#96181b"/>
+    </linearGradient>
+    <linearGradient id="gcnThinGrad" x1="68" y1="31" x2="171" y2="208" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ff7772"/>
+      <stop offset="0.45" stop-color="#d93a35"/>
+      <stop offset="1" stop-color="#8c1519"/>
+    </linearGradient>
+    <clipPath id="gcnSphereClip">
+      <circle cx="120" cy="120" r="92"/>
+    </clipPath>
+  </defs>
+
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M42 158C58 190 89 211 124 211C175 211 216 170 216 120C216 69 175 29 124 29C85 29 52 52 38 86"
+          stroke="#871316" stroke-width="18" opacity="0.32"/>
+
+    <g clip-path="url(#gcnSphereClip)" opacity="0.32">
+      <path d="M36 135C70 157 153 164 205 130" stroke="#8f1518" stroke-width="9"/>
+      <path d="M67 198C103 174 135 68 171 42" stroke="#8f1518" stroke-width="7"/>
+    </g>
+
+    <path d="M36 88C49 54 83 31 123 30C174 29 216 69 216 120C216 171 175 212 124 212C73 212 32 171 32 120C32 109 33 98 36 88Z"
+          stroke="url(#gcnOuterGrad)" stroke-width="18"/>
+
+    <g clip-path="url(#gcnSphereClip)">
+      <path d="M32 128C62 98 154 93 211 130" stroke="url(#gcnBandGrad)" stroke-width="12"/>
+      <path d="M35 140C78 169 160 168 211 130" stroke="url(#gcnBandGrad)" stroke-width="8"/>
+      <path d="M81 200C63 160 86 62 129 33" stroke="#f45852" stroke-width="12"/>
+      <path d="M129 33C177 54 178 169 121 209" stroke="url(#gcnThinGrad)" stroke-width="7"/>
+      <path d="M158 39C199 66 214 101 214 127" stroke="#a21a1d" stroke-width="7"/>
+    </g>
+
+    <path d="M44 88C59 58 88 39 123 38" stroke="#ff7a75" stroke-width="6" opacity="0.58"/>
+    <path d="M202 79C212 94 217 112 216 130" stroke="#6f0f13" stroke-width="7" opacity="0.28"/>
+  </g>
+</svg>

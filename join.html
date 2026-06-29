@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Us - Global Career Network</title>
+    <meta name="description" content="Sign up as a member, volunteer, or corporate partner with GCN at Arizona State University.">
+    <meta name="keywords" content="join GCN ASU, student membership, volunteer sign up, recruiter contact, partner with GCN">
+    <meta name="author" content="Global Career Network Team">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="static/gcn.png">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar scrolled">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html" aria-label="Global Career Network Home">
+                    <img src="static/gcn.png" alt="Global Career Network Logo" class="logo-img">
+                    <span class="logo-text">GCN <span class="highlight-red">at ASU</span></span>
+                </a>
+            </div>
+            
+            <div class="nav-menu" id="nav-menu">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="events.html" class="nav-link">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="team.html" class="nav-link">Team</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="join.html" class="nav-link active">Join Us</a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Join Hero Section -->
+        <section class="join-hero">
+            <div class="container">
+                <h1 class="reveal">Connect With <span class="highlight-red">GCN</span></h1>
+                <p class="reveal">Whether you are an ASU student seeking career mentorship, looking for leadership roles, or a recruiter seeking top international talent.</p>
+            </div>
+        </section>
+
+        <!-- Join Form Section -->
+        <section class="join-section">
+            <div class="container">
+                
+                <!-- Tab toggle buttons -->
+                <div class="form-toggle-buttons reveal">
+                    <button class="form-toggle-btn active" data-target="member-form">
+                        <i class="fas fa-user-graduate"></i> General Member
+                    </button>
+                    <button class="form-toggle-btn" data-target="volunteer-form">
+                        <i class="fas fa-hand-holding-heart"></i> Volunteer Program
+                    </button>
+                    <button class="form-toggle-btn" data-target="partner-form">
+                        <i class="fas fa-briefcase"></i> Corporate Partner
+                    </button>
+                </div>
+                
+                <!-- Forms Wrapper -->
+                <div class="join-form-wrapper reveal">
+                    
+                    <!-- 1. GENERAL MEMBER FORM -->
+                    <div class="join-form-element active" id="member-form">
+                        <h2 class="form-section-title">Become a GCN Member</h2>
+                        <p class="form-section-subtitle">Get invitations to our Tempe workshops, peer resume reviews, and join our active job referral networks.</p>
+                        
+                        <form>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="m-fname">First Name</label>
+                                    <input type="text" id="m-fname" class="form-control" placeholder="e.g. John" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="m-lname">Last Name</label>
+                                    <input type="text" id="m-lname" class="form-control" placeholder="e.g. Doe" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="m-email">ASU Email Address</label>
+                                    <input type="email" id="m-email" class="form-control" placeholder="username@asu.edu" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="m-major">Major / Field of Study</label>
+                                    <input type="text" id="m-major" class="form-control" placeholder="e.g. Computer Science" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="m-level">Academic Level</label>
+                                    <select id="m-level" class="form-control" required>
+                                        <option value="" disabled selected>Select level...</option>
+                                        <option value="undergrad-fresh">Undergraduate - Freshman</option>
+                                        <option value="undergrad-soph">Undergraduate - Sophomore</option>
+                                        <option value="undergrad-junior">Undergraduate - Junior</option>
+                                        <option value="undergrad-senior">Undergraduate - Senior</option>
+                                        <option value="grad-master">Graduate - Master's</option>
+                                        <option value="grad-phd">Graduate - PhD</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="m-grad">Anticipated Graduation</label>
+                                    <input type="month" id="m-grad" class="form-control" required>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary submit-btn">
+                                <span>Submit Membership Sign-Up</span> <i class="fas fa-check"></i>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- 2. VOLUNTEER FORM -->
+                    <div class="join-form-element" id="volunteer-form">
+                        <h2 class="form-section-title">Join GCN Committee</h2>
+                        <p class="form-section-subtitle">Coordinate events, manage financials, or build design brochures. Gain resume leadership credentials.</p>
+                        
+                        <form>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="v-fname">First Name</label>
+                                    <input type="text" id="v-fname" class="form-control" placeholder="First Name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="v-lname">Last Name</label>
+                                    <input type="text" id="v-lname" class="form-control" placeholder="Last Name" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="v-email">ASU Email Address</label>
+                                    <input type="email" id="v-email" class="form-control" placeholder="username@asu.edu" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="v-dept">Preferred Department</label>
+                                    <select id="v-dept" class="form-control" required>
+                                        <option value="" disabled selected>Select department...</option>
+                                        <option value="events">Events Coordination</option>
+                                        <option value="marketing">Marketing & Social Media</option>
+                                        <option value="finance">Finance & Fundraising</option>
+                                        <option value="design">UI/UX Graphic Design</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="v-exp">Why do you want to volunteer for GCN?</label>
+                                <textarea id="v-exp" class="form-control" placeholder="Describe your interest and details of any prior event planning or club experiences..." required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary submit-btn">
+                                <span>Submit Committee Application</span> <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- 3. PARTNER FORM -->
+                    <div class="join-form-element" id="partner-form">
+                        <h2 class="form-section-title">Corporate Partnership</h2>
+                        <p class="form-section-subtitle">Conduct recruiting info sessions, host technical hackathons, or sponsor our workshops.</p>
+                        
+                        <form>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="p-name">Contact Person Name</label>
+                                    <input type="text" id="p-name" class="form-control" placeholder="e.g. John Smith" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="p-org">Company / Organization</label>
+                                    <input type="text" id="p-org" class="form-control" placeholder="e.g. Intel Corporation" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="p-email">Work Email Address</label>
+                                    <input type="email" id="p-email" class="form-control" placeholder="name@company.com" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="p-type">Partnership Interest</label>
+                                    <select id="p-type" class="form-control" required>
+                                        <option value="" disabled selected>Select type...</option>
+                                        <option value="recruiting">Recruiter Info Session / Tech Talk</option>
+                                        <option value="hackathon">Hackathon / Project Lab Sponsor</option>
+                                        <option value="mentoring">Executive Mentorship Circles</option>
+                                        <option value="other">Other / Custom Collaboration</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="p-details">Collaboration Proposal Details</label>
+                                <textarea id="p-details" class="form-control" placeholder="Give brief details about your proposed career events, workshop topics, or sponsorship models..." required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary submit-btn">
+                                <span>Submit Partnership Proposal</span> <i class="fas fa-handshake"></i>
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-column footer-about">
+                <h3>About GCN</h3>
+                <p>Global Career Network (GCN) at Arizona State University connects international students with corporate opportunities and professional development resources.</p>
+                <span>Empowering ASU Global Careers</span>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links-list">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                    <li><a href="events.html">Events Timeline</a></li>
+                    <li><a href="team.html">Our Team</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <ul class="footer-contact-list">
+                    <li>
+                        <i class="fas fa-envelope"></i>
+                        <span>globalcareernetwork.club@gmail.com</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Arizona State University<br>Tempe, AZ 85281</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Connect With Us</h3>
+                <p style="color: var(--gray-text-light); font-size: 0.95rem; margin-bottom: 20px;">Join our social channels to receive reminders for our upcoming events.</p>
+                <div class="footer-social-icons">
+                    <a href="https://www.linkedin.com/company/global-career-network/" target="_blank" rel="noopener noreferrer" class="social-circle" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://www.instagram.com/gcn.asu/" target="_blank" rel="noopener noreferrer" class="social-circle" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://discord.gg/xCTkMc4H" target="_blank" rel="noopener noreferrer" class="social-circle" aria-label="Discord">
+                        <i class="fab fa-discord"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container footer-bottom">
+            <p>© 2026 Global Career Network - Arizona State University. All rights reserved.</p>
+            <p class="footer-bottom-tagline">Built for international students at ASU Tempe</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="static/js/main.js"></script>
+</body>
+</html>
