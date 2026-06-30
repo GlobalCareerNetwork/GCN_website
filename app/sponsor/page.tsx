@@ -14,8 +14,7 @@ const TIERS = [
     price: "$1,500+",
     badge: "GOLD",
     accent: "#B8892A",
-    accentBg: "rgba(184,137,42,0.07)",
-    badgeBg: "rgba(184,137,42,0.12)",
+    accentBg: "rgba(184,137,42,0.05)",
     badgeFg: "#8A6515",
     borderColor: "#B8892A",
     benefits: [
@@ -34,8 +33,7 @@ const TIERS = [
     price: "$1,000",
     badge: "SILVER",
     accent: "#707070",
-    accentBg: "rgba(112,112,112,0.06)",
-    badgeBg: "rgba(112,112,112,0.1)",
+    accentBg: "rgba(112,112,112,0.04)",
     badgeFg: "#4A4A4A",
     borderColor: "#909090",
     benefits: [
@@ -53,8 +51,7 @@ const TIERS = [
     price: "$500",
     badge: "BRONZE",
     accent: "#9B6A3A",
-    accentBg: "rgba(155,106,58,0.07)",
-    badgeBg: "rgba(155,106,58,0.1)",
+    accentBg: "rgba(155,106,58,0.05)",
     badgeFg: "#7A4E22",
     borderColor: "#9B6A3A",
     benefits: [
@@ -69,9 +66,8 @@ const TIERS = [
     name: "Community Partner",
     price: "In-Kind / Collaborative",
     badge: "PARTNER",
-    accent: "#6B7280",
-    accentBg: "rgba(107,114,128,0.05)",
-    badgeBg: "var(--color-brand-red-light)",
+    accent: "var(--color-brand-red)",
+    accentBg: "rgba(158,34,26,0.03)",
     badgeFg: "var(--color-brand-red)",
     borderColor: "var(--color-brand-red)",
     benefits: [
@@ -84,7 +80,6 @@ const TIERS = [
   },
 ] as const;
 
-// ── Partnership benefits ──────────────────────────────────────────────────────
 const BENEFITS = [
   {
     label: "Brand Visibility",
@@ -145,7 +140,6 @@ const BENEFITS = [
   },
 ];
 
-// ── Programs ──────────────────────────────────────────────────────────────────
 const PROGRAMS = [
   {
     label: "Career Development",
@@ -193,7 +187,6 @@ const PROGRAMS = [
   },
 ];
 
-// ── Impact ────────────────────────────────────────────────────────────────────
 const IMPACT = [
   "Growing network of students & professionals",
   "Industry experts & guest speakers",
@@ -201,13 +194,38 @@ const IMPACT = [
   "Diverse and inclusive professional community",
 ];
 
-// ── Checkmark icon ─────────────────────────────────────────────────────────────
-function Check({ color }: { color: string }) {
+// ── Shared eyebrow component ──────────────────────────────────────────────────
+function SectionEyebrow({ num, label, right }: { num: string; label: string; right?: string }) {
   return (
-    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true" className="flex-shrink-0 mt-0.5">
-      <circle cx="7.5" cy="7.5" r="7" fill={color} opacity="0.12" />
-      <path d="M4.5 7.5l2 2 4-4" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
+    <div
+      className="flex items-center gap-4 py-2.5"
+      style={{ borderBottom: "1px solid var(--color-gray-border)" }}
+    >
+      <span
+        className="font-black uppercase shrink-0"
+        style={{ fontSize: "10px", letterSpacing: "0.22em", color: "var(--color-brand-red)" }}
+      >
+        {num}
+      </span>
+      <div style={{ flex: 1, height: "1px", background: "rgba(12,12,14,0.12)" }} />
+      <span
+        className="font-bold uppercase shrink-0"
+        style={{ fontSize: "10px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}
+      >
+        {label}
+      </span>
+      {right && (
+        <>
+          <div style={{ flex: 1, height: "1px", background: "rgba(12,12,14,0.12)" }} />
+          <span
+            className="font-bold uppercase shrink-0"
+            style={{ fontSize: "10px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}
+          >
+            {right}
+          </span>
+        </>
+      )}
+    </div>
   );
 }
 
@@ -216,98 +234,123 @@ export default function SponsorPage() {
   return (
     <div style={{ background: "var(--color-surface)" }}>
 
-      {/* ── HERO HEADER ── */}
-      <section
-        className="py-20 md:py-28 text-center"
-        style={{ background: "var(--color-surface-white)", borderBottom: "1px solid var(--color-gray-border)" }}
-        aria-labelledby="sponsor-heading"
+      {/* ── NEWSPAPER MASTHEAD HEADER ── */}
+      <div
+        style={{
+          borderBottom: "2px solid var(--color-black-soft)",
+          background: "var(--color-surface-white)",
+        }}
       >
-        <div className="mx-auto max-w-4xl px-6">
-          <p
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase border mb-6"
-            style={{
-              background: "var(--color-brand-red-light)",
-              borderColor: "rgba(158,34,26,0.2)",
-              color: "var(--color-brand-red)",
-            }}
-          >
-            <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--color-brand-red)" }} />
+        {/* Top eyebrow rule */}
+        <div
+          className="mx-auto max-w-7xl px-6 py-2.5 flex items-center gap-4"
+          style={{ borderBottom: "1px solid var(--color-gray-border)" }}
+        >
+          <span className="font-black uppercase shrink-0" style={{ fontSize: "10px", letterSpacing: "0.22em", color: "var(--color-brand-red)" }}>
+            GCN
+          </span>
+          <div style={{ flex: 1, height: "1px", background: "rgba(12,12,14,0.12)" }} />
+          <span className="font-bold uppercase shrink-0" style={{ fontSize: "10px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}>
             Partnership Opportunities
-          </p>
+          </span>
+          <div style={{ flex: 1, height: "1px", background: "rgba(12,12,14,0.12)" }} />
+          <span className="font-bold uppercase shrink-0" style={{ fontSize: "10px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}>
+            Arizona State University
+          </span>
+        </div>
 
-          <h1
-            id="sponsor-heading"
-            className="font-extrabold tracking-tight leading-tight mb-4"
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "clamp(2.4rem, 6vw, 4rem)",
-              color: "var(--color-black-soft)",
-            }}
-          >
-            2026 Sponsorship Opportunities
-          </h1>
-
-          <p
-            className="text-xl font-medium mb-10"
-            style={{ color: "var(--color-brand-red)" }}
-          >
-            Connect. Learn. Succeed.
-          </p>
-
-          {/* Quick stats row */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-left">
-            {[
-              { value: "2,000+", label: "Student & Professional Community Members" },
-              { value: "ASU", label: "Arizona State University Student Organization" },
-              { value: "Events", label: "Career Development, Networking & Innovation" },
-              { value: "Direct", label: "Access to Emerging Talent" },
-            ].map(({ value, label }) => (
-              <div
-                key={label}
-                className="flex flex-col gap-1 px-4 py-4 rounded-xl"
+        {/* Masthead */}
+        <div className="mx-auto max-w-7xl px-6 py-10">
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_1px_1fr] gap-0 items-stretch">
+            {/* Left: headline */}
+            <div className="md:pr-10">
+              <p className="font-bold uppercase mb-2" style={{ fontSize: "11px", letterSpacing: "0.2em", color: "var(--color-brand-red)" }}>
+                2026 Sponsorship Listings
+              </p>
+              <h1
+                id="sponsor-heading"
+                className="font-bold leading-none mb-4"
                 style={{
-                  background: "var(--color-surface)",
-                  border: "1px solid var(--color-gray-border)",
+                  fontFamily: "var(--font-serif)",
+                  fontSize: "clamp(2.2rem, 4.5vw, 3.8rem)",
+                  letterSpacing: "-0.025em",
+                  color: "var(--color-black-soft)",
                 }}
               >
-                <span
-                  className="font-extrabold leading-none"
-                  style={{ fontFamily: "var(--font-display)", fontSize: "1.35rem", color: "var(--color-brand-red)" }}
-                >
-                  {value}
-                </span>
-                <span className="text-xs leading-snug" style={{ color: "var(--color-gray-muted)" }}>
-                  {label}
-                </span>
+                Invest in the Next Generation of Global Talent
+              </h1>
+              <p className="text-base font-medium" style={{ color: "var(--color-brand-red)" }}>
+                Connect. Learn. Succeed.
+              </p>
+            </div>
+
+            {/* Vertical rule */}
+            <div
+              className="hidden md:block"
+              style={{ background: "var(--color-gray-border)" }}
+              aria-hidden="true"
+            />
+
+            {/* Right: quick stats as newspaper-style fact box */}
+            <div className="md:pl-10 pt-6 md:pt-0">
+              <p className="font-bold uppercase mb-4" style={{ fontSize: "10px", letterSpacing: "0.2em", color: "var(--color-gray-muted)" }}>
+                At a Glance
+              </p>
+              <div className="grid grid-cols-2 gap-0 overflow-hidden" style={{ border: "1px solid var(--color-gray-border)" }}>
+                {[
+                  { value: "2,000+", label: "Community Members" },
+                  { value: "ASU", label: "Arizona State University" },
+                  { value: "Events", label: "Career Dev, Networking & Innovation" },
+                  { value: "Direct", label: "Access to Emerging Talent" },
+                ].map(({ value, label }, i) => (
+                  <div
+                    key={label}
+                    className="px-4 py-3"
+                    style={{
+                      borderLeft: i % 2 === 1 ? "1px solid var(--color-gray-border)" : undefined,
+                      borderTop: i >= 2 ? "1px solid var(--color-gray-border)" : undefined,
+                    }}
+                  >
+                    <p
+                      className="font-bold leading-none"
+                      style={{ fontFamily: "var(--font-serif)", fontSize: "1.2rem", color: "var(--color-brand-red)" }}
+                    >
+                      {value}
+                    </p>
+                    <p className="text-xs mt-1 leading-snug" style={{ color: "var(--color-gray-muted)" }}>{label}</p>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
         </div>
-      </section>
+      </div>
 
       {/* ── WHY PARTNER ── */}
       <section
-        className="py-16"
-        style={{ borderBottom: "1px solid var(--color-gray-border)" }}
+        className="py-0"
+        style={{ borderBottom: "1px solid var(--color-gray-border)", background: "#fff" }}
         aria-labelledby="why-partner-heading"
       >
-        <div className="mx-auto max-w-4xl px-6">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <p
-                className="text-xs font-semibold uppercase tracking-widest mb-3"
-                style={{ color: "var(--color-brand-red)" }}
-              >
-                Why Partner With GCN
-              </p>
+        <div className="mx-auto max-w-7xl px-6">
+          <SectionEyebrow num="01" label="Why Partner With GCN" right="Partnership Benefits" />
+
+          <div className="grid md:grid-cols-[1fr_1px_1fr] gap-0 items-start py-10">
+            {/* Left: article text */}
+            <div className="md:pr-10">
               <h2
                 id="why-partner-heading"
-                className="text-2xl md:text-3xl font-extrabold tracking-tight mb-5 leading-snug"
-                style={{ color: "var(--color-black-soft)" }}
+                className="font-bold mb-4 leading-snug"
+                style={{
+                  fontFamily: "var(--font-serif)",
+                  fontSize: "clamp(1.4rem, 2.5vw, 1.85rem)",
+                  color: "var(--color-black-soft)",
+                  letterSpacing: "-0.01em",
+                }}
               >
                 Invest in the next generation of global talent
               </h2>
-              <p className="text-base leading-relaxed" style={{ color: "var(--color-gray-muted)" }}>
+              <p className="gcn-body-col" style={{ color: "var(--color-gray-muted)" }}>
                 Global Career Network (GCN) connects students, professionals, founders, and
                 organizations through career-focused events, mentorship programs, networking
                 opportunities, and innovation initiatives. By partnering with GCN, your
@@ -316,175 +359,181 @@ export default function SponsorPage() {
               </p>
             </div>
 
-            {/* Partnership Benefits grid */}
-            <div className="grid grid-cols-2 gap-3">
-              {BENEFITS.map(({ label, icon }) => (
-                <div
-                  key={label}
-                  className="flex items-center gap-3 px-4 py-3.5 rounded-xl"
-                  style={{
-                    background: "#fff",
-                    border: "1px solid var(--color-gray-border)",
-                  }}
-                >
-                  <span style={{ color: "var(--color-brand-red)" }}>{icon}</span>
-                  <span className="text-sm font-semibold" style={{ color: "var(--color-black-soft)" }}>
-                    {label}
-                  </span>
-                </div>
-              ))}
+            {/* Vertical rule */}
+            <div className="hidden md:block" style={{ background: "var(--color-gray-border)" }} aria-hidden="true" />
+
+            {/* Right: benefits as list */}
+            <div className="md:pl-10 pt-6 md:pt-0">
+              <div className="grid grid-cols-1 gap-0">
+                {BENEFITS.map(({ label, icon }, i) => (
+                  <div
+                    key={label}
+                    className="flex items-center gap-3 py-3"
+                    style={{ borderTop: i > 0 ? "1px solid var(--color-gray-border)" : undefined }}
+                  >
+                    <span style={{ color: "var(--color-brand-red)", flexShrink: 0 }}>{icon}</span>
+                    <span className="text-sm font-semibold" style={{ color: "var(--color-black-soft)" }}>{label}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── SPONSORSHIP TIERS ── */}
+      {/* ── SPONSORSHIP TIERS — newspaper classified layout ── */}
       <section
-        className="py-16"
+        className="py-0"
         aria-labelledby="tiers-heading"
+        style={{ borderBottom: "1px solid var(--color-gray-border)" }}
       >
-        <div className="mx-auto max-w-5xl px-6">
-          <div className="text-center mb-4">
-            <p
-              className="text-xs font-semibold uppercase tracking-widest mb-3"
-              style={{ color: "var(--color-brand-red)" }}
-            >
-              Sponsorship Tiers
-            </p>
-            <h2
-              id="tiers-heading"
-              className="text-2xl md:text-3xl font-extrabold tracking-tight mb-4"
-              style={{ color: "var(--color-black-soft)" }}
-            >
-              Choose your partnership level
-            </h2>
-          </div>
+        <div className="mx-auto max-w-7xl px-6">
+          <SectionEyebrow num="02" label="Sponsorship Tiers — 2026 Season" right="Classified Listings" />
 
-          {/* ── SCOPE NOTE — clearly visible, not buried ── */}
+          {/* Scope note */}
           <div
-            className="flex items-start gap-3 px-5 py-4 rounded-xl mb-10 mx-auto max-w-3xl"
+            className="flex items-start gap-3 py-4 my-4"
             style={{
-              background: "rgba(184,137,42,0.06)",
-              border: "1px solid rgba(184,137,42,0.25)",
+              borderTop: "1px solid var(--color-gray-border)",
+              borderBottom: "1px solid var(--color-gray-border)",
             }}
             role="note"
-            aria-label="Sponsorship scope clarification"
           >
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className="flex-shrink-0 mt-0.5" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 18 18" fill="none" className="flex-shrink-0 mt-0.5" aria-hidden="true">
               <circle cx="9" cy="9" r="7.5" stroke="#B8892A" strokeWidth="1.4" />
               <path d="M9 8v5M9 6v.5" stroke="#B8892A" strokeWidth="1.6" strokeLinecap="round" />
             </svg>
             <p className="text-sm leading-relaxed" style={{ color: "#6B4E10" }}>
               <strong>Sponsorship scope:</strong> Each tier listed below applies to a{" "}
               <strong>single featured GCN event</strong> (e.g., GlobeTalk or GlobeHack), not a
-              full-year club sponsorship. If you&apos;re interested in an ongoing, year-round
-              partnership, please contact us directly to discuss custom arrangements.
+              full-year club sponsorship. For ongoing year-round partnerships, contact us directly
+              to discuss custom arrangements.
             </p>
           </div>
 
-          {/* Tier cards grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {TIERS.map((tier) => (
-              <div
-                key={tier.name}
-                className="flex flex-col rounded-2xl overflow-hidden"
-                style={{
-                  background: "#fff",
-                  border: `1px solid var(--color-gray-border)`,
-                  borderTop: `3px solid ${tier.borderColor}`,
-                  boxShadow: "var(--shadow-soft)",
-                }}
-              >
-                {/* Card header */}
+          {/* ── Classified grid — 2×2 with hairline rules ── */}
+          <div
+            className="grid grid-cols-1 sm:grid-cols-2 overflow-hidden mb-10"
+            style={{
+              border: "1px solid var(--color-gray-border)",
+              borderTop: "2px solid var(--color-black-soft)",
+            }}
+          >
+            {TIERS.map((tier, i) => {
+              const isSecondCol = i % 2 === 1;
+              const isSecondRow = i >= 2;
+              const accentColor = typeof tier.accent === "string" ? tier.accent : "#9e221a";
+              return (
                 <div
-                  className="px-6 pt-6 pb-5"
-                  style={{ background: tier.accentBg, borderBottom: "1px solid var(--color-gray-border)" }}
+                  key={tier.name}
+                  className="flex flex-col p-6"
+                  style={{
+                    borderLeft: isSecondCol ? "1px solid var(--color-gray-border)" : undefined,
+                    borderTop: isSecondRow ? "1px solid var(--color-gray-border)" : undefined,
+                    background: tier.accentBg,
+                  }}
                 >
-                  <div className="flex items-start justify-between gap-3 mb-3">
-                    <h3
-                      className="font-extrabold text-lg leading-tight"
-                      style={{ fontFamily: "var(--font-display)", color: "var(--color-black-soft)" }}
-                    >
-                      {tier.name}
-                    </h3>
-                    <span
-                      className="flex-shrink-0 px-2.5 py-1 rounded-full text-xs font-bold tracking-widest uppercase"
-                      style={{ background: tier.badgeBg, color: tier.badgeFg }}
+                  {/* Tier header */}
+                  <div
+                    className="pb-4 mb-4"
+                    style={{ borderBottom: "1px solid var(--color-gray-border)" }}
+                  >
+                    <p
+                      className="font-black uppercase mb-1"
+                      style={{ fontSize: "10px", letterSpacing: "0.26em", color: accentColor }}
                     >
                       {tier.badge}
-                    </span>
+                    </p>
+                    <p
+                      className="font-bold leading-tight mb-2"
+                      style={{
+                        fontFamily: "var(--font-serif)",
+                        fontSize: "1.15rem",
+                        color: "var(--color-black-soft)",
+                      }}
+                    >
+                      {tier.name}
+                    </p>
+                    <p
+                      className="font-bold"
+                      style={{
+                        fontFamily: "var(--font-serif)",
+                        fontSize: "1.5rem",
+                        color: accentColor,
+                        letterSpacing: "-0.01em",
+                      }}
+                    >
+                      {tier.price}
+                    </p>
                   </div>
-                  <p
-                    className="text-2xl font-extrabold"
-                    style={{ fontFamily: "var(--font-display)", color: tier.accent }}
-                  >
-                    {tier.price}
-                  </p>
-                </div>
 
-                {/* Benefits list */}
-                <ul className="flex flex-col gap-3 px-6 py-5 flex-1 list-none m-0 p-6">
-                  {tier.benefits.map((b) => (
-                    <li key={b} className="flex items-start gap-2.5 text-sm" style={{ color: "var(--color-gray-text)" }}>
-                      <Check color={tier.accent} />
-                      {b}
-                    </li>
-                  ))}
-                </ul>
+                  {/* Benefits — classified-style dash list */}
+                  <ul className="flex flex-col gap-2 flex-1">
+                    {tier.benefits.map((b) => (
+                      <li
+                        key={b}
+                        className="flex items-start gap-2 text-sm"
+                        style={{ color: "var(--color-gray-text)" }}
+                      >
+                        <span
+                          className="font-bold flex-shrink-0 mt-px"
+                          style={{ color: accentColor, fontSize: "12px" }}
+                        >
+                          —
+                        </span>
+                        {b}
+                      </li>
+                    ))}
+                  </ul>
 
-                {/* CTA */}
-                <div className="px-6 pb-6">
+                  {/* CTA */}
                   <a
                     href="mailto:globalcareernetwork.club@gmail.com?subject=Sponsorship%20Inquiry%20—%20GCN%20at%20ASU"
-                    className="block w-full text-center py-2.5 rounded-xl text-sm font-semibold transition-opacity hover:opacity-80"
+                    className="mt-5 block text-center py-2 text-xs font-semibold uppercase tracking-wide transition-opacity hover:opacity-80"
                     style={{
-                      background: tier.accentBg,
-                      border: `1px solid ${tier.borderColor}`,
-                      color: tier.accent === "#707070" ? "#4A4A4A" : tier.accent,
+                      border: `1px solid ${accentColor}`,
+                      color: accentColor,
+                      letterSpacing: "0.14em",
                     }}
                   >
-                    Inquire About {tier.name}
+                    Inquire About {tier.badge} →
                   </a>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* ── PROGRAMS & INITIATIVES ── */}
       <section
-        className="py-16"
-        style={{ background: "var(--color-surface-white)", borderTop: "1px solid var(--color-gray-border)", borderBottom: "1px solid var(--color-gray-border)" }}
+        className="py-0"
+        style={{ background: "var(--color-surface-white)", borderBottom: "1px solid var(--color-gray-border)" }}
         aria-labelledby="programs-heading"
       >
-        <div className="mx-auto max-w-5xl px-6">
-          <div className="text-center mb-10">
-            <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "var(--color-brand-red)" }}>
-              What We Run
-            </p>
-            <h2
-              id="programs-heading"
-              className="text-2xl md:text-3xl font-extrabold tracking-tight"
-              style={{ color: "var(--color-black-soft)" }}
-            >
-              GCN Programs &amp; Initiatives
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {PROGRAMS.map(({ label, icon, items }) => (
+        <div className="mx-auto max-w-7xl px-6">
+          <SectionEyebrow num="03" label="GCN Programs & Initiatives" right="What We Run" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 overflow-hidden py-8 gap-0"
+            style={{ borderTop: "none" }}
+          >
+            {PROGRAMS.map(({ label, icon, items }, i) => (
               <div
                 key={label}
-                className="flex flex-col gap-3 p-5 rounded-2xl"
-                style={{ background: "var(--color-surface)", border: "1px solid var(--color-gray-border)" }}
+                className="flex flex-col gap-3 p-5"
+                style={{ borderLeft: i > 0 ? "1px solid var(--color-gray-border)" : undefined }}
               >
                 <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                  style={{ background: "var(--color-brand-red-light)", color: "var(--color-brand-red)" }}
+                  className="w-10 h-10 flex items-center justify-center flex-shrink-0"
+                  style={{ color: "var(--color-brand-red)" }}
                 >
                   {icon}
                 </div>
-                <p className="font-bold text-sm" style={{ color: "var(--color-black-soft)" }}>{label}</p>
+                <p
+                  className="font-bold text-sm uppercase tracking-wide"
+                  style={{ fontSize: "11px", letterSpacing: "0.14em", color: "var(--color-black-soft)" }}
+                >
+                  {label}
+                </p>
                 <ul className="flex flex-col gap-1.5 list-none m-0 p-0">
                   {items.map((item) => (
                     <li key={item} className="flex items-center gap-2 text-xs" style={{ color: "var(--color-gray-muted)" }}>
@@ -500,31 +549,26 @@ export default function SponsorPage() {
       </section>
 
       {/* ── OUR IMPACT ── */}
-      <section className="py-14" aria-labelledby="impact-heading">
-        <div className="mx-auto max-w-4xl px-6">
-          <div className="text-center mb-8">
-            <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "var(--color-brand-red)" }}>
-              Our Impact
-            </p>
-            <h2
-              id="impact-heading"
-              className="text-2xl font-extrabold tracking-tight"
-              style={{ color: "var(--color-black-soft)" }}
-            >
-              A community built on real outcomes
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {IMPACT.map((item) => (
+      <section
+        className="py-0"
+        aria-labelledby="impact-heading"
+        style={{ borderBottom: "1px solid var(--color-gray-border)" }}
+      >
+        <div className="mx-auto max-w-7xl px-6">
+          <SectionEyebrow num="04" label="Our Impact" right="Community Built on Real Outcomes" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 overflow-hidden my-6 gap-0"
+            style={{ border: "1px solid var(--color-gray-border)" }}
+          >
+            {IMPACT.map((item, i) => (
               <div
                 key={item}
-                className="flex items-center gap-4 px-5 py-4 rounded-xl"
-                style={{ background: "#fff", border: "1px solid var(--color-gray-border)" }}
+                className="flex items-center gap-4 px-5 py-4"
+                style={{
+                  borderLeft: i % 2 === 1 ? "1px solid var(--color-gray-border)" : undefined,
+                  borderTop: i >= 2 ? "1px solid var(--color-gray-border)" : undefined,
+                }}
               >
-                <span
-                  className="w-2 h-2 rounded-full flex-shrink-0"
-                  style={{ background: "var(--color-brand-red)" }}
-                />
+                <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "var(--color-brand-red)" }} />
                 <p className="text-sm font-medium" style={{ color: "var(--color-black-soft)" }}>{item}</p>
               </div>
             ))}
@@ -535,95 +579,110 @@ export default function SponsorPage() {
       {/* ── CLOSING CTA ── */}
       <section
         className="py-20"
-        style={{
-          background: "var(--color-black-soft)",
-          borderTop: "1px solid rgba(255,255,255,0.06)",
-        }}
+        style={{ background: "var(--color-black-soft)", borderTop: "none" }}
         aria-labelledby="cta-heading"
       >
-        <div className="mx-auto max-w-2xl px-6 text-center">
-          <h2
-            id="cta-heading"
-            className="font-extrabold leading-tight mb-4"
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "clamp(1.8rem, 4vw, 2.8rem)",
-              color: "#fff",
-            }}
-          >
-            Let&apos;s Build the Future Together
-          </h2>
-          <p className="text-base leading-relaxed mb-10" style={{ color: "rgba(255,255,255,0.65)" }}>
-            Partner with GCN to support student success, strengthen your brand, and connect
-            with tomorrow&apos;s talent.
-          </p>
-
-          {/* Contact options */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
-            {/* Primary: email */}
-            <a
-              href="mailto:globalcareernetwork.club@gmail.com?subject=Sponsorship%20Inquiry%20—%20GCN%20at%20ASU"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-85"
-              style={{ background: "var(--color-brand-red)" }}
-            >
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <rect x="1" y="3" width="14" height="10" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
-                <path d="M1 5l7 5 7-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-              </svg>
-              Email Us to Inquire
-            </a>
-
-            {/* Secondary: Instagram */}
-            <a
-              href="https://www.instagram.com/gcn.asu"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold transition-opacity hover:opacity-85"
-              style={{
-                background: "rgba(255,255,255,0.08)",
-                border: "1px solid rgba(255,255,255,0.15)",
-                color: "rgba(255,255,255,0.85)",
-              }}
-            >
-              @gcn.asu
-            </a>
-
-            {/* Back to main site */}
-            <Link
-              href="/"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold transition-opacity hover:opacity-85"
-              style={{
-                background: "rgba(255,255,255,0.08)",
-                border: "1px solid rgba(255,255,255,0.15)",
-                color: "rgba(255,255,255,0.85)",
-              }}
-            >
-              Visit GCN Website
-            </Link>
-          </div>
-
-          {/* TODO: Cal.com booking — Stage 8 pending (awaiting CAL_COM_API_KEY + booking slug credentials) */}
-          {/* Once Stage 8 is complete, replace this block with the real Cal.com embed or booking link button */}
+        <div className="mx-auto max-w-7xl px-6">
+          {/* Masthead CTA eyebrow */}
           <div
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs"
-            style={{
-              background: "rgba(255,255,255,0.04)",
-              border: "1px dashed rgba(255,255,255,0.2)",
-              color: "rgba(255,255,255,0.35)",
-            }}
-            aria-label="Schedule a call — coming soon"
+            className="flex items-center gap-4 mb-10 pb-3"
+            style={{ borderBottom: "1px solid rgba(255,255,255,0.12)" }}
           >
-            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
-              <rect x="1" y="2" width="11" height="10" rx="1" stroke="currentColor" strokeWidth="1.2" />
-              <path d="M1 5h11M4.5 1v1.5M8.5 1v1.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
-            </svg>
-            Schedule a call — booking link coming soon
+            <span className="font-black uppercase shrink-0" style={{ fontSize: "10px", letterSpacing: "0.22em", color: "var(--color-brand-red)" }}>
+              GCN
+            </span>
+            <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.1)" }} />
+            <span className="font-bold uppercase shrink-0" style={{ fontSize: "10px", letterSpacing: "0.18em", color: "rgba(255,255,255,0.4)" }}>
+              Get in Touch
+            </span>
           </div>
 
-          {/* Contact details */}
-          <p className="mt-8 text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>
-            globalcareernetwork.club@gmail.com · @gcn.asu · Arizona State University
-          </p>
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_1px_1fr] gap-0 items-start">
+            {/* Left: headline */}
+            <div className="md:pr-12">
+              <h2
+                id="cta-heading"
+                className="font-bold leading-tight mb-4"
+                style={{
+                  fontFamily: "var(--font-serif)",
+                  fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)",
+                  color: "#fff",
+                  letterSpacing: "-0.02em",
+                }}
+              >
+                Let&apos;s Build the Future Together
+              </h2>
+              <p className="text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
+                Partner with GCN to support student success, strengthen your brand, and connect
+                with tomorrow&apos;s talent.
+              </p>
+            </div>
+
+            {/* Vertical rule */}
+            <div className="hidden md:block" style={{ background: "rgba(255,255,255,0.08)" }} aria-hidden="true" />
+
+            {/* Right: CTAs */}
+            <div className="md:pl-12 pt-8 md:pt-0 flex flex-col gap-4">
+              <a
+                href="mailto:globalcareernetwork.club@gmail.com?subject=Sponsorship%20Inquiry%20—%20GCN%20at%20ASU"
+                className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white uppercase tracking-wide transition-opacity hover:opacity-85 self-start"
+                style={{ background: "var(--color-brand-red)", letterSpacing: "0.12em" }}
+              >
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <rect x="1" y="3" width="14" height="10" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
+                  <path d="M1 5l7 5 7-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
+                Email Us to Inquire
+              </a>
+
+              <a
+                href="https://www.instagram.com/gcn.asu"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold uppercase tracking-wide transition-opacity hover:opacity-85 self-start"
+                style={{
+                  border: "1px solid rgba(255,255,255,0.2)",
+                  color: "rgba(255,255,255,0.8)",
+                  letterSpacing: "0.12em",
+                }}
+              >
+                @gcn.asu
+              </a>
+
+              <Link
+                href="/"
+                className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold uppercase tracking-wide transition-opacity hover:opacity-85 self-start"
+                style={{
+                  border: "1px solid rgba(255,255,255,0.12)",
+                  color: "rgba(255,255,255,0.55)",
+                  letterSpacing: "0.12em",
+                }}
+              >
+                Visit GCN Website
+              </Link>
+
+              {/* TODO: Cal.com booking — Stage 8 pending */}
+              <div
+                className="inline-flex items-center gap-2 px-4 py-2.5 text-xs self-start"
+                style={{
+                  background: "rgba(255,255,255,0.04)",
+                  border: "1px dashed rgba(255,255,255,0.15)",
+                  color: "rgba(255,255,255,0.28)",
+                }}
+                aria-label="Schedule a call — coming soon"
+              >
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
+                  <rect x="1" y="2" width="11" height="10" rx="1" stroke="currentColor" strokeWidth="1.2" />
+                  <path d="M1 5h11M4.5 1v1.5M8.5 1v1.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+                </svg>
+                Schedule a call — booking link coming soon
+              </div>
+
+              <p className="text-xs mt-2" style={{ color: "rgba(255,255,255,0.25)" }}>
+                globalcareernetwork.club@gmail.com · @gcn.asu · Arizona State University
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 

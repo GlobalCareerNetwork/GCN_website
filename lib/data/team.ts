@@ -60,18 +60,6 @@ const rawTeamData = [
 
   // ── Operations ────────────────────────────────────────────────────────────
   {
-    id: "henry-tran",
-    name: "Henry Tran",
-    role: "Officer",
-    department: "Operations",
-    photo: "/images/team/henry.jpg",
-    bio: "Keeps club operations running smoothly and ensures events are executed flawlessly.",
-    hobby: "Cooking and exploring hiking trails.",
-    linkedinUrl: "https://www.linkedin.com/in/nhattran0812/",
-    major: "Supply Chain Management",
-    year: "Junior",
-  },
-  {
     id: "angel-rosas",
     name: "Angel Rosas",
     role: "Team Lead",
@@ -81,6 +69,18 @@ const rawTeamData = [
     hobby: "Photography and trying new coffee shops.",
     linkedinUrl: "https://www.linkedin.com/in/angel-e-rosas/",
     major: "Management",
+    year: "Junior",
+  },
+  {
+    id: "henry-tran",
+    name: "Henry Tran",
+    role: "Officer",
+    department: "Operations",
+    photo: "/images/team/henry.jpg",
+    bio: "Keeps club operations running smoothly and ensures events are executed flawlessly.",
+    hobby: "Cooking and exploring hiking trails.",
+    linkedinUrl: "https://www.linkedin.com/in/nhattran0812/",
+    major: "Supply Chain Management",
     year: "Junior",
   },
   {

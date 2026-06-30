@@ -14,20 +14,22 @@ export default function TeamCard({ member, size = "normal" }: TeamCardProps) {
 
   const isLarge = size === "large";
   const cardW = isLarge ? "w-[220px]" : "w-[180px]";
-  const cardH = isLarge ? "h-[260px]" : "h-[220px]";
+  const cardH = isLarge ? "h-[270px]" : "h-[228px]";
+  // Fixed photo height — consistent across all cards regardless of name length
+  const photoH = isLarge ? 214 : 172;
+  const nameH = isLarge ? 56 : 56;
 
   return (
     <div
       className={`${cardW} ${cardH} cursor-pointer select-none`}
       style={{
         perspective: "900px",
-        transform: flipped ? "translateY(-8px)" : "translateY(0)",
+        transform: flipped ? "translateY(-6px)" : "translateY(0)",
         transition: "transform 0.25s var(--ease-fast), box-shadow 0.25s var(--ease-fast)",
         boxShadow: flipped
-          ? "0 20px 60px rgba(124,58,237,0.28), 0 8px 24px rgba(37,99,235,0.18)"
+          ? "0 20px 50px rgba(158,34,26,0.22), 0 8px 20px rgba(12,12,14,0.16)"
           : undefined,
       }}
-      // Hover-to-flip on pointer devices; tap-to-flip on touch
       onMouseEnter={() => setFlipped(true)}
       onMouseLeave={() => setFlipped(false)}
       onClick={() => setFlipped((v) => !v)}
@@ -62,8 +64,11 @@ export default function TeamCard({ member, size = "normal" }: TeamCardProps) {
             boxShadow: "var(--shadow-soft)",
           }}
         >
-          {/* Photo */}
-          <div className="relative flex-1 overflow-hidden">
+          {/* Photo — fixed height so all headshots are identical size */}
+          <div
+            className="relative flex-shrink-0 overflow-hidden"
+            style={{ height: `${photoH}px` }}
+          >
             <Image
               src={member.photo}
               alt={member.name}
@@ -74,19 +79,22 @@ export default function TeamCard({ member, size = "normal" }: TeamCardProps) {
                 (e.target as HTMLImageElement).src = "/images/team/placeholder.png";
               }}
             />
-            {/* Gradient overlay at bottom */}
+            {/* Gradient overlay at bottom of photo */}
             <div
-              className="absolute bottom-0 left-0 right-0 h-16"
+              className="absolute bottom-0 left-0 right-0 h-14"
               style={{
-                background:
-                  "linear-gradient(to top, rgba(0,0,0,0.45) 0%, transparent 100%)",
+                background: "linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 100%)",
               }}
             />
           </div>
-          {/* Name / role */}
-          <div className="px-3 py-2.5">
+
+          {/* Name / role — fixed remaining height */}
+          <div
+            className="flex flex-col justify-center px-3 py-2"
+            style={{ height: `${nameH}px`, flexShrink: 0 }}
+          >
             <p
-              className="font-semibold text-sm leading-tight"
+              className="font-semibold text-sm leading-snug truncate"
               style={{ color: "var(--color-black-soft)" }}
             >
               {member.name}
@@ -107,35 +115,32 @@ export default function TeamCard({ member, size = "normal" }: TeamCardProps) {
             backfaceVisibility: "hidden",
             WebkitBackfaceVisibility: "hidden",
             transform: "rotateY(180deg)",
-            background: "linear-gradient(145deg, #0C0C0E 0%, #1e1b4b 100%)",
-            border: "1px solid rgba(124,58,237,0.4)",
-            boxShadow: "0 0 0 1px rgba(124,58,237,0.15), var(--shadow-hover)",
+            background: "var(--color-black-soft)",
+            border: "1px solid rgba(255,255,255,0.10)",
+            boxShadow: "var(--shadow-hover)",
           }}
         >
           <div className="flex flex-col gap-2">
-            <p
-              className="font-bold text-sm leading-tight text-white"
-            >
+            <p className="font-bold text-sm leading-tight text-white">
               {member.name}
             </p>
             <p style={{ color: "var(--color-brand-red)", fontSize: "11px", fontWeight: 600 }}>
               {member.role}
             </p>
             {member.major && (
-              <p className="text-xs" style={{ color: "rgba(255,255,255,0.6)" }}>
+              <p className="text-xs" style={{ color: "rgba(245,241,232,0.55)" }}>
                 {member.major}
                 {member.year ? ` · ${member.year}` : ""}
               </p>
             )}
             <p
               className="text-xs leading-relaxed mt-1"
-              style={{ color: "rgba(255,255,255,0.75)" }}
+              style={{ color: "rgba(245,241,232,0.72)" }}
             >
               {member.bio}
             </p>
           </div>
 
-          {/* LinkedIn button */}
           {member.linkedinUrl ? (
             <a
               href={member.linkedinUrl}
@@ -152,7 +157,7 @@ export default function TeamCard({ member, size = "normal" }: TeamCardProps) {
               LinkedIn
             </a>
           ) : (
-            <p className="text-xs text-center" style={{ color: "rgba(255,255,255,0.3)" }}>
+            <p className="text-xs text-center" style={{ color: "rgba(245,241,232,0.28)" }}>
               No LinkedIn yet
             </p>
           )}

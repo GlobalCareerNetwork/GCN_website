@@ -3,7 +3,6 @@
 import { useState, useRef, useEffect } from "react";
 import { eventsData, ACADEMIC_YEARS, getEventsByYear, type AcademicYear, type Event } from "@/lib/data/events";
 
-// ── Category icon map ─────────────────────────────────────────────────────
 function CategoryIcon({ category }: { category: string }) {
   const icons: Record<string, React.ReactNode> = {
     Workshop: (
@@ -49,25 +48,25 @@ function CategoryIcon({ category }: { category: string }) {
   return <>{icons[category] ?? icons["Info Session"]}</>;
 }
 
-// ── Single event card ─────────────────────────────────────────────────────
 function EventCard({ event, focused }: { event: Event; focused: boolean }) {
   const isPast = event.status === "past";
   const isTentative = event.status === "tentative";
 
   return (
     <div
-      className="relative flex gap-5 rounded-2xl p-5 transition-all"
+      className="relative flex gap-5 p-5 transition-all"
       style={{
         background: isPast ? "var(--color-surface-muted)" : "#fff",
         border: `1px solid ${focused ? "var(--color-brand-red)" : "var(--color-gray-border)"}`,
-        boxShadow: focused ? "0 0 0 2px rgba(158,34,26,0.18), var(--shadow-soft)" : "var(--shadow-soft)",
-        opacity: isPast ? 0.7 : 1,
+        borderLeft: `3px solid ${focused ? "var(--color-brand-red)" : isPast ? "var(--color-gray-border)" : "var(--color-brand-red)"}`,
+        boxShadow: focused ? "0 0 0 2px rgba(158,34,26,0.12)" : undefined,
+        opacity: isPast ? 0.72 : 1,
       }}
     >
       {/* Left: date + icon */}
       <div className="flex flex-col items-center gap-2 min-w-[56px]">
         <div
-          className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+          className="w-10 h-10 flex items-center justify-center flex-shrink-0"
           style={{
             background: isPast ? "var(--color-surface)" : "var(--color-brand-red-light)",
             color: isPast ? "var(--color-gray-muted)" : "var(--color-brand-red)",
@@ -89,33 +88,33 @@ function EventCard({ event, focused }: { event: Event; focused: boolean }) {
         <div className="flex flex-wrap items-start gap-2 mb-1.5">
           <h3
             className="text-base font-bold leading-snug"
-            style={{ color: isPast ? "var(--color-gray-text)" : "var(--color-black-soft)" }}
+            style={{
+              fontFamily: "var(--font-serif)",
+              color: isPast ? "var(--color-gray-text)" : "var(--color-black-soft)",
+            }}
           >
             {event.name}
           </h3>
           <div className="flex gap-1.5 flex-wrap">
             {isPast && (
               <span
-                className="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full font-medium"
-                style={{ background: "var(--color-surface)", color: "var(--color-gray-muted)", border: "1px solid var(--color-gray-border)" }}
+                className="inline-flex items-center gap-1 text-xs px-2 py-0.5 font-medium uppercase tracking-wide"
+                style={{ background: "var(--color-surface)", color: "var(--color-gray-muted)", border: "1px solid var(--color-gray-border)", letterSpacing: "0.12em", fontSize: "9px" }}
               >
-                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
-                  <path d="M2 5l2 2 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
                 Past
               </span>
             )}
             {isTentative && (
               <span
-                className="text-xs px-2 py-0.5 rounded-full font-medium"
-                style={{ background: "rgba(224,154,48,0.12)", color: "#B07B10", border: "1px solid rgba(224,154,48,0.25)" }}
+                className="text-xs px-2 py-0.5 font-medium uppercase"
+                style={{ background: "rgba(224,154,48,0.1)", color: "#B07B10", border: "1px solid rgba(224,154,48,0.22)", fontSize: "9px", letterSpacing: "0.12em" }}
               >
                 Tentative
               </span>
             )}
             <span
-              className="text-xs px-2 py-0.5 rounded-full font-medium"
-              style={{ background: "var(--color-brand-red-light)", color: "var(--color-brand-red)", border: "1px solid rgba(158,34,26,0.15)" }}
+              className="text-xs px-2 py-0.5 font-medium uppercase"
+              style={{ background: "var(--color-brand-red-light)", color: "var(--color-brand-red)", border: "1px solid rgba(158,34,26,0.15)", fontSize: "9px", letterSpacing: "0.12em" }}
             >
               {event.category}
             </span>
@@ -126,7 +125,6 @@ function EventCard({ event, focused }: { event: Event; focused: boolean }) {
           {event.description}
         </p>
 
-        {/* Meta row */}
         <div className="flex flex-wrap gap-4 text-xs" style={{ color: "var(--color-gray-muted)" }}>
           {event.location && (
             <span className="flex items-center gap-1.5">
@@ -159,14 +157,13 @@ function EventCard({ event, focused }: { event: Event; focused: boolean }) {
           )}
         </div>
 
-        {/* CTA for upcoming */}
         {!isPast && event.registrationUrl && (
           <a
             href={event.registrationUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 mt-3 px-4 py-2 rounded-lg text-xs font-semibold text-white transition-opacity hover:opacity-90"
-            style={{ background: "var(--color-brand-red)" }}
+            className="inline-flex items-center gap-1.5 mt-3 px-4 py-2 text-xs font-semibold text-white uppercase tracking-wide transition-opacity hover:opacity-90"
+            style={{ background: "var(--color-brand-red)", letterSpacing: "0.14em" }}
           >
             Register
             <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
@@ -178,8 +175,6 @@ function EventCard({ event, focused }: { event: Event; focused: boolean }) {
     </div>
   );
 }
-
-// ── Main timeline component ───────────────────────────────────────────────
 
 const YEAR_LABELS: Record<AcademicYear, string> = {
   "24-25": "AY 2024–25",
@@ -195,7 +190,6 @@ export default function EventsTimeline() {
 
   const events = getEventsByYear(activeYear);
 
-  // Draw spine + stagger cards when the list enters the viewport
   useEffect(() => {
     const el = listRef.current;
     if (!el) return;
@@ -242,126 +236,193 @@ export default function EventsTimeline() {
   }
 
   return (
-    <div className="mx-auto max-w-3xl px-6 py-16">
-      {/* ── Page header ── */}
-      <div className="text-center mb-10">
-        <p
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase border mb-4"
-          style={{
-            background: "var(--color-brand-red-light)",
-            borderColor: "rgba(158,34,26,0.2)",
-            color: "var(--color-brand-red)",
-          }}
-        >
-          <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--color-brand-red)" }} />
-          Events
-        </p>
-        <h1
-          className="text-3xl md:text-4xl font-extrabold tracking-tight mb-3"
-          style={{ color: "var(--color-black-soft)" }}
-        >
-          Club Events Timeline
-        </h1>
-        <p className="text-base" style={{ color: "var(--color-gray-muted)" }}>
-          Workshops, networking events, and competitions for international students at ASU.
-        </p>
-      </div>
+    <div style={{ background: "var(--color-surface)" }}>
 
-      {/* ── Year toggle ── */}
+      {/* ── Newspaper masthead header ── */}
       <div
-        className="flex justify-center mb-10"
-        role="group"
-        aria-label="Filter events by academic year"
+        style={{
+          borderBottom: "2px solid var(--color-black-soft)",
+          background: "var(--color-surface-white)",
+        }}
       >
+        {/* Eyebrow rule */}
         <div
-          className="inline-flex rounded-xl p-1 gap-1"
-          style={{ background: "var(--color-surface-muted)", border: "1px solid var(--color-gray-border)" }}
+          className="mx-auto max-w-5xl px-6 py-2.5 flex items-center gap-4"
+          style={{ borderBottom: "1px solid var(--color-gray-border)" }}
         >
-          {availableYears.map((year) => (
-            <button
-              key={year}
-              onClick={() => { setActiveYear(year); setFocusedIdx(null); }}
-              className="px-5 py-2 rounded-lg text-sm font-semibold transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1"
-              style={{
-                background: activeYear === year ? "var(--color-brand-red)" : "transparent",
-                color: activeYear === year ? "#fff" : "var(--color-gray-text)",
-                outlineColor: "var(--color-brand-red)",
-              }}
-              aria-pressed={activeYear === year}
-            >
-              {YEAR_LABELS[year]}
-            </button>
-          ))}
+          <span
+            className="font-black uppercase shrink-0"
+            style={{ fontSize: "10px", letterSpacing: "0.22em", color: "var(--color-brand-red)" }}
+          >
+            GCN
+          </span>
+          <div style={{ flex: 1, height: "1px", background: "rgba(12,12,14,0.12)" }} />
+          <span
+            className="font-bold uppercase shrink-0"
+            style={{ fontSize: "10px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}
+          >
+            Events &amp; History
+          </span>
+          <div style={{ flex: 1, height: "1px", background: "rgba(12,12,14,0.12)" }} />
+          <span
+            className="font-bold uppercase shrink-0"
+            style={{ fontSize: "10px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}
+          >
+            Arizona State University
+          </span>
+        </div>
+
+        {/* Masthead content */}
+        <div className="mx-auto max-w-5xl px-6 py-10">
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-4 items-end">
+            <div>
+              <p
+                className="font-bold uppercase mb-2"
+                style={{ fontSize: "11px", letterSpacing: "0.2em", color: "var(--color-brand-red)" }}
+              >
+                Club Record
+              </p>
+              <h1
+                className="font-bold leading-none"
+                style={{
+                  fontFamily: "var(--font-serif)",
+                  fontSize: "clamp(2.2rem, 4.5vw, 3.5rem)",
+                  letterSpacing: "-0.025em",
+                  color: "var(--color-black-soft)",
+                }}
+              >
+                Events Timeline
+              </h1>
+            </div>
+            <p className="text-sm" style={{ color: "var(--color-gray-muted)", maxWidth: "260px", lineHeight: 1.6 }}>
+              Workshops, networking events, and competitions for international students at ASU.
+            </p>
+          </div>
         </div>
       </div>
 
-      {/* Keyboard nav hint */}
-      <p
-        className="text-center text-xs mb-6"
-        style={{ color: "var(--color-gray-muted)", opacity: 0.7 }}
-      >
-        Use{" "}
-        <kbd className="px-1.5 py-0.5 rounded text-xs font-mono border" style={{ borderColor: "var(--color-gray-border)" }}>↑</kbd>
-        {" / "}
-        <kbd className="px-1.5 py-0.5 rounded text-xs font-mono border" style={{ borderColor: "var(--color-gray-border)" }}>↓</kbd>
-        {" "}arrow keys to navigate events
-      </p>
+      <div className="mx-auto max-w-5xl px-6 py-12">
 
-      {/* ── Timeline list ── */}
-      <div
-        ref={listRef}
-        className="relative flex flex-col gap-4"
-        onKeyDown={handleKeyDown}
-        aria-label={`Events for ${YEAR_LABELS[activeYear]}`}
-      >
-        {/* Vertical spine — draws top-to-bottom when timeline-drawn class is added */}
+        {/* ── Year toggle ── */}
         <div
-          className="timeline-spine absolute left-[27px] top-5 bottom-5 w-px pointer-events-none"
-          aria-hidden="true"
-          style={{ background: "linear-gradient(to bottom, var(--color-brand-red-light), var(--color-gray-border))" }}
-        />
-
-        {events.map((event, idx) => (
-          <div
-            key={event.id}
-            data-event-card
-            style={{ "--card-index": idx } as React.CSSProperties}
-            tabIndex={0}
-            onFocus={() => setFocusedIdx(idx)}
-            onBlur={() => setFocusedIdx((prev) => (prev === idx ? null : prev))}
-            className="focus-visible:outline-none"
-            role="article"
-            aria-label={event.name}
+          className="flex items-center gap-4 mb-8 pb-5"
+          style={{ borderBottom: "1px solid var(--color-gray-border)" }}
+        >
+          <span
+            className="font-bold uppercase shrink-0"
+            style={{ fontSize: "10px", letterSpacing: "0.2em", color: "var(--color-gray-muted)" }}
           >
-            <EventCard event={event} focused={focusedIdx === idx} />
+            Filter
+          </span>
+          <div
+            className="inline-flex gap-0"
+            role="group"
+            aria-label="Filter events by academic year"
+          >
+            {availableYears.map((year, i) => (
+              <button
+                key={year}
+                onClick={() => { setActiveYear(year); setFocusedIdx(null); }}
+                className="px-4 py-1.5 text-xs font-semibold uppercase tracking-wide transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1"
+                style={{
+                  background: activeYear === year ? "var(--color-brand-red)" : "transparent",
+                  color: activeYear === year ? "#fff" : "var(--color-gray-text)",
+                  border: "1px solid var(--color-gray-border)",
+                  borderLeft: i > 0 ? "none" : "1px solid var(--color-gray-border)",
+                  letterSpacing: "0.12em",
+                  outlineColor: "var(--color-brand-red)",
+                }}
+                aria-pressed={activeYear === year}
+              >
+                {YEAR_LABELS[year]}
+              </button>
+            ))}
           </div>
-        ))}
+        </div>
 
-        {events.length === 0 && (
-          <p className="text-center py-12" style={{ color: "var(--color-gray-muted)" }}>
-            No events for this academic year yet.
-          </p>
-        )}
-      </div>
+        {/* Keyboard nav hint */}
+        <p
+          className="text-xs mb-5"
+          style={{ color: "var(--color-gray-muted)", opacity: 0.65 }}
+        >
+          Use{" "}
+          <kbd className="px-1.5 py-0.5 text-xs font-mono border" style={{ borderColor: "var(--color-gray-border)" }}>↑</kbd>
+          {" / "}
+          <kbd className="px-1.5 py-0.5 text-xs font-mono border" style={{ borderColor: "var(--color-gray-border)" }}>↓</kbd>
+          {" "}arrow keys to navigate events
+        </p>
 
-      {/* ── Summary stats ── */}
-      <div
-        className="mt-10 grid grid-cols-3 gap-4 rounded-2xl p-5"
-        style={{ background: "#fff", border: "1px solid var(--color-gray-border)", boxShadow: "var(--shadow-soft)" }}
-      >
-        {[
-          { value: String(eventsData.filter((e) => e.status === "past").length), label: "Events Held" },
-          {
-            value: String(eventsData.filter((e) => e.status === "past").reduce((acc, e) => acc + (e.attendeeCount ?? 0), 0)),
-            label: "Total Attendees",
-          },
-          { value: String(eventsData.filter((e) => e.status === "upcoming").length), label: "Upcoming" },
-        ].map(({ value, label }) => (
-          <div key={label} className="text-center">
-            <p className="text-2xl font-extrabold" style={{ color: "var(--color-brand-red)" }}>{value}</p>
-            <p className="text-xs mt-1" style={{ color: "var(--color-gray-muted)" }}>{label}</p>
-          </div>
-        ))}
+        {/* ── Timeline list ── */}
+        <div
+          ref={listRef}
+          className="relative flex flex-col gap-0"
+          onKeyDown={handleKeyDown}
+          aria-label={`Events for ${YEAR_LABELS[activeYear]}`}
+        >
+          {/* Vertical spine */}
+          <div
+            className="timeline-spine absolute left-[27px] top-5 bottom-5 w-px pointer-events-none"
+            aria-hidden="true"
+            style={{ background: "linear-gradient(to bottom, var(--color-brand-red-light), var(--color-gray-border))" }}
+          />
+
+          {events.map((event, idx) => (
+            <div
+              key={event.id}
+              data-event-card
+              style={{ "--card-index": idx } as React.CSSProperties}
+              tabIndex={0}
+              onFocus={() => setFocusedIdx(idx)}
+              onBlur={() => setFocusedIdx((prev) => (prev === idx ? null : prev))}
+              className="focus-visible:outline-none"
+              role="article"
+              aria-label={event.name}
+            >
+              <EventCard event={event} focused={focusedIdx === idx} />
+            </div>
+          ))}
+
+          {events.length === 0 && (
+            <p className="text-center py-12" style={{ color: "var(--color-gray-muted)" }}>
+              No events for this academic year yet.
+            </p>
+          )}
+        </div>
+
+        {/* ── Summary stats — newspaper-style tally row ── */}
+        <div
+          className="mt-10 grid grid-cols-3 overflow-hidden"
+          style={{
+            border: "1px solid var(--color-gray-border)",
+            borderTop: "2px solid var(--color-black-soft)",
+          }}
+        >
+          {[
+            { value: String(eventsData.filter((e) => e.status === "past").length), label: "Events Held" },
+            {
+              value: String(eventsData.filter((e) => e.status === "past").reduce((acc, e) => acc + (e.attendeeCount ?? 0), 0)),
+              label: "Total Attendees",
+            },
+            { value: String(eventsData.filter((e) => e.status === "upcoming").length), label: "Upcoming" },
+          ].map(({ value, label }, i) => (
+            <div
+              key={label}
+              className="text-center py-5"
+              style={{ borderLeft: i > 0 ? "1px solid var(--color-gray-border)" : undefined }}
+            >
+              <p
+                className="font-bold leading-none"
+                style={{ fontFamily: "var(--font-serif)", fontSize: "2rem", color: "var(--color-brand-red)" }}
+              >
+                {value}
+              </p>
+              <p className="text-xs mt-2 uppercase tracking-wider" style={{ color: "var(--color-gray-muted)", letterSpacing: "0.16em" }}>
+                {label}
+              </p>
+            </div>
+          ))}
+        </div>
+
       </div>
     </div>
   );
