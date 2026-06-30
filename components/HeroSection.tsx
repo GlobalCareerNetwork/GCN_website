@@ -1,5 +1,6 @@
 import Link from "next/link";
 import GlobeWrapper from "@/components/GlobeWrapper";
+import type { CSSProperties } from "react";
 
 export default function HeroSection() {
   return (
@@ -22,12 +23,16 @@ export default function HeroSection() {
         {/* ── Left: copy ── */}
         <div className="flex flex-col gap-6">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 self-start px-3 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase border"
-            style={{
-              background: "var(--color-brand-red-light)",
-              borderColor: "rgba(158,34,26,0.2)",
-              color: "var(--color-brand-red)",
-            }}
+          <div
+            className="hero-anim inline-flex items-center gap-2 self-start px-3 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase border"
+            style={
+              {
+                "--delay": "0.1s",
+                background: "var(--color-brand-red-light)",
+                borderColor: "rgba(158,34,26,0.2)",
+                color: "var(--color-brand-red)",
+              } as CSSProperties
+            }
           >
             <span
               className="w-1.5 h-1.5 rounded-full"
@@ -36,7 +41,7 @@ export default function HeroSection() {
             Arizona State University
           </div>
 
-          {/* Headline */}
+          {/* Headline — word-split for staggered entrance */}
           <h1
             id="hero-headline"
             className="font-extrabold leading-[1.0] tracking-tight"
@@ -46,23 +51,47 @@ export default function HeroSection() {
               fontSize: "clamp(2.8rem, 7vw, 5.5rem)",
             }}
           >
-            Empowering Your{" "}
-            <span style={{ color: "var(--color-brand-red)" }}>
+            <span className="hero-word" style={{ "--delay": "0.2s" } as CSSProperties}>
+              Empowering{" "}
+            </span>
+            <span className="hero-word" style={{ "--delay": "0.28s" } as CSSProperties}>
+              Your{" "}
+            </span>
+            <span
+              className="hero-word"
+              style={
+                {
+                  "--delay": "0.37s",
+                  color: "var(--color-brand-red)",
+                } as CSSProperties
+              }
+            >
               Global Career
-            </span>{" "}
-            Journey
+            </span>
+            {" "}
+            <span className="hero-word" style={{ "--delay": "0.47s" } as CSSProperties}>
+              Journey
+            </span>
           </h1>
 
-          <p className="text-lg leading-relaxed max-w-md" style={{ color: "var(--color-gray-muted)" }}>
+          <p
+            className="hero-anim text-lg leading-relaxed max-w-md"
+            style={
+              { "--delay": "0.6s", color: "var(--color-gray-muted)" } as CSSProperties
+            }
+          >
             Connecting international students at ASU with professional opportunities,
             resume mentorship, career guidance, and a global network of industry leaders.
           </p>
 
           {/* CTAs */}
-          <div className="flex flex-wrap gap-3 mt-2">
+          <div
+            className="hero-anim flex flex-wrap gap-3 mt-2"
+            style={{ "--delay": "0.75s" } as CSSProperties}
+          >
             <Link
               href="/join"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white transition-all hover:scale-[1.03] hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
               style={{ background: "var(--color-brand-red)", outlineColor: "var(--color-brand-red)" }}
             >
               Join GCN Today
@@ -72,7 +101,7 @@ export default function HeroSection() {
             </Link>
             <Link
               href="/events"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold border transition-colors hover:border-transparent"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold border transition-all hover:scale-[1.03] hover:border-transparent"
               style={{
                 color: "var(--color-black-soft)",
                 borderColor: "var(--color-gray-border)",
@@ -88,8 +117,11 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* ── Right: globe ── */}
-        <div className="relative flex items-center justify-center">
+        {/* ── Right: globe — fades in last ── */}
+        <div
+          className="hero-fade relative flex items-center justify-center"
+          style={{ "--delay": "0.9s" } as CSSProperties}
+        >
           <GlobeWrapper className="w-full aspect-square max-w-[420px] mx-auto" />
           <p
             className="absolute bottom-4 left-1/2 -translate-x-1/2 text-xs flex items-center gap-1.5 pointer-events-none select-none"

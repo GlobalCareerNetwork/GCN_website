@@ -50,6 +50,8 @@
   --ease-fast:   cubic-bezier(0.4, 0, 0.2, 1);
   --ease-smooth: cubic-bezier(0.25, 0.8, 0.25, 1);
   --ease-slow:   cubic-bezier(0.16, 1, 0.3, 1);
+  /* Canonical enter easing — fast in, settles gently */
+  --ease-enter:  cubic-bezier(0, 0, 0.2, 1);
 }
 
 /* ── Base ────────────────────────────────────────────────────────────────── */
@@ -103,11 +105,76 @@ h1, h2, h3 {
   to   { transform: translateX(0); }
 }
 
+/* ── Motion keyframes ────────────────────────────────────────────────────── */
+@keyframes gcn-fade-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes gcn-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── Hero entrance (CSS-only, fires on page load) ───────────────────────── */
+/* Applied as static classNames in HeroSection — no JS required.            */
+.hero-anim {
+  animation-name: gcn-fade-up;
+  animation-duration: 0.6s;
+  animation-timing-function: var(--ease-enter);
+  animation-fill-mode: both;
+  animation-delay: var(--delay, 0.1s);
+}
+.hero-fade {
+  animation-name: gcn-fade-in;
+  animation-duration: 0.8s;
+  animation-timing-function: var(--ease-enter);
+  animation-fill-mode: both;
+  animation-delay: var(--delay, 0.1s);
+}
+/* Inline-block required for translateY on inline spans */
+.hero-word {
+  display: inline-block;
+  animation-name: gcn-fade-up;
+  animation-duration: 0.6s;
+  animation-timing-function: var(--ease-enter);
+  animation-fill-mode: both;
+  animation-delay: var(--delay, 0.1s);
+}
+
+/* ── Events timeline draw animation ─────────────────────────────────────── */
+.timeline-spine {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 1.4s var(--ease-enter) 0.15s;
+}
+.timeline-drawn .timeline-spine {
+  clip-path: inset(0 0 0% 0) !important;
+}
+/* Sequential card entrance — driven by --card-index CSS custom property */
+.timeline-drawn [data-event-card] {
+  animation-name: gcn-fade-up;
+  animation-duration: 0.5s;
+  animation-timing-function: var(--ease-enter);
+  animation-fill-mode: both;
+  animation-delay: calc(0.12s + 0.07s * var(--card-index, 0));
+}
+
 /* ── Reduced motion ──────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+  .hero-anim, .hero-fade, .hero-word {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .timeline-spine {
+    clip-path: none !important;
+    transition: none !important;
+  }
+  .timeline-drawn [data-event-card] {
+    animation: none !important;
   }
 }

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
@@ -13,18 +13,33 @@ const NAV_LINKS = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handler = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handler, { passive: true });
+    handler(); // set initial state
+    return () => window.removeEventListener("scroll", handler);
+  }, []);
 
   return (
     <header
       className="sticky top-0 z-50 w-full border-b"
       style={{
-        background: "rgba(249,250,252,0.92)",
+        background: scrolled ? "rgba(249,250,252,0.97)" : "rgba(249,250,252,0.92)",
         backdropFilter: "blur(12px)",
         borderColor: "var(--color-gray-border)",
+        boxShadow: scrolled ? "0 2px 20px rgba(12,12,14,0.07)" : "none",
+        transition: "background 0.3s var(--ease-fast), box-shadow 0.3s var(--ease-fast)",
       }}
     >
       <nav
-        className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4"
+        className="mx-auto flex max-w-6xl items-center justify-between px-6"
+        style={{
+          paddingTop: scrolled ? "10px" : "16px",
+          paddingBottom: scrolled ? "10px" : "16px",
+          transition: "padding 0.3s var(--ease-fast)",
+        }}
         aria-label="Main navigation"
       >
         {/* Logo */}

@@ -19,7 +19,11 @@ export default function TeamCard({ member, size = "normal" }: TeamCardProps) {
   return (
     <div
       className={`${cardW} ${cardH} cursor-pointer select-none`}
-      style={{ perspective: "900px" }}
+      style={{
+        perspective: "900px",
+        transform: flipped ? "translateY(-6px)" : "translateY(0)",
+        transition: "transform 0.25s var(--ease-fast)",
+      }}
       // Hover-to-flip on pointer devices; tap-to-flip on touch
       onMouseEnter={() => setFlipped(true)}
       onMouseLeave={() => setFlipped(false)}

@@ -4,6 +4,7 @@ import StatsBlock from "@/components/StatsBlock";
 import PhotoMarquee from "@/components/PhotoMarquee";
 import Testimonials from "@/components/Testimonials";
 import SponsorLogoWall from "@/components/SponsorLogoWall";
+import Reveal from "@/components/Reveal";
 
 export default function HomePage() {
   return (
@@ -11,9 +12,9 @@ export default function HomePage() {
       <HeroSection />
       <WhoWeAre />
       <StatsBlock />
-      <PhotoMarquee />
+      <Reveal><PhotoMarquee /></Reveal>
       <Testimonials />
-      <SponsorLogoWall />
+      <Reveal><SponsorLogoWall /></Reveal>
     </>
   );
 }

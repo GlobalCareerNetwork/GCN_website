@@ -2,6 +2,8 @@
 // TODO: real testimonials needed — replace placeholder content below
 // before launch. Do NOT attribute fabricated quotes to real people.
 
+import Reveal from "@/components/Reveal";
+
 const QUOTES = [
   {
     quote:
@@ -65,9 +67,9 @@ export default function Testimonials() {
 
         {/* Cards — border only, no shadow */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {QUOTES.map(({ quote, name, title, initials }) => (
+          {QUOTES.map(({ quote, name, title, initials }, i) => (
+            <Reveal key={name} delay={i * 120}>
             <div
-              key={name}
               className="flex flex-col justify-between p-7 rounded-none"
               style={{
                 border: "1px solid rgba(255,255,255,0.12)",
@@ -115,6 +117,7 @@ export default function Testimonials() {
                 </div>
               </div>
             </div>
+            </Reveal>
           ))}
         </div>
       </div>

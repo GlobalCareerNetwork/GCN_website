@@ -1,4 +1,5 @@
 import TeamCard from "@/components/TeamCard";
+import Reveal from "@/components/Reveal";
 import {
   teamData,
   getExecutiveBoard,
@@ -47,10 +48,12 @@ export default function OrgTree() {
         </p>
       </div>
 
-      {/* ── Exec row ── */}
+      {/* ── Exec row — staggered reveal ── */}
       <div className="relative flex justify-center gap-10 mb-2">
-        {exec.map((member) => (
-          <TeamCard key={member.id} member={member} size="large" />
+        {exec.map((member, i) => (
+          <Reveal key={member.id} delay={i * 120}>
+            <TeamCard member={member} size="large" />
+          </Reveal>
         ))}
       </div>
 
@@ -72,12 +75,13 @@ export default function OrgTree() {
         </svg>
       </div>
 
-      {/* ── Department sections ── */}
+      {/* ── Department sections — left-to-right stagger ── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
-        {allDepts.map((dept) => {
+        {allDepts.map((dept, deptIdx) => {
           const members = getMembersByDepartment(dept);
           return (
-            <div key={dept} className="flex flex-col items-center gap-4">
+            <Reveal key={dept} delay={deptIdx * 80}>
+            <div className="flex flex-col items-center gap-4">
               {/* Dept label */}
               <div
                 className="px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide border"
@@ -97,6 +101,7 @@ export default function OrgTree() {
                 ))}
               </div>
             </div>
+            </Reveal>
           );
         })}
       </div>

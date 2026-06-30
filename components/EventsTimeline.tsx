@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { eventsData, ACADEMIC_YEARS, getEventsByYear, type AcademicYear, type Event } from "@/lib/data/events";
 
 // ── Category icon map ─────────────────────────────────────────────────────
@@ -195,6 +195,24 @@ export default function EventsTimeline() {
 
   const events = getEventsByYear(activeYear);
 
+  // Draw spine + stagger cards when the list enters the viewport
+  useEffect(() => {
+    const el = listRef.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add("timeline-drawn");
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.05 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
     if (e.key === "ArrowDown") {
       e.preventDefault();
@@ -296,9 +314,9 @@ export default function EventsTimeline() {
         onKeyDown={handleKeyDown}
         aria-label={`Events for ${YEAR_LABELS[activeYear]}`}
       >
-        {/* Vertical spine */}
+        {/* Vertical spine — draws top-to-bottom when timeline-drawn class is added */}
         <div
-          className="absolute left-[27px] top-5 bottom-5 w-px pointer-events-none"
+          className="timeline-spine absolute left-[27px] top-5 bottom-5 w-px pointer-events-none"
           aria-hidden="true"
           style={{ background: "linear-gradient(to bottom, var(--color-brand-red-light), var(--color-gray-border))" }}
         />
@@ -307,6 +325,7 @@ export default function EventsTimeline() {
           <div
             key={event.id}
             data-event-card
+            style={{ "--card-index": idx } as React.CSSProperties}
             tabIndex={0}
             onFocus={() => setFocusedIdx(idx)}
             onBlur={() => setFocusedIdx((prev) => (prev === idx ? null : prev))}

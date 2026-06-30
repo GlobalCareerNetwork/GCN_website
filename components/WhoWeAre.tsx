@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Reveal from "@/components/Reveal";
 
 function SectionLabel({ children }: { children: ReactNode }) {
   return (
@@ -27,7 +28,7 @@ export default function WhoWeAre() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
 
           {/* ── Who We Are ── */}
-          <div>
+          <Reveal delay={0}><div>
             <SectionLabel>Who We Are</SectionLabel>
             <h2
               id="who-we-are-heading"
@@ -44,10 +45,10 @@ export default function WhoWeAre() {
               and opportunities that shape real careers.
             </p>
 
-          </div>
+          </div></Reveal>
 
           {/* ── What We Do ── */}
-          <div>
+          <Reveal delay={120}><div>
             <SectionLabel>What We Do</SectionLabel>
             <h2
               className="text-2xl md:text-3xl font-extrabold tracking-tight mb-5 leading-snug"
@@ -63,7 +64,7 @@ export default function WhoWeAre() {
               provide hands-on career support — resume mentorship, interview preparation, and
               ongoing guidance — so every member leaves equipped, not just informed.
             </p>
-          </div>
+          </div></Reveal>
 
         </div>
       </div>
