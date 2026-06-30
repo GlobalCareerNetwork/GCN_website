@@ -8,6 +8,7 @@ const NAV_LINKS = [
   { href: "/achievements", label: "Achievements" },
   { href: "/join", label: "Join Us" },
   { href: "/resources", label: "Resources" },
+  { href: "/sponsor", label: "Sponsor" },
 ];
 
 const SOCIAL_LINKS = [
