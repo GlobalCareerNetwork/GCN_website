@@ -269,12 +269,13 @@ export default function SponsorPage() {
               </p>
               <h1
                 id="sponsor-heading"
-                className="font-bold leading-none mb-4"
+                className="leading-none mb-4"
                 style={{
-                  fontFamily: "var(--font-serif)",
-                  fontSize: "clamp(2.2rem, 4.5vw, 3.8rem)",
-                  letterSpacing: "-0.025em",
+                  fontFamily: "var(--font-blackletter)",
+                  fontSize: "clamp(2.0rem, 4vw, 3.4rem)",
+                  letterSpacing: "0.01em",
                   color: "var(--color-black-soft)",
+                  lineHeight: 1.12,
                 }}
               >
                 Invest in the Next Generation of Global Talent
@@ -325,6 +326,8 @@ export default function SponsorPage() {
           </div>
         </div>
       </div>
+      {/* Thin companion rule — completes the thick-thin double rule at bottom of masthead */}
+      <div style={{ height: "1px", background: "rgba(12,12,14,0.22)", marginTop: "3px" }} />
 
       {/* ── WHY PARTNER ── */}
       <section

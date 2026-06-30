@@ -26,8 +26,8 @@ export default function SponsorLogoWall() {
     <section
       className="py-14 overflow-hidden"
       style={{
-        background: "linear-gradient(135deg, #eff6ff 0%, #e0f2fe 50%, #eff6ff 100%)",
-        borderTop: "1px solid rgba(37,99,235,0.1)",
+        background: "var(--color-surface-white)",
+        borderTop: "1px solid var(--color-gray-border)",
       }}
       aria-label="Our sponsors and partners"
     >
@@ -36,12 +36,15 @@ export default function SponsorLogoWall() {
         <p
           className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase border"
           style={{
-            background: "linear-gradient(135deg, var(--color-brand-red-light), rgba(13,148,136,0.1))",
-            borderColor: "rgba(13,148,136,0.22)",
+            background: "var(--color-brand-red-light)",
+            borderColor: "rgba(158,34,26,0.18)",
             color: "var(--color-brand-red)",
           }}
         >
-          <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--color-brand-red)" }} />
+          <span
+            className="w-1.5 h-1.5 rounded-full"
+            style={{ background: "var(--color-brand-red)" }}
+          />
           Our Partners
         </p>
         <p className="mt-3 text-sm" style={{ color: "var(--color-gray-muted)" }}>
@@ -51,48 +54,50 @@ export default function SponsorLogoWall() {
 
       {/* Edge-faded marquee wrapper */}
       <div className="gcn-marquee-fade overflow-hidden">
-      <div
-        className="relative flex items-center"
-        style={{
-          animation: "gcn-marquee-reverse 35s linear infinite",
-          width: "max-content",
-        }}
-        onMouseEnter={(e) => {
-          (e.currentTarget as HTMLDivElement).style.animationPlayState = "paused";
-        }}
-        onMouseLeave={(e) => {
-          (e.currentTarget as HTMLDivElement).style.animationPlayState = "running";
-        }}
-        aria-hidden="true"
-      >
-        {strip.map((sponsor, idx) => (
-          <div
-            key={idx}
-            className="flex-shrink-0 mx-6 flex items-center justify-center"
-            style={{ width: "120px", height: "48px" }}
-          >
-            <Image
-              src={sponsor.src}
-              alt={sponsor.alt}
-              width={120}
-              height={48}
-              className="object-contain w-auto"
-              style={{
-                maxHeight: "40px",
-                filter: "grayscale(1) opacity(0.45)",
-                transition: "filter 0.25s ease",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLImageElement).style.filter = "grayscale(0) opacity(1)";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLImageElement).style.filter = "grayscale(1) opacity(0.45)";
-              }}
-              loading="lazy"
-            />
-          </div>
-        ))}
-      </div>
+        <div
+          className="relative flex items-center"
+          style={{
+            animation: "gcn-marquee-reverse 35s linear infinite",
+            width: "max-content",
+          }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLDivElement).style.animationPlayState = "paused";
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLDivElement).style.animationPlayState = "running";
+          }}
+          aria-hidden="true"
+        >
+          {strip.map((sponsor, idx) => (
+            <div
+              key={idx}
+              className="flex-shrink-0 mx-6 flex items-center justify-center"
+              style={{ width: "120px", height: "48px" }}
+            >
+              <Image
+                src={sponsor.src}
+                alt={sponsor.alt}
+                width={120}
+                height={48}
+                className="object-contain w-auto"
+                style={{
+                  maxHeight: "40px",
+                  filter: "grayscale(1) opacity(0.45)",
+                  transition: "filter 0.25s ease",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLImageElement).style.filter =
+                    "grayscale(0) opacity(1)";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLImageElement).style.filter =
+                    "grayscale(1) opacity(0.45)";
+                }}
+                loading="lazy"
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

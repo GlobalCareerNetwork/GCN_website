@@ -47,6 +47,9 @@
   /* Serif — Playfair Display for editorial headlines */
   --font-serif: var(--font-playfair), Georgia, 'Times New Roman', serif;
 
+  /* Blackletter — UnifrakturMaguntia for masthead/logo only (display size only) */
+  --font-blackletter: 'UnifrakturMaguntia', serif;
+
   /* Shadows */
   --shadow-soft:  0 18px 45px rgba(12, 12, 14, 0.07);
   --shadow-hover: 0 26px 70px rgba(12, 12, 14, 0.11);
@@ -76,6 +79,13 @@ html {
 
 body {
   background-color: var(--color-surface);
+  /* Aged paper texture — subtle warm blotches simulate foxing and uneven ink absorption */
+  background-image:
+    radial-gradient(ellipse 380px 210px at 6% 11%,  rgba(148,108,52,0.042) 0%, transparent 100%),
+    radial-gradient(ellipse 290px 360px at 87% 38%, rgba(100,78,38,0.030) 0%, transparent 100%),
+    radial-gradient(ellipse 230px 190px at 44% 80%, rgba(128,92,44,0.036) 0%, transparent 100%),
+    radial-gradient(ellipse 200px 260px at 65% 97%, rgba(110,84,42,0.026) 0%, transparent 100%),
+    radial-gradient(ellipse 160px 140px at 22% 58%, rgba(138,100,48,0.022) 0%, transparent 100%);
   color: var(--color-gray-text);
   font-family: var(--font-sans);
   line-height: 1.7;
@@ -212,7 +222,7 @@ h1, h2, h3 {
   inset: 0;
   pointer-events: none;
   z-index: 1;
-  opacity: 0.028;
+  opacity: 0.038;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
   background-size: 200px 200px;
   mix-blend-mode: overlay;
@@ -278,6 +288,36 @@ h1, h2, h3 {
   width: 100%;
   height: 1px;
   background: var(--color-gray-border);
+}
+
+/* Newspaper double rule — thick line (2px) + gap (3px) + thin line (1px).
+   Use as a standalone div for major section breaks; replaces single h-px rules. */
+.gcn-double-rule {
+  width: 100%;
+  height: 6px;
+  background-image:
+    linear-gradient(rgba(12,12,14,0.80), rgba(12,12,14,0.80)),
+    linear-gradient(rgba(12,12,14,0.22), rgba(12,12,14,0.22));
+  background-size: 100% 2px, 100% 1px;
+  background-position: 0 0, 0 5px;
+  background-repeat: no-repeat, no-repeat;
+  background-color: transparent;
+}
+
+/* Halftone/engraving dot pattern overlay — sits above a photo via position:absolute.
+   Parent photo container must have position:relative and overflow:hidden. */
+.gcn-halftone-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, rgba(20,14,5,0.22) 1px, transparent 1px);
+  background-size: 4px 4px;
+  mix-blend-mode: multiply;
+  opacity: 0.36;
+  z-index: 2;
 }
 
 /* ── Reduced motion ──────────────────────────────────────────────────────── */

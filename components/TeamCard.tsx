@@ -75,15 +75,19 @@ export default function TeamCard({ member, size = "normal" }: TeamCardProps) {
               fill
               sizes={isLarge ? "220px" : "180px"}
               className="object-cover object-top"
+              style={{ filter: "sepia(0.55) contrast(1.12) brightness(0.96)" }}
               onError={(e) => {
                 (e.target as HTMLImageElement).src = "/images/team/placeholder.png";
               }}
             />
+            {/* Halftone/engraving dot overlay for period photo treatment */}
+            <div className="gcn-halftone-overlay" aria-hidden="true" />
             {/* Gradient overlay at bottom of photo */}
             <div
               className="absolute bottom-0 left-0 right-0 h-14"
               style={{
                 background: "linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 100%)",
+                zIndex: 3,
               }}
             />
           </div>

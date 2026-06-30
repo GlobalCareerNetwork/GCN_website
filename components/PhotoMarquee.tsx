@@ -27,8 +27,8 @@ export default function PhotoMarquee() {
     <section
       className="py-16 overflow-hidden"
       style={{
-        background: "linear-gradient(135deg, #fdf4ff 0%, #fce7f3 50%, #fdf4ff 100%)",
-        borderTop: "1px solid rgba(124,58,237,0.1)",
+        background: "var(--color-surface)",
+        borderTop: "1px solid var(--color-gray-border)",
       }}
       aria-label="GCN team photo gallery"
     >
@@ -37,18 +37,18 @@ export default function PhotoMarquee() {
         <p
           className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase border"
           style={{
-            background: "linear-gradient(135deg, var(--color-brand-red-light), rgba(124,58,237,0.1))",
-            borderColor: "rgba(124,58,237,0.22)",
+            background: "var(--color-brand-red-light)",
+            borderColor: "rgba(158,34,26,0.18)",
             color: "var(--color-brand-red)",
           }}
         >
-          <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--color-brand-red)" }} />
+          <span
+            className="w-1.5 h-1.5 rounded-full"
+            style={{ background: "var(--color-brand-red)" }}
+          />
           Our People
         </p>
-        <p
-          className="mt-3 text-sm"
-          style={{ color: "var(--color-gray-muted)" }}
-        >
+        <p className="mt-3 text-sm" style={{ color: "var(--color-gray-muted)" }}>
           The faces behind GCN at ASU
         </p>
       </div>
@@ -72,12 +72,12 @@ export default function PhotoMarquee() {
           {strip.map((photo, idx) => (
             <div
               key={idx}
-              className="flex-shrink-0 mx-2 rounded-2xl overflow-hidden"
+              className="relative flex-shrink-0 mx-2 rounded-2xl overflow-hidden"
               style={{
                 width: "160px",
                 height: "200px",
-                border: "1px solid rgba(124,58,237,0.15)",
-                boxShadow: "0 4px 20px rgba(124,58,237,0.08)",
+                border: "1px solid var(--color-gray-border)",
+                boxShadow: "0 4px 16px rgba(12,12,14,0.07)",
               }}
             >
               <Image
@@ -86,8 +86,11 @@ export default function PhotoMarquee() {
                 width={160}
                 height={200}
                 className="object-cover object-top w-full h-full"
+                style={{ filter: "sepia(0.45) contrast(1.10) brightness(0.97)" }}
                 loading="lazy"
               />
+              {/* Halftone dot overlay for period engraving feel */}
+              <div className="gcn-halftone-overlay" aria-hidden="true" />
             </div>
           ))}
         </div>

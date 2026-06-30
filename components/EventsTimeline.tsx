@@ -283,11 +283,11 @@ export default function EventsTimeline() {
                 Club Record
               </p>
               <h1
-                className="font-bold leading-none"
+                className="leading-none"
                 style={{
-                  fontFamily: "var(--font-serif)",
-                  fontSize: "clamp(2.2rem, 4.5vw, 3.5rem)",
-                  letterSpacing: "-0.025em",
+                  fontFamily: "var(--font-blackletter)",
+                  fontSize: "clamp(2.4rem, 4.5vw, 3.8rem)",
+                  letterSpacing: "0.01em",
                   color: "var(--color-black-soft)",
                 }}
               >
@@ -300,6 +300,8 @@ export default function EventsTimeline() {
           </div>
         </div>
       </div>
+      {/* Thin companion rule — completes the thick-thin double rule at bottom of masthead */}
+      <div style={{ height: "1px", background: "rgba(12,12,14,0.22)", marginTop: "3px" }} />
 
       <div className="mx-auto max-w-5xl px-6 py-12">
 

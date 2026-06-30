@@ -48,6 +48,13 @@ export default function RootLayout({
           rel="stylesheet"
           href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700,800&display=swap"
         />
+        {/* UnifrakturMaguntia — blackletter for masthead nameplate only (SIL OFL 1.1) */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap"
+        />
       </head>
       <body className="min-h-full flex flex-col antialiased">
         <a href="#main-content" className="skip-link">

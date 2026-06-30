@@ -67,11 +67,11 @@ export default function OrgTree() {
                 Executive Board
               </p>
               <h1
-                className="font-bold leading-none"
+                className="leading-none"
                 style={{
-                  fontFamily: "var(--font-serif)",
-                  fontSize: "clamp(2.4rem, 5vw, 4rem)",
-                  letterSpacing: "-0.025em",
+                  fontFamily: "var(--font-blackletter)",
+                  fontSize: "clamp(2.6rem, 5vw, 4.2rem)",
+                  letterSpacing: "0.01em",
                   color: "var(--color-black-soft)",
                 }}
               >
@@ -88,6 +88,8 @@ export default function OrgTree() {
           </div>
         </div>
       </div>
+      {/* Thin companion rule — completes the thick-thin double rule at bottom of masthead */}
+      <div style={{ height: "1px", background: "rgba(12,12,14,0.22)", marginTop: "3px" }} />
 
       <div className="mx-auto max-w-7xl px-6 py-14">
 

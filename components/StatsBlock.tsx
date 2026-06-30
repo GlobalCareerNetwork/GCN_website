@@ -1,7 +1,6 @@
 "use client";
 
-// Tiled stats block — 4 cells, 3 colors, no gaps, no outer border-radius.
-// Secondary tone --color-stats-ink (#3D3926, deep warm olive) used here only.
+// Tiled stats block — 4 cells, GCN brand colors only.
 
 import { useEffect, useRef, useState } from "react";
 
@@ -15,10 +14,10 @@ interface StatDef {
 }
 
 const STATS: StatDef[] = [
-  { raw: 2000, suffix: "+", label: "Members",          bg: "linear-gradient(135deg, #1e1b4b 0%, #312e81 100%)", fg: "#fff",                    labelFg: "rgba(199,210,254,0.75)" },
-  { raw: 88,   suffix: "",  label: "Countries",         bg: "linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)", fg: "var(--color-black-soft)", labelFg: "#2563EB" },
-  { raw: 300,  suffix: "+", label: "Avg Attendees",     bg: "linear-gradient(135deg, #9e221a 0%, #ea580c 100%)", fg: "#fff",                    labelFg: "rgba(255,210,180,0.85)" },
-  { raw: 12,   suffix: "+", label: "Events / Semester", bg: "linear-gradient(135deg, #064e3b 0%, #065f46 100%)", fg: "#fff",                    labelFg: "rgba(167,243,208,0.75)" },
+  { raw: 2000, suffix: "+", label: "Members",          bg: "linear-gradient(135deg, #0C0C0E 0%, #1a1714 100%)", fg: "#F5F1E8",                 labelFg: "rgba(245,241,232,0.50)" },
+  { raw: 88,   suffix: "",  label: "Countries",         bg: "linear-gradient(135deg, #F5F1E8 0%, #FDFBF7 100%)", fg: "var(--color-black-soft)", labelFg: "var(--color-gray-muted)" },
+  { raw: 300,  suffix: "+", label: "Avg Attendees",     bg: "linear-gradient(135deg, #9e221a 0%, #b22820 100%)", fg: "#fff",                    labelFg: "rgba(255,255,255,0.60)" },
+  { raw: 12,   suffix: "+", label: "Events / Semester", bg: "linear-gradient(135deg, #1a1714 0%, #0C0C0E 100%)", fg: "#F5F1E8",                 labelFg: "rgba(245,241,232,0.50)" },
 ];
 
 function easeOutCubic(t: number) {

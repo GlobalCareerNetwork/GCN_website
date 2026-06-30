@@ -54,8 +54,14 @@ export default function HeroSection() {
             Arizona State University
           </span>
           <span
-            className="font-bold uppercase hidden sm:block"
-            style={{ fontSize: "10px", letterSpacing: "0.16em", color: "var(--color-gray-muted)" }}
+            className="hidden sm:block"
+            style={{
+              fontFamily: "var(--font-blackletter)",
+              fontSize: "20px",
+              letterSpacing: "0.02em",
+              color: "var(--color-black-soft)",
+              lineHeight: 1,
+            }}
           >
             Global Career Network
           </span>
@@ -67,10 +73,10 @@ export default function HeroSection() {
           </span>
         </div>
 
-        {/* Top rule */}
+        {/* Top double rule — major masthead break */}
         <div
-          className="hero-anim mb-10 h-px"
-          style={{ "--delay": "0.08s", background: "rgba(12,12,14,0.18)" } as CSSProperties}
+          className="hero-anim gcn-double-rule mb-10"
+          style={{ "--delay": "0.08s" } as CSSProperties}
         />
 
         {/* 2-column grid: headline left, globe right */}
