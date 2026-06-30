@@ -1,10 +1,12 @@
 import HeroSection from "@/components/HeroSection";
+import PhotoMarquee from "@/components/PhotoMarquee";
 
 export default function HomePage() {
   return (
     <>
       <HeroSection />
-      {/* Sections added in Stages 4–7: About, Why, Stats, Testimonials, Sponsors, CTA */}
+      <PhotoMarquee />
+      {/* Stage 7: Sponsor carousel goes here */}
     </>
   );
 }

@@ -83,6 +83,12 @@ body {
   top: 0;
 }
 
+/* ── Photo marquee ───────────────────────────────────────────────────────── */
+@keyframes gcn-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
 /* ── Reduced motion ──────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
