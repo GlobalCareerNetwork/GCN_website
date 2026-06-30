@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+/* ── GCN Design Tokens ─────────────────────────────────────────────────────
+   Single source of truth for all brand values.
+   All conflicting red tokens (#C8102E, #8C1D40) resolved to #9e221a per
+   CLAUDE.md brand rule.
+   ──────────────────────────────────────────────────────────────────────── */
+@theme inline {
+  /* Typography */
+  --font-sans: var(--font-plus-jakarta-sans), system-ui, sans-serif;
+
+  /* Brand — Red */
+  --color-brand-red:        #9e221a;
+  --color-brand-red-dark:   #7a1814;
+  --color-brand-red-light:  #fde8e7;
+  --color-brand-red-glow:   rgba(158, 34, 26, 0.20);
+
+  /* Brand — Gold (ASU) */
+  --color-brand-gold:       #FFC627;
+  --color-brand-gold-light: rgba(255, 198, 39, 0.15);
+
+  /* Surfaces */
+  --color-surface:          #F9FAFC;
+  --color-surface-muted:    #F5F7FA;
+  --color-surface-card:     #141416;
+
+  /* Grays */
+  --color-gray-border:      #E5E7EB;
+  --color-gray-text:        #4B5563;
+  --color-gray-muted:       #6B7280;
+
+  /* Neutrals */
+  --color-black-soft:       #0C0C0E;
+
+  /* Shadows */
+  --shadow-soft:  0 18px 45px rgba(12, 12, 14, 0.07);
+  --shadow-hover: 0 26px 70px rgba(12, 12, 14, 0.11);
+
+  /* Border radii */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+
+  /* Transitions */
+  --ease-fast:   cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-smooth: cubic-bezier(0.25, 0.8, 0.25, 1);
+  --ease-slow:   cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── Base ────────────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--color-surface);
+  color: var(--color-gray-text);
+  font-family: var(--font-sans);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Skip link ───────────────────────────────────────────────────────────── */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--color-brand-red);
+  color: #fff;
+  padding: 8px 16px;
+  z-index: 100;
+  font-size: 14px;
+  border-radius: 0 0 var(--radius-sm) 0;
+  transition: top 0.2s var(--ease-fast);
+}
+.skip-link:focus {
+  top: 0;
+}
+
+/* ── Reduced motion ──────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
