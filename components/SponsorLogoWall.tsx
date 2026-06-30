@@ -20,72 +20,77 @@ const SPONSORS = [
 ];
 
 export default function SponsorLogoWall() {
+  const strip = [...SPONSORS, ...SPONSORS];
+
   return (
     <section
-      className="py-16"
+      className="py-14 overflow-hidden"
       style={{
         background: "var(--color-surface-white)",
         borderTop: "1px solid var(--color-gray-border)",
       }}
       aria-label="Our sponsors and partners"
     >
-      <div className="mx-auto max-w-6xl px-6">
-        <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-start">
+      {/* Section label */}
+      <div className="text-center mb-8 px-6">
+        <p
+          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase border"
+          style={{
+            background: "var(--color-brand-red-light)",
+            borderColor: "rgba(158,34,26,0.2)",
+            color: "var(--color-brand-red)",
+          }}
+        >
+          <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--color-brand-red)" }} />
+          Our Partners
+        </p>
+        <p className="mt-3 text-sm" style={{ color: "var(--color-gray-muted)" }}>
+          Organizations that invest in GCN&apos;s mission
+        </p>
+      </div>
 
-          {/* ── Side label ── */}
-          <div className="flex-shrink-0 lg:w-44 lg:pt-2">
-            <h2
-              className="font-extrabold leading-tight"
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "clamp(1.5rem, 3vw, 2.25rem)",
-                color: "var(--color-black-soft)",
-              }}
-            >
-              Our
-              <br />
-              Partners
-            </h2>
-            <p className="mt-3 text-sm leading-snug" style={{ color: "var(--color-gray-muted)" }}>
-              Organizations that invest in GCN&apos;s mission
-            </p>
-          </div>
-
-          {/* ── Logo grid ── */}
+      {/* Marquee track — scrolls opposite direction to photo marquee */}
+      <div
+        className="relative flex items-center"
+        style={{
+          animation: "gcn-marquee-reverse 35s linear infinite",
+          width: "max-content",
+        }}
+        onMouseEnter={(e) => {
+          (e.currentTarget as HTMLDivElement).style.animationPlayState = "paused";
+        }}
+        onMouseLeave={(e) => {
+          (e.currentTarget as HTMLDivElement).style.animationPlayState = "running";
+        }}
+        aria-hidden="true"
+      >
+        {strip.map((sponsor, idx) => (
           <div
-            className="flex-1 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-x-8 gap-y-7 items-center"
-            role="list"
+            key={idx}
+            className="flex-shrink-0 mx-6 flex items-center justify-center"
+            style={{ width: "120px", height: "48px" }}
           >
-            {SPONSORS.map((s) => (
-              <div
-                key={s.alt}
-                role="listitem"
-                className="flex items-center justify-center"
-                style={{ height: "36px" }}
-              >
-                <Image
-                  src={s.src}
-                  alt={s.alt}
-                  width={100}
-                  height={36}
-                  className="object-contain w-auto"
-                  style={{
-                    maxHeight: "36px",
-                    filter: "grayscale(1) opacity(0.5)",
-                    transition: "filter 0.2s ease",
-                  }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLImageElement).style.filter = "grayscale(0) opacity(1)";
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLImageElement).style.filter = "grayscale(1) opacity(0.5)";
-                  }}
-                />
-              </div>
-            ))}
+            <Image
+              src={sponsor.src}
+              alt={sponsor.alt}
+              width={120}
+              height={48}
+              className="object-contain w-auto"
+              style={{
+                maxHeight: "40px",
+                filter: "grayscale(1) opacity(0.45)",
+                transition: "filter 0.25s ease",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLImageElement).style.filter = "grayscale(0) opacity(1)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLImageElement).style.filter = "grayscale(1) opacity(0.45)";
+              }}
+              loading="lazy"
+            />
           </div>
-
-        </div>
+        ))}
       </div>
     </section>
   );
