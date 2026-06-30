@@ -15,10 +15,10 @@ interface StatDef {
 }
 
 const STATS: StatDef[] = [
-  { raw: 2000, suffix: "+", label: "Members",          bg: "var(--color-stats-ink)",    fg: "#F5F1E8",                    labelFg: "rgba(245,241,232,0.6)" },
-  { raw: 88,   suffix: "",  label: "Countries",         bg: "var(--color-surface-white)", fg: "var(--color-black-soft)",    labelFg: "var(--color-gray-muted)" },
-  { raw: 300,  suffix: "+", label: "Avg Attendees",     bg: "var(--color-brand-red)",    fg: "#fff",                       labelFg: "rgba(255,255,255,0.7)" },
-  { raw: 12,   suffix: "+", label: "Events / Semester", bg: "var(--color-stats-ink)",    fg: "#F5F1E8",                    labelFg: "rgba(245,241,232,0.6)" },
+  { raw: 2000, suffix: "+", label: "Members",          bg: "linear-gradient(135deg, #1e1b4b 0%, #312e81 100%)", fg: "#fff",                    labelFg: "rgba(199,210,254,0.75)" },
+  { raw: 88,   suffix: "",  label: "Countries",         bg: "linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)", fg: "var(--color-black-soft)", labelFg: "#2563EB" },
+  { raw: 300,  suffix: "+", label: "Avg Attendees",     bg: "linear-gradient(135deg, #9e221a 0%, #ea580c 100%)", fg: "#fff",                    labelFg: "rgba(255,210,180,0.85)" },
+  { raw: 12,   suffix: "+", label: "Events / Semester", bg: "linear-gradient(135deg, #064e3b 0%, #065f46 100%)", fg: "#fff",                    labelFg: "rgba(167,243,208,0.75)" },
 ];
 
 function easeOutCubic(t: number) {
@@ -72,7 +72,7 @@ export default function StatsBlock() {
         <div
           key={label}
           role="listitem"
-          className="flex flex-col items-start justify-end px-8 py-10 md:px-10 md:py-14"
+          className="flex flex-col items-start justify-end px-8 py-10 md:px-10 md:py-14 gcn-stats-tile"
           style={{ background: bg }}
         >
           <p

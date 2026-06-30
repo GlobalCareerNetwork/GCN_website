@@ -37,6 +37,13 @@
   /* Neutrals */
   --color-black-soft:       #0C0C0E;
 
+  /* Accent vivids — used for blobs, highlights, badge gradients */
+  --color-vivid-blue:       #2563EB;
+  --color-vivid-orange:     #EA580C;
+  --color-vivid-violet:     #7C3AED;
+  --color-vivid-teal:       #0D9488;
+  --color-vivid-gold:       #D97706;
+
   /* Shadows */
   --shadow-soft:  0 18px 45px rgba(12, 12, 14, 0.07);
   --shadow-hover: 0 26px 70px rgba(12, 12, 14, 0.11);
@@ -158,6 +165,87 @@ h1, h2, h3 {
   animation-delay: calc(0.12s + 0.07s * var(--card-index, 0));
 }
 
+/* ── Vibrant overlay / blob animations ───────────────────────────────────── */
+@keyframes gcn-bg-shift {
+  0%, 100% { background-position: 0%   50%; }
+  50%       { background-position: 100% 50%; }
+}
+@keyframes gcn-blob-a {
+  0%, 100% { transform: translate(0px,    0px)  scale(1);    }
+  30%       { transform: translate(50px,  -60px) scale(1.06); }
+  65%       { transform: translate(-30px,  25px) scale(0.96); }
+}
+@keyframes gcn-blob-b {
+  0%, 100% { transform: translate(0px,    0px)  scale(1.02); }
+  25%       { transform: translate(-55px, -25px) scale(1.08); }
+  75%       { transform: translate(35px,   45px) scale(0.94); }
+}
+@keyframes gcn-blob-c {
+  0%, 100% { transform: translate(0px,    0px)  scale(1.04); }
+  50%       { transform: translate(-45px, -35px) scale(0.95); }
+}
+@keyframes gcn-shimmer-sweep {
+  0%   { transform: translateX(-130%) skewX(-15deg); }
+  100% { transform: translateX(360%)  skewX(-15deg); }
+}
+@keyframes gcn-glow-pulse {
+  0%, 100% { box-shadow: 0 4px 20px rgba(158,34,26,0.38); }
+  50%       { box-shadow: 0 4px 48px rgba(234,88,12,0.65), 0 0 80px rgba(234,88,12,0.18); }
+}
+@keyframes gcn-grad-text {
+  0%, 100% { background-position: 0%   center; }
+  50%       { background-position: 100% center; }
+}
+@keyframes gcn-sparkle {
+  0%, 100% { transform: scale(0)   rotate(0deg);   opacity: 0;   }
+  35%       { transform: scale(1.2) rotate(135deg); opacity: 1;   }
+  65%       { transform: scale(0.9) rotate(225deg); opacity: 0.8; }
+}
+
+/* ── Animated gradient text ─────────────────────────────────────────────── */
+.gcn-gradient-text {
+  background: linear-gradient(
+    90deg,
+    var(--color-brand-red)  0%,
+    #ea580c                 22%,
+    #d97706                 45%,
+    #7c3aed                 70%,
+    var(--color-brand-red) 100%
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gcn-grad-text 5s ease infinite;
+}
+
+/* ── Marquee edge fade via CSS mask ─────────────────────────────────────── */
+.gcn-marquee-fade {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+}
+
+/* ── Stats tile hover ────────────────────────────────────────────────────── */
+.gcn-stats-tile {
+  transition: filter 0.22s var(--ease-enter), transform 0.22s var(--ease-enter);
+}
+.gcn-stats-tile:hover {
+  filter: brightness(1.1) saturate(1.12);
+  transform: scale(1.015);
+}
+
 /* ── Reduced motion ──────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -176,5 +264,11 @@ h1, h2, h3 {
   }
   .timeline-drawn [data-event-card] {
     animation: none !important;
+  }
+  /* Gradient text falls back to solid brand-red */
+  .gcn-gradient-text {
+    background: none !important;
+    -webkit-text-fill-color: var(--color-brand-red) !important;
+    color: var(--color-brand-red) !important;
   }
 }

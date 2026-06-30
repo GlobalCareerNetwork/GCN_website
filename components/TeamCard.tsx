@@ -21,8 +21,11 @@ export default function TeamCard({ member, size = "normal" }: TeamCardProps) {
       className={`${cardW} ${cardH} cursor-pointer select-none`}
       style={{
         perspective: "900px",
-        transform: flipped ? "translateY(-6px)" : "translateY(0)",
-        transition: "transform 0.25s var(--ease-fast)",
+        transform: flipped ? "translateY(-8px)" : "translateY(0)",
+        transition: "transform 0.25s var(--ease-fast), box-shadow 0.25s var(--ease-fast)",
+        boxShadow: flipped
+          ? "0 20px 60px rgba(124,58,237,0.28), 0 8px 24px rgba(37,99,235,0.18)"
+          : undefined,
       }}
       // Hover-to-flip on pointer devices; tap-to-flip on touch
       onMouseEnter={() => setFlipped(true)}
@@ -104,9 +107,9 @@ export default function TeamCard({ member, size = "normal" }: TeamCardProps) {
             backfaceVisibility: "hidden",
             WebkitBackfaceVisibility: "hidden",
             transform: "rotateY(180deg)",
-            background: "var(--color-black-soft)",
-            border: "1px solid rgba(158,34,26,0.35)",
-            boxShadow: "0 0 0 1px rgba(158,34,26,0.15), var(--shadow-hover)",
+            background: "linear-gradient(145deg, #0C0C0E 0%, #1e1b4b 100%)",
+            border: "1px solid rgba(124,58,237,0.4)",
+            boxShadow: "0 0 0 1px rgba(124,58,237,0.15), var(--shadow-hover)",
           }}
         >
           <div className="flex flex-col gap-2">

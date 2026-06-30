@@ -26,8 +26,8 @@ export default function SponsorLogoWall() {
     <section
       className="py-14 overflow-hidden"
       style={{
-        background: "var(--color-surface-white)",
-        borderTop: "1px solid var(--color-gray-border)",
+        background: "linear-gradient(135deg, #eff6ff 0%, #e0f2fe 50%, #eff6ff 100%)",
+        borderTop: "1px solid rgba(37,99,235,0.1)",
       }}
       aria-label="Our sponsors and partners"
     >
@@ -36,8 +36,8 @@ export default function SponsorLogoWall() {
         <p
           className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase border"
           style={{
-            background: "var(--color-brand-red-light)",
-            borderColor: "rgba(158,34,26,0.2)",
+            background: "linear-gradient(135deg, var(--color-brand-red-light), rgba(13,148,136,0.1))",
+            borderColor: "rgba(13,148,136,0.22)",
             color: "var(--color-brand-red)",
           }}
         >
@@ -49,7 +49,8 @@ export default function SponsorLogoWall() {
         </p>
       </div>
 
-      {/* Marquee track — scrolls opposite direction to photo marquee */}
+      {/* Edge-faded marquee wrapper */}
+      <div className="gcn-marquee-fade overflow-hidden">
       <div
         className="relative flex items-center"
         style={{
@@ -91,6 +92,7 @@ export default function SponsorLogoWall() {
             />
           </div>
         ))}
+      </div>
       </div>
     </section>
   );

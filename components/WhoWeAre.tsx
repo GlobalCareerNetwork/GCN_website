@@ -6,8 +6,8 @@ function SectionLabel({ children }: { children: ReactNode }) {
     <p
       className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase border mb-4"
       style={{
-        background: "var(--color-brand-red-light)",
-        borderColor: "rgba(158,34,26,0.2)",
+        background: "linear-gradient(135deg, var(--color-brand-red-light), rgba(37,99,235,0.1))",
+        borderColor: "rgba(37,99,235,0.2)",
         color: "var(--color-brand-red)",
       }}
     >
@@ -21,7 +21,7 @@ export default function WhoWeAre() {
   return (
     <section
       className="py-20"
-      style={{ background: "#fff", borderTop: "1px solid var(--color-gray-border)" }}
+      style={{ background: "linear-gradient(180deg, #fff 0%, #f5f3ff 100%)", borderTop: "1px solid var(--color-gray-border)" }}
       aria-labelledby="who-we-are-heading"
     >
       <div className="mx-auto max-w-6xl px-6">
