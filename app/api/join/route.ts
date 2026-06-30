@@ -55,7 +55,20 @@ function checkRateLimit(ip: string): boolean {
 }
 
 // ── Handler ───────────────────────────────────────────────────────────────
-export async function POST(req: NextRequest) {
+export async function POST(req: NextRequest): Promise<NextResponse> {
+  try {
+    return await handlePost(req);
+  } catch (err) {
+    // Log full detail server-side; return generic message to client
+    console.error("[join] unhandled error", err instanceof Error ? err.message : String(err));
+    return NextResponse.json(
+      { error: "An unexpected error occurred. Please try again." },
+      { status: 500 }
+    );
+  }
+}
+
+async function handlePost(req: NextRequest): Promise<NextResponse> {
   // Origin check — reject cross-site form submissions
   const origin = req.headers.get("origin");
   const host = req.headers.get("host");
