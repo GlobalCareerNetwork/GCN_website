@@ -32,6 +32,15 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${plusJakartaSans.variable} h-full`}>
+      <head>
+        {/* General Sans via Fontshare — free commercial license (ITF Fontshare License) */}
+        <link rel="preconnect" href="https://api.fontshare.com" />
+        <link rel="preconnect" href="https://cdn.fontshare.com" crossOrigin="anonymous" />
+        <link
+          rel="stylesheet"
+          href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700,800&display=swap"
+        />
+      </head>
       <body className="min-h-full flex flex-col antialiased">
         <a href="#main-content" className="skip-link">
           Skip to main content

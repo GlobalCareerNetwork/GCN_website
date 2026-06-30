@@ -39,8 +39,12 @@ export default function HeroSection() {
           {/* Headline */}
           <h1
             id="hero-headline"
-            className="text-4xl md:text-5xl font-extrabold leading-tight tracking-tight"
-            style={{ color: "var(--color-black-soft)" }}
+            className="font-extrabold leading-[1.0] tracking-tight"
+            style={{
+              color: "var(--color-black-soft)",
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(2.8rem, 7vw, 5.5rem)",
+            }}
           >
             Empowering Your{" "}
             <span style={{ color: "var(--color-brand-red)" }}>

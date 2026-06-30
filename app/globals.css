@@ -7,25 +7,30 @@
    ──────────────────────────────────────────────────────────────────────── */
 @theme inline {
   /* Typography */
-  --font-sans: var(--font-plus-jakarta-sans), system-ui, sans-serif;
+  --font-sans: 'General Sans', var(--font-plus-jakarta-sans), system-ui, sans-serif;
+  --font-display: 'General Sans', var(--font-plus-jakarta-sans), system-ui, sans-serif;
 
   /* Brand — Red */
   --color-brand-red:        #9e221a;
   --color-brand-red-dark:   #7a1814;
-  --color-brand-red-light:  #fde8e7;
+  --color-brand-red-light:  #f9dedd;
   --color-brand-red-glow:   rgba(158, 34, 26, 0.20);
 
   /* Brand — Gold (ASU) */
   --color-brand-gold:       #FFC627;
   --color-brand-gold-light: rgba(255, 198, 39, 0.15);
 
-  /* Surfaces */
-  --color-surface:          #F9FAFC;
-  --color-surface-muted:    #F5F7FA;
+  /* Surfaces — warm cream palette */
+  --color-surface:          #F5F1E8;
+  --color-surface-muted:    #EDE9DC;
   --color-surface-card:     #141416;
+  --color-surface-white:    #FDFBF7;
+
+  /* Stats block — deep warm olive (used ONLY in StatsBlock, nowhere else) */
+  --color-stats-ink:        #3D3926;
 
   /* Grays */
-  --color-gray-border:      #E5E7EB;
+  --color-gray-border:      #DDD9CE;
   --color-gray-text:        #4B5563;
   --color-gray-muted:       #6B7280;
 
@@ -64,6 +69,11 @@ body {
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Display headings use General Sans */
+h1, h2, h3 {
+  font-family: var(--font-display);
 }
 
 /* ── Skip link ───────────────────────────────────────────────────────────── */

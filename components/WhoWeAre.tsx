@@ -44,23 +44,6 @@ export default function WhoWeAre() {
               and opportunities that shape real careers.
             </p>
 
-            {/* Stats */}
-            <div className="mt-8 flex gap-8">
-              {[
-                { value: "2,000+", label: "Members" },
-                { value: "88", label: "Countries" },
-                { value: "2", label: "Years" },
-              ].map(({ value, label }) => (
-                <div key={label}>
-                  <p className="text-2xl font-extrabold" style={{ color: "var(--color-brand-red)" }}>
-                    {value}
-                  </p>
-                  <p className="text-xs mt-0.5" style={{ color: "var(--color-gray-muted)" }}>
-                    {label}
-                  </p>
-                </div>
-              ))}
-            </div>
           </div>
 
           {/* ── What We Do ── */}

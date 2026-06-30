@@ -1,15 +1,17 @@
 import type { NextConfig } from "next";
 
 // Domains actually loaded by this app (audited 2026-06-30):
-// - fonts.googleapis.com  → Plus Jakarta Sans CSS
-// - fonts.gstatic.com     → Plus Jakarta Sans font files
+// - fonts.googleapis.com  → Plus Jakarta Sans CSS (fallback)
+// - fonts.gstatic.com     → Plus Jakarta Sans font files (fallback)
+// - api.fontshare.com     → General Sans CSS
+// - cdn.fontshare.com     → General Sans font files
 // - blob:                 → Three.js WebGL worker scripts
 // - 'unsafe-eval'         → Three.js GLSL shader compilation (WebGL requirement)
 const CSP = [
   "default-src 'self'",
   "script-src 'self' 'unsafe-eval'",           // unsafe-eval: Three.js shader compiler
-  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-  "font-src 'self' https://fonts.gstatic.com",
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://api.fontshare.com",
+  "font-src 'self' https://fonts.gstatic.com https://api.fontshare.com https://cdn.fontshare.com",
   "img-src 'self' data: blob: https://_next",
   "connect-src 'self'",
   "worker-src blob:",                           // Three.js WebGL worker
