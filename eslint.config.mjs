@@ -14,6 +14,8 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // Legacy static source — replaced during migration, not part of Next.js app:
     "static/**",
+    // Git worktrees created by Claude Code spawn_task — not part of the app:
+    ".claude/worktrees/**",
   ]),
 ]);
 
