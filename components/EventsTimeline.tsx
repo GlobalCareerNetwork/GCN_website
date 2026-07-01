@@ -18,54 +18,33 @@ export default function EventsTimeline() {
 
       {/* ── Newspaper masthead ── */}
       <div style={{ background: "var(--color-surface-white)" }}>
-        <div className="mx-auto max-w-5xl px-6 pt-10 pb-4 text-center">
-          <p
-            className="font-black uppercase mb-3"
-            style={{ fontSize: "11px", letterSpacing: "0.24em", color: "var(--color-brand-red)" }}
-          >
-            GCN · Past Events
-          </p>
+        <div className="mx-auto max-w-5xl px-6 pt-12 pb-5 text-center">
           <h1
-            className="leading-none"
+            className="leading-none mb-3"
             style={{
               fontFamily: "var(--font-blackletter)",
-              fontSize: "clamp(2.8rem, 6vw, 4.6rem)",
+              fontSize: "clamp(2.6rem, 6vw, 4.4rem)",
               letterSpacing: "0.01em",
               color: "var(--color-black-soft)",
             }}
           >
-            The Chronicle
+            The GCN Chronicle
           </h1>
+          <p
+            className="font-semibold"
+            style={{
+              fontFamily: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
+              fontSize: "11.5px",
+              letterSpacing: "0.08em",
+              color: "var(--color-gray-muted)",
+            }}
+          >
+            Academic Year 2025–26 · Arizona State University
+          </p>
         </div>
 
         <div className="mx-auto max-w-5xl px-6">
           <div className="gcn-double-rule" />
-        </div>
-
-        <div className="mx-auto max-w-5xl px-6 py-3 flex items-center justify-between gap-4">
-          <span
-            className="font-bold uppercase shrink-0"
-            style={{ fontSize: "10px", letterSpacing: "0.16em", color: "var(--color-gray-muted)" }}
-          >
-            Vol. I · No. 1
-          </span>
-          <span
-            className="font-semibold shrink-0"
-            style={{
-              fontFamily: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
-              fontSize: "12px",
-              letterSpacing: "0.04em",
-              color: "var(--color-black-soft)",
-            }}
-          >
-            Aug 2025 — Apr 2026
-          </span>
-          <span
-            className="font-bold uppercase shrink-0 text-right"
-            style={{ fontSize: "10px", letterSpacing: "0.16em", color: "var(--color-gray-muted)" }}
-          >
-            Arizona State University
-          </span>
         </div>
       </div>
       <div style={{ height: "1px", background: "rgba(12,12,14,0.22)" }} />

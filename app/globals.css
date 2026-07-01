@@ -255,6 +255,15 @@ h1, h2, h3 {
   transform: scale(1.015);
 }
 
+/* ── Scroll-to-advance hint bounce ───────────────────────────────────────── */
+@keyframes gcn-scroll-hint {
+  0%, 100% { transform: translateY(0); opacity: 0.9; }
+  50%       { transform: translateY(6px); opacity: 0.5; }
+}
+.gcn-scroll-hint {
+  animation: gcn-scroll-hint 1.8s ease-in-out infinite;
+}
+
 /* ── Newspaper / editorial utilities ────────────────────────────────────── */
 
 /* Justified body text for article columns */

@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Event } from "@/lib/data/events";
-import EventPosterCard from "./EventPosterCard";
+import EventFeatureSlide from "./EventFeatureSlide";
 
 interface EventSlideshowProps {
   events: Event[];
@@ -14,13 +14,14 @@ const SWIPE_THRESHOLD = 42;
 
 export default function EventSlideshow({ events }: EventSlideshowProps) {
   const storyRef = useRef<HTMLDivElement>(null);
-  const slideRefs = useRef<(HTMLElement | null)[]>([]);
+  const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
   const currentIndexRef = useRef(0);
   const isAnimatingRef = useRef(false);
   const touchStartYRef = useRef(0);
   const reducedMotionRef = useRef(false);
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
   const goToSlide = useCallback(
     (index: number) => {
@@ -29,6 +30,7 @@ export default function EventSlideshow({ events }: EventSlideshowProps) {
       isAnimatingRef.current = true;
       currentIndexRef.current = next;
       setCurrentIndex(next);
+      setExpandedIndex(null);
       slideRefs.current[next]?.scrollIntoView({
         behavior: reducedMotionRef.current ? "auto" : "smooth",
         block: "start",
@@ -46,7 +48,6 @@ export default function EventSlideshow({ events }: EventSlideshowProps) {
   // Scroll-hijack: wheel / touch / arrow-key navigation while the slideshow fills the viewport
   useEffect(() => {
     reducedMotionRef.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reducedMotionRef.current) return; // fall back to plain native scroll
 
     const story = storyRef.current;
     if (!story) return;
@@ -60,6 +61,7 @@ export default function EventSlideshow({ events }: EventSlideshowProps) {
     }
 
     function handleWheel(e: WheelEvent) {
+      if (reducedMotionRef.current) return;
       if (Math.abs(e.deltaY) < WHEEL_THRESHOLD || isAnimatingRef.current) return;
       if (!canControlScroll(e.deltaY)) return;
       e.preventDefault();
@@ -71,6 +73,7 @@ export default function EventSlideshow({ events }: EventSlideshowProps) {
     }
 
     function handleTouchMove(e: TouchEvent) {
+      if (reducedMotionRef.current) return;
       if (isAnimatingRef.current || !touchStartYRef.current) return;
       const deltaY = touchStartYRef.current - e.touches[0].clientY;
       if (Math.abs(deltaY) < SWIPE_THRESHOLD) return;
@@ -81,8 +84,15 @@ export default function EventSlideshow({ events }: EventSlideshowProps) {
     }
 
     function handleKeyDown(e: KeyboardEvent) {
-      if (!["ArrowDown", "ArrowUp"].includes(e.key) || isAnimatingRef.current) return;
-      const direction = e.key === "ArrowDown" ? 1 : -1;
+      if (e.key === "Escape") {
+        setExpandedIndex(null);
+        return;
+      }
+      if (reducedMotionRef.current) return;
+      const nextKeys = ["ArrowDown", "ArrowRight"];
+      const prevKeys = ["ArrowUp", "ArrowLeft"];
+      if (![...nextKeys, ...prevKeys].includes(e.key) || isAnimatingRef.current) return;
+      const direction = nextKeys.includes(e.key) ? 1 : -1;
       if (!canControlScroll(direction)) return;
       e.preventDefault();
       goToSlide(currentIndexRef.current + direction);
@@ -107,7 +117,7 @@ export default function EventSlideshow({ events }: EventSlideshowProps) {
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting || entry.intersectionRatio < 0.58) return;
-          const index = slideRefs.current.indexOf(entry.target as HTMLElement);
+          const index = slideRefs.current.indexOf(entry.target as HTMLDivElement);
           if (index < 0) return;
           currentIndexRef.current = index;
           setCurrentIndex(index);
@@ -122,102 +132,53 @@ export default function EventSlideshow({ events }: EventSlideshowProps) {
   return (
     <div ref={storyRef} className="relative">
       {events.map((event, i) => (
-        <section
+        <EventFeatureSlide
           key={event.id}
-          ref={(el) => {
+          event={event}
+          index={i}
+          total={events.length}
+          isActive={currentIndex === i}
+          expanded={expandedIndex === i}
+          onToggleExpand={() => setExpandedIndex((prev) => (prev === i ? null : i))}
+          setRef={(el) => {
             slideRefs.current[i] = el;
           }}
-          className="relative w-full min-h-screen flex flex-col md:flex-row"
-          aria-label={`Event ${i + 1} of ${events.length}: ${event.name}`}
-          style={{
-            opacity: currentIndex === i ? 1 : 0.4,
-            transition: "opacity 0.5s var(--ease-enter)",
-          }}
-        >
-          {/* ── Poster (flip card) ── */}
-          <div className="relative w-full md:w-1/2 h-[46vh] md:h-screen">
-            <EventPosterCard event={event} />
-          </div>
-
-          {/* ── Article ── */}
-          <div
-            className="relative w-full md:w-1/2 min-h-[54vh] md:h-screen flex items-center px-6 sm:px-10 md:px-16 py-12"
-            style={{ background: "var(--color-surface-white)" }}
-          >
-            <div className="gcn-grain-overlay" aria-hidden="true" />
-            <div className="relative max-w-xl">
-              <p
-                className="font-bold uppercase mb-3"
-                style={{ fontSize: "11px", letterSpacing: "0.22em", color: "var(--color-brand-red)" }}
-              >
-                {event.semester}
-              </p>
-              <h2
-                className="leading-tight mb-4"
-                style={{
-                  fontFamily: "var(--font-serif)",
-                  fontWeight: 700,
-                  fontSize: "clamp(1.7rem, 3.4vw, 2.7rem)",
-                  color: "var(--color-black-soft)",
-                }}
-              >
-                {event.name}
-              </h2>
-              <p
-                className="uppercase mb-5"
-                style={{
-                  fontFamily: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
-                  fontSize: "11.5px",
-                  letterSpacing: "0.1em",
-                  color: "var(--color-gray-muted)",
-                }}
-              >
-                {event.date}
-                {event.time ? ` · ${event.time}` : ""} — {event.location}
-              </p>
-              <p
-                className="gcn-body-col mb-5"
-                style={{ fontFamily: "var(--font-serif)", color: "var(--color-gray-text)" }}
-              >
-                {event.description}
-              </p>
-              {event.outcome && (
-                <p
-                  className="gcn-body-col mb-5"
-                  style={{
-                    fontFamily: "var(--font-serif)",
-                    fontStyle: "italic",
-                    color: "var(--color-gray-text)",
-                    opacity: 0.85,
-                  }}
-                >
-                  {event.outcome}
-                </p>
-              )}
-              {event.highlightStat && (
-                <p
-                  className="font-bold leading-tight"
-                  style={{
-                    fontFamily: "var(--font-serif)",
-                    fontSize: "clamp(1.3rem, 2.4vw, 1.9rem)",
-                    color: "var(--color-brand-red)",
-                  }}
-                >
-                  {event.highlightStat}
-                </p>
-              )}
-            </div>
-          </div>
-        </section>
+        />
       ))}
+
+      {/* ── Scroll-to-advance hint — first slide only ── */}
+      {currentIndex === 0 && expandedIndex === null && (
+        <div
+          className="fixed bottom-6 left-1/2 -translate-x-1/2 z-30 hidden md:flex flex-col items-center gap-1.5 pointer-events-none"
+          aria-hidden="true"
+        >
+          <span
+            className="font-bold uppercase"
+            style={{ fontSize: "10px", letterSpacing: "0.2em", color: "rgba(255,255,255,0.85)" }}
+          >
+            Scroll to advance
+          </span>
+          <svg
+            className="gcn-scroll-hint"
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            style={{ color: "rgba(255,255,255,0.85)" }}
+          >
+            <path d="M3 6l5 5 5-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </div>
+      )}
 
       {/* ── Progress indicator — desktop dot rail ── */}
       <div
-        className="fixed right-4 md:right-6 top-1/2 -translate-y-1/2 z-30 hidden md:flex flex-col items-center gap-3"
+        className="fixed right-3 md:right-5 top-1/2 -translate-y-1/2 z-30 hidden md:flex flex-col items-center gap-3 py-4 px-2.5 rounded-full"
+        style={{ background: "rgba(12,12,14,0.55)" }}
         role="group"
         aria-label="Event slide navigation"
       >
-        <span className="text-xs font-mono" style={{ color: "var(--color-black-soft)" }}>
+        <span className="text-xs font-mono" style={{ color: "#fff" }}>
           {String(currentIndex + 1).padStart(2, "0")}
         </span>
         <div className="flex flex-col gap-2">
@@ -232,13 +193,13 @@ export default function EventSlideshow({ events }: EventSlideshowProps) {
               style={{
                 width: currentIndex === i ? "8px" : "6px",
                 height: currentIndex === i ? "8px" : "6px",
-                background: currentIndex === i ? "var(--color-brand-red)" : "var(--color-gray-border)",
+                background: currentIndex === i ? "var(--color-brand-red)" : "rgba(255,255,255,0.55)",
                 outlineColor: "var(--color-brand-red)",
               }}
             />
           ))}
         </div>
-        <span className="text-xs font-mono" style={{ color: "var(--color-gray-muted)" }}>
+        <span className="text-xs font-mono" style={{ color: "rgba(255,255,255,0.75)" }}>
           {String(events.length).padStart(2, "0")}
         </span>
       </div>
