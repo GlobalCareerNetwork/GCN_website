@@ -86,11 +86,8 @@ export default function PhotoMarquee() {
                 width={160}
                 height={200}
                 className="object-cover object-top w-full h-full"
-                style={{ filter: "sepia(0.45) contrast(1.10) brightness(0.97)" }}
                 loading="lazy"
               />
-              {/* Halftone dot overlay for period engraving feel */}
-              <div className="gcn-halftone-overlay" aria-hidden="true" />
             </div>
           ))}
         </div>

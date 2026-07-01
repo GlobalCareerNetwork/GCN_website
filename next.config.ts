@@ -9,7 +9,7 @@ import type { NextConfig } from "next";
 // - 'unsafe-eval'         → Three.js GLSL shader compilation (WebGL requirement)
 const CSP = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-eval'",           // unsafe-eval: Three.js shader compiler
+  "script-src 'self' 'unsafe-eval' 'unsafe-inline'", // unsafe-eval: Three.js shader compiler; unsafe-inline: Next.js RSC hydration payload scripts (no CSP nonce middleware configured — without this, the browser blocks every inline <script> tag Next.js emits for streaming/hydration, which silently breaks all client-side JS: the globe never mounts, scroll/flip handlers never attach)
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://api.fontshare.com",
   "font-src 'self' https://fonts.gstatic.com https://api.fontshare.com https://cdn.fontshare.com",
   "img-src 'self' data: blob: https://_next",

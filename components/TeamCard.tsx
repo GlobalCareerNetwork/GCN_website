@@ -14,10 +14,12 @@ export default function TeamCard({ member, size = "normal" }: TeamCardProps) {
 
   const isLarge = size === "large";
   const cardW = isLarge ? "w-[220px]" : "w-[180px]";
-  const cardH = isLarge ? "h-[270px]" : "h-[228px]";
+  const cardH = isLarge ? "h-[300px]" : "h-[258px]";
   // Fixed photo height — consistent across all cards regardless of name length
   const photoH = isLarge ? 214 : 172;
-  const nameH = isLarge ? 56 : 56;
+  // Room for a two-line name + role — long names (e.g. "Keshava Olagappaa Subramanian")
+  // wrap instead of truncating
+  const nameH = isLarge ? 86 : 86;
 
   return (
     <div
@@ -75,13 +77,10 @@ export default function TeamCard({ member, size = "normal" }: TeamCardProps) {
               fill
               sizes={isLarge ? "220px" : "180px"}
               className="object-cover object-top"
-              style={{ filter: "sepia(0.55) contrast(1.12) brightness(0.96)" }}
               onError={(e) => {
                 (e.target as HTMLImageElement).src = "/images/team/placeholder.png";
               }}
             />
-            {/* Halftone/engraving dot overlay for period photo treatment */}
-            <div className="gcn-halftone-overlay" aria-hidden="true" />
             {/* Gradient overlay at bottom of photo */}
             <div
               className="absolute bottom-0 left-0 right-0 h-14"
@@ -98,7 +97,7 @@ export default function TeamCard({ member, size = "normal" }: TeamCardProps) {
             style={{ height: `${nameH}px`, flexShrink: 0 }}
           >
             <p
-              className="font-semibold text-sm leading-snug truncate"
+              className="font-semibold text-sm leading-snug"
               style={{ color: "var(--color-black-soft)" }}
             >
               {member.name}
