@@ -44,12 +44,20 @@ export default function HeroSection() {
       >
         {/* ── Newspaper masthead bar ── */}
         <div
-          className="hero-anim flex items-center justify-between mb-3"
-          style={{ "--delay": "0.04s" } as CSSProperties}
+          className="hero-anim mb-3"
+          style={
+            {
+              "--delay": "0.04s",
+              display: "grid",
+              gridTemplateColumns: "1fr auto 1fr",
+              alignItems: "center",
+              columnGap: "1rem",
+            } as CSSProperties
+          }
         >
           <span
             className="font-bold uppercase"
-            style={{ fontSize: "10px", letterSpacing: "0.22em", color: "var(--color-gray-muted)" }}
+            style={{ fontSize: "10px", letterSpacing: "0.22em", color: "var(--color-gray-muted)", textAlign: "left" }}
           >
             Arizona State University
           </span>
@@ -61,13 +69,15 @@ export default function HeroSection() {
               letterSpacing: "0.02em",
               color: "var(--color-black-soft)",
               lineHeight: 1,
+              textAlign: "center",
+              justifySelf: "center",
             }}
           >
             Global Career Network
           </span>
           <span
             className="font-bold uppercase"
-            style={{ fontSize: "10px", letterSpacing: "0.22em", color: "var(--color-gray-muted)" }}
+            style={{ fontSize: "10px", letterSpacing: "0.22em", color: "var(--color-gray-muted)", textAlign: "right" }}
           >
             Est.&nbsp;2022
           </span>
@@ -128,6 +138,7 @@ export default function HeroSection() {
                     "--delay": "0.30s",
                     display: "block",
                     color: "var(--color-brand-red)",
+                    marginTop: "0.12em",
                   } as CSSProperties
                 }
               >
