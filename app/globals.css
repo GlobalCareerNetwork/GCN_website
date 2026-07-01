@@ -161,23 +161,6 @@ h1, h2, h3 {
   animation-delay: var(--delay, 0.1s);
 }
 
-/* ── Events timeline draw animation ─────────────────────────────────────── */
-.timeline-spine {
-  clip-path: inset(0 0 100% 0);
-  transition: clip-path 1.4s var(--ease-enter) 0.15s;
-}
-.timeline-drawn .timeline-spine {
-  clip-path: inset(0 0 0% 0) !important;
-}
-/* Sequential card entrance — driven by --card-index CSS custom property */
-.timeline-drawn [data-event-card] {
-  animation-name: gcn-fade-up;
-  animation-duration: 0.5s;
-  animation-timing-function: var(--ease-enter);
-  animation-fill-mode: both;
-  animation-delay: calc(0.12s + 0.07s * var(--card-index, 0));
-}
-
 /* ── Vibrant overlay / blob animations ───────────────────────────────────── */
 @keyframes gcn-bg-shift {
   0%, 100% { background-position: 0%   50%; }
@@ -331,13 +314,6 @@ h1, h2, h3 {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
-  }
-  .timeline-spine {
-    clip-path: none !important;
-    transition: none !important;
-  }
-  .timeline-drawn [data-event-card] {
-    animation: none !important;
   }
   /* Gradient text falls back to solid brand-red */
   .gcn-gradient-text {
