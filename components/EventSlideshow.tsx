@@ -21,7 +21,6 @@ export default function EventSlideshow({ events }: EventSlideshowProps) {
   const reducedMotionRef = useRef(false);
 
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
   const goToSlide = useCallback(
     (index: number) => {
@@ -30,7 +29,6 @@ export default function EventSlideshow({ events }: EventSlideshowProps) {
       isAnimatingRef.current = true;
       currentIndexRef.current = next;
       setCurrentIndex(next);
-      setExpandedIndex(null);
       slideRefs.current[next]?.scrollIntoView({
         behavior: reducedMotionRef.current ? "auto" : "smooth",
         block: "start",
@@ -84,10 +82,6 @@ export default function EventSlideshow({ events }: EventSlideshowProps) {
     }
 
     function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape") {
-        setExpandedIndex(null);
-        return;
-      }
       if (reducedMotionRef.current) return;
       const nextKeys = ["ArrowDown", "ArrowRight"];
       const prevKeys = ["ArrowUp", "ArrowLeft"];
@@ -138,8 +132,6 @@ export default function EventSlideshow({ events }: EventSlideshowProps) {
           index={i}
           total={events.length}
           isActive={currentIndex === i}
-          expanded={expandedIndex === i}
-          onToggleExpand={() => setExpandedIndex((prev) => (prev === i ? null : i))}
           setRef={(el) => {
             slideRefs.current[i] = el;
           }}
@@ -147,14 +139,14 @@ export default function EventSlideshow({ events }: EventSlideshowProps) {
       ))}
 
       {/* ── Scroll-to-advance hint — first slide only ── */}
-      {currentIndex === 0 && expandedIndex === null && (
+      {currentIndex === 0 && (
         <div
           className="fixed bottom-6 left-1/2 -translate-x-1/2 z-30 hidden md:flex flex-col items-center gap-1.5 pointer-events-none"
           aria-hidden="true"
         >
           <span
             className="font-bold uppercase"
-            style={{ fontSize: "10px", letterSpacing: "0.2em", color: "rgba(255,255,255,0.85)" }}
+            style={{ fontSize: "10px", letterSpacing: "0.2em", color: "var(--color-gray-muted)" }}
           >
             Scroll to advance
           </span>
@@ -164,7 +156,7 @@ export default function EventSlideshow({ events }: EventSlideshowProps) {
             height="16"
             viewBox="0 0 16 16"
             fill="none"
-            style={{ color: "rgba(255,255,255,0.85)" }}
+            style={{ color: "var(--color-gray-muted)" }}
           >
             <path d="M3 6l5 5 5-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
