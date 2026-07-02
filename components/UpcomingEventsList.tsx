@@ -47,7 +47,10 @@ export default function UpcomingEventsList({ events }: UpcomingEventsListProps) 
               Tentative
             </span>
           )}
-          <p className="text-sm w-full" style={{ color: "var(--color-gray-muted)" }}>
+          <p
+            className="w-full"
+            style={{ fontSize: "15px", lineHeight: 1.7, color: "var(--color-gray-text)" }}
+          >
             {event.time ? `${event.time} · ` : ""}
             {event.location} — {event.description}
           </p>

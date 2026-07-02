@@ -63,7 +63,7 @@ export default function EventFeatureSlide({ event, index, total, isActive, setRe
         </div>
 
         {/* Article body */}
-        <div className="relative flex-1 flex flex-col px-8 md:px-12 py-8 overflow-y-auto">
+        <div className="relative flex-1 flex flex-col px-8 md:pl-12 md:pr-20 py-8 overflow-y-auto">
           <p
             className="font-black uppercase mb-3"
             style={{ fontSize: "11px", letterSpacing: "0.2em", color: "var(--color-brand-red)" }}
@@ -85,9 +85,9 @@ export default function EventFeatureSlide({ event, index, total, isActive, setRe
             className="uppercase"
             style={{
               fontFamily: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
-              fontSize: "11.5px",
+              fontSize: "12.5px",
               letterSpacing: "0.1em",
-              color: "var(--color-gray-muted)",
+              color: "var(--color-gray-text)",
             }}
           >
             {event.date}
@@ -96,10 +96,10 @@ export default function EventFeatureSlide({ event, index, total, isActive, setRe
 
           <div className="gcn-rule-full my-5" />
 
-          <div className="mx-auto w-full" style={{ maxWidth: "46ch" }}>
+          <div className="mx-auto w-full" style={{ maxWidth: "52ch" }}>
             <p
-              className="gcn-body-col"
-              style={{ fontFamily: "var(--font-serif)", color: "var(--color-gray-text)" }}
+              className="gcn-body-article gcn-dropcap"
+              style={{ fontFamily: "var(--font-serif)", color: "#26241F" }}
             >
               {event.description}
             </p>
@@ -108,8 +108,8 @@ export default function EventFeatureSlide({ event, index, total, isActive, setRe
               <>
                 <div className="gcn-rule-full my-5" />
                 <p
-                  className="gcn-body-col"
-                  style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", color: "var(--color-gray-text)" }}
+                  className="gcn-body-article"
+                  style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", color: "#45423B" }}
                 >
                   {event.outcome}
                 </p>

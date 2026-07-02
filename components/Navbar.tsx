@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const NAV_LINKS = [
@@ -15,6 +16,10 @@ const NAV_LINKS = [
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20);
@@ -27,7 +32,7 @@ export default function Navbar() {
     <header
       className="sticky top-0 z-50 w-full border-b"
       style={{
-        background: scrolled ? "rgba(249,250,252,0.97)" : "rgba(249,250,252,0.92)",
+        background: scrolled ? "rgba(253,251,247,0.97)" : "rgba(245,241,232,0.94)",
         backdropFilter: "blur(12px)",
         borderColor: "var(--color-gray-border)",
         boxShadow: scrolled ? "0 2px 20px rgba(12,12,14,0.07)" : "none",
@@ -46,15 +51,19 @@ export default function Navbar() {
         {/* Logo */}
         <Link
           href="/"
-          className="flex items-center gap-2 font-bold text-lg leading-none"
+          className="flex items-center gap-2.5 font-bold text-xl leading-none"
           aria-label="Global Career Network Home"
         >
           <Image
             src="/gcn.png"
             alt="GCN Logo"
-            width={40}
-            height={40}
-            className="h-10 w-10"
+            width={56}
+            height={56}
+            style={{
+              height: scrolled ? "44px" : "56px",
+              width: scrolled ? "44px" : "56px",
+              transition: "height 0.3s var(--ease-fast), width 0.3s var(--ease-fast)",
+            }}
             priority
           />
           <span style={{ color: "var(--color-black-soft)" }}>
@@ -64,18 +73,32 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop links */}
-        <ul className="hidden md:flex items-center gap-8 list-none m-0 p-0">
-          {NAV_LINKS.map(({ href, label }) => (
-            <li key={href}>
-              <Link
-                href={href}
-                className="text-sm font-medium transition-colors hover:opacity-100"
-                style={{ color: "var(--color-gray-text)", opacity: 0.8 }}
-              >
-                {label}
-              </Link>
-            </li>
-          ))}
+        <ul className="hidden md:flex items-center gap-7 list-none m-0 p-0">
+          {NAV_LINKS.map(({ href, label }) => {
+            const active = isActive(href);
+            return (
+              <li key={href}>
+                <Link
+                  href={href}
+                  aria-current={active ? "page" : undefined}
+                  className="uppercase transition-colors"
+                  style={{
+                    fontSize: "11.5px",
+                    letterSpacing: "0.14em",
+                    fontWeight: active ? 800 : 600,
+                    color: active ? "var(--color-black-soft)" : "var(--color-gray-text)",
+                    paddingBottom: "4px",
+                    borderBottom: active
+                      ? "2px solid var(--color-brand-red)"
+                      : "2px solid transparent",
+                    transition: "color 0.2s ease, border-color 0.2s ease",
+                  }}
+                >
+                  {label}
+                </Link>
+              </li>
+            );
+          })}
           <li>
             <Link
               href="/join"
@@ -123,21 +146,34 @@ export default function Navbar() {
         <div
           className="md:hidden border-t px-6 py-4 flex flex-col gap-4"
           style={{
-            background: "#fff",
+            background: "var(--color-surface-white)",
             borderColor: "var(--color-gray-border)",
           }}
         >
-          {NAV_LINKS.map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              className="text-sm font-medium"
-              style={{ color: "var(--color-gray-text)" }}
-              onClick={() => setOpen(false)}
-            >
-              {label}
-            </Link>
-          ))}
+          {NAV_LINKS.map(({ href, label }) => {
+            const active = isActive(href);
+            return (
+              <Link
+                key={href}
+                href={href}
+                aria-current={active ? "page" : undefined}
+                className="text-sm uppercase"
+                style={{
+                  fontSize: "12px",
+                  letterSpacing: "0.12em",
+                  fontWeight: active ? 800 : 500,
+                  color: active ? "var(--color-brand-red)" : "var(--color-gray-text)",
+                  borderLeft: active
+                    ? "3px solid var(--color-brand-red)"
+                    : "3px solid transparent",
+                  paddingLeft: "10px",
+                }}
+                onClick={() => setOpen(false)}
+              >
+                {label}
+              </Link>
+            );
+          })}
           <Link
             href="/join"
             className="inline-flex justify-center px-4 py-2.5 rounded-lg text-sm font-semibold text-white"

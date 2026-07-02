@@ -275,6 +275,27 @@ h1, h2, h3 {
   line-height: 1.68;
 }
 
+/* Larger, darker justified body for feature-article panels (events slides) */
+.gcn-body-article {
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  font-size: 16.5px;
+  line-height: 1.8;
+}
+
+/* Victorian drop cap on the lead paragraph of an article */
+.gcn-dropcap::first-letter {
+  float: left;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 3.1em;
+  line-height: 0.82;
+  padding-right: 0.12em;
+  padding-top: 0.05em;
+  color: var(--color-brand-red);
+}
+
 /* Full-width newspaper section divider rule */
 .gcn-rule-full {
   width: 100%;

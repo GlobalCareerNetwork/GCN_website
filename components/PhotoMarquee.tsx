@@ -32,23 +32,31 @@ export default function PhotoMarquee() {
       }}
       aria-label="GCN team photo gallery"
     >
-      {/* Section label */}
-      <div className="text-center mb-8 px-6">
+      {/* Section label — editorial eyebrow */}
+      <div className="mb-8 px-6 mx-auto max-w-5xl">
+        <div className="flex items-center gap-4">
+          <div style={{ flex: 1, height: "1px", background: "rgba(12,12,14,0.16)" }} />
+          <p
+            className="font-black uppercase shrink-0"
+            style={{
+              fontSize: "11px",
+              letterSpacing: "0.24em",
+              color: "var(--color-brand-red)",
+            }}
+          >
+            Our People
+          </p>
+          <div style={{ flex: 1, height: "1px", background: "rgba(12,12,14,0.16)" }} />
+        </div>
         <p
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase border"
+          className="mt-3 text-center"
           style={{
-            background: "var(--color-brand-red-light)",
-            borderColor: "rgba(158,34,26,0.18)",
-            color: "var(--color-brand-red)",
+            fontFamily: "var(--font-serif)",
+            fontStyle: "italic",
+            fontSize: "15.5px",
+            color: "var(--color-gray-text)",
           }}
         >
-          <span
-            className="w-1.5 h-1.5 rounded-full"
-            style={{ background: "var(--color-brand-red)" }}
-          />
-          Our People
-        </p>
-        <p className="mt-3 text-sm" style={{ color: "var(--color-gray-muted)" }}>
           The faces behind GCN at ASU
         </p>
       </div>

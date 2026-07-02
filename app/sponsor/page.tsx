@@ -269,13 +269,14 @@ export default function SponsorPage() {
               </p>
               <h1
                 id="sponsor-heading"
-                className="leading-none mb-4"
+                className="mb-4"
                 style={{
-                  fontFamily: "var(--font-blackletter)",
-                  fontSize: "clamp(2.0rem, 4vw, 3.4rem)",
-                  letterSpacing: "0.01em",
+                  fontFamily: "var(--font-serif)",
+                  fontWeight: 800,
+                  fontSize: "clamp(2.1rem, 4vw, 3.3rem)",
+                  letterSpacing: "-0.02em",
                   color: "var(--color-black-soft)",
-                  lineHeight: 1.12,
+                  lineHeight: 1.08,
                 }}
               >
                 Invest in the Next Generation of Global Talent
@@ -351,9 +352,12 @@ export default function SponsorPage() {
                   letterSpacing: "-0.01em",
                 }}
               >
-                Invest in the next generation of global talent
+                Why partner with GCN?
               </h2>
-              <p className="gcn-body-col" style={{ color: "var(--color-gray-muted)" }}>
+              <p
+                className="gcn-body-col"
+                style={{ fontSize: "15.5px", color: "var(--color-gray-text)" }}
+              >
                 Global Career Network (GCN) connects students, professionals, founders, and
                 organizations through career-focused events, mentorship programs, networking
                 opportunities, and innovation initiatives. By partnering with GCN, your
