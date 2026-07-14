@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Reveal from "@/components/Reveal";
 
 const SPONSORS = [
   { src: "/images/sponsors/amazon.png",       alt: "Amazon" },
@@ -32,13 +33,13 @@ export default function SponsorLogoWall() {
       aria-label="Our sponsors and partners"
     >
       {/* Section label — editorial eyebrow */}
-      <div className="mb-8 px-6 mx-auto max-w-5xl">
+      <Reveal className="mb-8 px-6 mx-auto max-w-5xl">
         <div className="flex items-center gap-4">
           <div style={{ flex: 1, height: "1px", background: "rgba(12,12,14,0.16)" }} />
           <p
             className="font-black uppercase shrink-0"
             style={{
-              fontSize: "11px",
+              fontSize: "12px",
               letterSpacing: "0.24em",
               color: "var(--color-brand-red)",
             }}
@@ -51,6 +52,7 @@ export default function SponsorLogoWall() {
           className="mt-3 text-center"
           style={{
             fontFamily: "var(--font-serif)",
+            fontWeight: 700,
             fontStyle: "italic",
             fontSize: "15.5px",
             color: "var(--color-gray-text)",
@@ -58,7 +60,7 @@ export default function SponsorLogoWall() {
         >
           Organizations that invest in GCN&apos;s mission
         </p>
-      </div>
+      </Reveal>
 
       {/* Edge-faded marquee wrapper */}
       <div className="gcn-marquee-fade overflow-hidden">

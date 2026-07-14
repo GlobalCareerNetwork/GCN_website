@@ -1,27 +1,28 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Playfair_Display } from "next/font/google";
+import { Inter, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const plusJakartaSans = Plus_Jakarta_Sans({
-  variable: "--font-plus-jakarta-sans",
+// Inter — clean, highly readable sans for body and UI (SIL OFL 1.1 license)
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
   display: "swap",
 });
 
-// Playfair Display — editorial serif for large headlines (SIL OFL 1.1 license)
-const playfairDisplay = Playfair_Display({
-  variable: "--font-playfair",
+// Cormorant Garamond — elegant display serif for headings and wordmarks (SIL OFL 1.1 license)
+const cormorantGaramond = Cormorant_Garamond({
+  variable: "--font-cormorant",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
+  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
   title: {
-    default: "Global Career Network — ASU",
+    default: "Global Career Network at ASU",
     template: "%s | GCN at ASU",
   },
   description:
@@ -39,23 +40,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${plusJakartaSans.variable} ${playfairDisplay.variable} h-full`}>
-      <head>
-        {/* General Sans via Fontshare — free commercial license (ITF Fontshare License) */}
-        <link rel="preconnect" href="https://api.fontshare.com" />
-        <link rel="preconnect" href="https://cdn.fontshare.com" crossOrigin="anonymous" />
-        <link
-          rel="stylesheet"
-          href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700,800&display=swap"
-        />
-        {/* UnifrakturMaguntia — blackletter for masthead nameplate only (SIL OFL 1.1) */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap"
-        />
-      </head>
+    <html lang="en" className={`${inter.variable} ${cormorantGaramond.variable} h-full`}>
       <body className="min-h-full flex flex-col antialiased">
         <a href="#main-content" className="skip-link">
           Skip to main content

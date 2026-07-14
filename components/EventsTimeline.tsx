@@ -4,6 +4,7 @@ import { useState } from "react";
 import { eventsData, getPastEvents, getUpcomingEvents, getEventsSortedByDate } from "@/lib/data/events";
 import EventSlideshow from "./EventSlideshow";
 import UpcomingEventsList from "./UpcomingEventsList";
+import CountUp from "./CountUp";
 
 type View = "past" | "future";
 
@@ -22,9 +23,10 @@ export default function EventsTimeline() {
           <h1
             className="leading-none mb-3"
             style={{
-              fontFamily: "var(--font-blackletter)",
+              fontFamily: "var(--font-serif)",
+              fontWeight: 700,
               fontSize: "clamp(2.6rem, 6vw, 4.4rem)",
-              letterSpacing: "0.01em",
+              letterSpacing: "-0.02em",
               color: "var(--color-black-soft)",
             }}
           >
@@ -34,12 +36,12 @@ export default function EventsTimeline() {
             className="font-semibold"
             style={{
               fontFamily: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
-              fontSize: "11.5px",
+              fontSize: "12px",
               letterSpacing: "0.08em",
               color: "var(--color-gray-muted)",
             }}
           >
-            Academic Year 2025–26 · Arizona State University
+            Academic Year 2025-26 · Arizona State University
           </p>
         </div>
 
@@ -53,7 +55,7 @@ export default function EventsTimeline() {
       <div className="mx-auto max-w-5xl px-6 py-8 flex items-center gap-4">
         <span
           className="font-bold uppercase shrink-0"
-          style={{ fontSize: "10px", letterSpacing: "0.2em", color: "var(--color-gray-muted)" }}
+          style={{ fontSize: "12px", letterSpacing: "0.2em", color: "var(--color-gray-muted)" }}
         >
           View
         </span>
@@ -98,14 +100,14 @@ export default function EventsTimeline() {
           }}
         >
           {[
-            { value: String(eventsData.filter((e) => e.status === "past").length), label: "Events Held" },
+            { value: eventsData.filter((e) => e.status === "past").length, label: "Events Held" },
             {
-              value: String(
-                eventsData.filter((e) => e.status === "past").reduce((acc, e) => acc + (e.attendeeCount ?? 0), 0)
-              ),
+              value: eventsData
+                .filter((e) => e.status === "past")
+                .reduce((acc, e) => acc + (e.attendeeCount ?? 0), 0),
               label: "Total Attendees",
             },
-            { value: String(eventsData.filter((e) => e.status === "upcoming").length), label: "Upcoming" },
+            { value: eventsData.filter((e) => e.status === "upcoming").length, label: "Upcoming" },
           ].map(({ value, label }, i) => (
             <div
               key={label}
@@ -116,7 +118,7 @@ export default function EventsTimeline() {
                 className="font-bold leading-none"
                 style={{ fontFamily: "var(--font-serif)", fontSize: "2rem", color: "var(--color-brand-red)" }}
               >
-                {value}
+                <CountUp end={value} />
               </p>
               <p
                 className="text-xs mt-2 uppercase tracking-wider"

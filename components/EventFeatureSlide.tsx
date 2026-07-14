@@ -42,21 +42,21 @@ export default function EventFeatureSlide({ event, index, total, isActive, setRe
         >
           <span
             className="font-black uppercase shrink-0"
-            style={{ fontSize: "10px", letterSpacing: "0.22em", color: "var(--color-brand-red)" }}
+            style={{ fontSize: "12px", letterSpacing: "0.22em", color: "var(--color-brand-red)" }}
           >
             GCN
           </span>
           <div style={{ flex: 1, height: "1px", background: "rgba(12,12,14,0.12)" }} />
           <span
             className="font-bold uppercase shrink-0"
-            style={{ fontSize: "10px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}
+            style={{ fontSize: "12px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}
           >
             Event Chronicle
           </span>
           <div style={{ flex: 1, height: "1px", background: "rgba(12,12,14,0.12)" }} />
           <span
-            className="font-bold uppercase shrink-0"
-            style={{ fontSize: "10px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}
+            className="font-bold uppercase shrink-0 hidden sm:block"
+            style={{ fontSize: "12px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}
           >
             Arizona State University
           </span>
@@ -66,7 +66,7 @@ export default function EventFeatureSlide({ event, index, total, isActive, setRe
         <div className="relative flex-1 flex flex-col px-8 md:pl-12 md:pr-20 py-8 overflow-y-auto">
           <p
             className="font-black uppercase mb-3"
-            style={{ fontSize: "11px", letterSpacing: "0.2em", color: "var(--color-brand-red)" }}
+            style={{ fontSize: "12px", letterSpacing: "0.2em", color: "var(--color-brand-red)" }}
           >
             {event.semester}
           </p>
@@ -91,7 +91,7 @@ export default function EventFeatureSlide({ event, index, total, isActive, setRe
             }}
           >
             {event.date}
-            {event.time ? ` · ${event.time}` : ""} — {event.location}
+            {event.time ? ` · ${event.time}` : ""} · {event.location}
           </p>
 
           <div className="gcn-rule-full my-5" />
@@ -99,7 +99,7 @@ export default function EventFeatureSlide({ event, index, total, isActive, setRe
           <div className="mx-auto w-full" style={{ maxWidth: "52ch" }}>
             <p
               className="gcn-body-article gcn-dropcap"
-              style={{ fontFamily: "var(--font-serif)", color: "#26241F" }}
+              style={{ fontFamily: "var(--font-serif)", fontWeight: 700, color: "#26241F" }}
             >
               {event.description}
             </p>
@@ -109,7 +109,7 @@ export default function EventFeatureSlide({ event, index, total, isActive, setRe
                 <div className="gcn-rule-full my-5" />
                 <p
                   className="gcn-body-article"
-                  style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", color: "#45423B" }}
+                  style={{ fontFamily: "var(--font-serif)", fontWeight: 700, fontStyle: "italic", color: "#45423B" }}
                 >
                   {event.outcome}
                 </p>

@@ -16,13 +16,17 @@ const NAV_LINKS = [
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
   const pathname = usePathname();
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 20);
+    const handler = () => {
+      setScrolled(window.scrollY > 20);
+      setPastHero(window.scrollY > window.innerHeight * 0.7);
+    };
     window.addEventListener("scroll", handler, { passive: true });
     handler(); // set initial state
     return () => window.removeEventListener("scroll", handler);
@@ -34,9 +38,10 @@ export default function Navbar() {
       style={{
         background: scrolled ? "rgba(253,251,247,0.97)" : "rgba(245,241,232,0.94)",
         backdropFilter: "blur(12px)",
-        borderColor: "var(--color-gray-border)",
-        boxShadow: scrolled ? "0 2px 20px rgba(12,12,14,0.07)" : "none",
-        transition: "background 0.3s var(--ease-fast), box-shadow 0.3s var(--ease-fast)",
+        borderColor: pastHero ? "var(--color-gray-border)" : "transparent",
+        boxShadow: pastHero ? "0 2px 20px rgba(12,12,14,0.07)" : "none",
+        transition:
+          "background 0.3s var(--ease-fast), box-shadow 0.3s var(--ease-fast), border-color 0.3s var(--ease-fast)",
       }}
     >
       <nav
@@ -81,17 +86,15 @@ export default function Navbar() {
                 <Link
                   href={href}
                   aria-current={active ? "page" : undefined}
-                  className="uppercase transition-colors"
+                  data-active={active}
+                  className="gcn-link-underline uppercase transition-colors"
                   style={{
-                    fontSize: "11.5px",
+                    fontSize: "12px",
                     letterSpacing: "0.14em",
                     fontWeight: active ? 800 : 600,
                     color: active ? "var(--color-black-soft)" : "var(--color-gray-text)",
                     paddingBottom: "4px",
-                    borderBottom: active
-                      ? "2px solid var(--color-brand-red)"
-                      : "2px solid transparent",
-                    transition: "color 0.2s ease, border-color 0.2s ease",
+                    transition: "color 0.2s ease",
                   }}
                 >
                   {label}
@@ -102,8 +105,7 @@ export default function Navbar() {
           <li>
             <Link
               href="/join"
-              className="px-4 py-2 rounded-lg text-sm font-semibold text-white transition-opacity hover:opacity-90"
-              style={{ background: "var(--color-brand-red)" }}
+              className="gcn-btn gcn-btn-primary px-4 py-2 rounded-lg text-sm font-semibold text-white"
             >
               Join GCN
             </Link>
@@ -176,8 +178,7 @@ export default function Navbar() {
           })}
           <Link
             href="/join"
-            className="inline-flex justify-center px-4 py-2.5 rounded-lg text-sm font-semibold text-white"
-            style={{ background: "var(--color-brand-red)" }}
+            className="gcn-btn gcn-btn-primary inline-flex justify-center px-4 py-2.5 rounded-lg text-sm font-semibold text-white"
             onClick={() => setOpen(false)}
           >
             Join GCN

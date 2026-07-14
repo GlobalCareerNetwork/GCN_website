@@ -229,9 +229,8 @@ export default function JoinForm() {
       <button
         type="submit"
         disabled={status === "loading"}
-        className="w-full py-3.5 rounded-xl text-sm font-semibold text-white transition-opacity"
+        className="gcn-btn gcn-btn-primary w-full py-3.5 rounded-xl text-sm font-semibold text-white"
         style={{
-          background: "var(--color-brand-red)",
           opacity: status === "loading" ? 0.7 : 1,
           cursor: status === "loading" ? "not-allowed" : "pointer",
         }}

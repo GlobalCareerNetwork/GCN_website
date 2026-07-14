@@ -1,11 +1,12 @@
 import Link from "next/link";
 import GlobeWrapper from "@/components/GlobeWrapper";
+import CountUp from "@/components/CountUp";
 import type { CSSProperties } from "react";
 
 const MINI_STATS = [
-  { value: "2,000+", label: "Members" },
-  { value: "88",     label: "Countries" },
-  { value: "12+",    label: "Events / Semester" },
+  { end: 2000, suffix: "+", label: "Members" },
+  { end: 88,   suffix: "",  label: "Countries" },
+  { end: 12,   suffix: "+", label: "Events / Semester" },
 ];
 
 export default function HeroSection() {
@@ -49,7 +50,7 @@ export default function HeroSection() {
             {
               "--delay": "0.04s",
               display: "grid",
-              gridTemplateColumns: "1fr auto 1fr",
+              gridTemplateColumns: "minmax(0, 1fr) auto minmax(0, 1fr)",
               alignItems: "center",
               columnGap: "1rem",
             } as CSSProperties
@@ -57,16 +58,17 @@ export default function HeroSection() {
         >
           <span
             className="font-bold uppercase"
-            style={{ fontSize: "10px", letterSpacing: "0.22em", color: "var(--color-gray-muted)", textAlign: "left" }}
+            style={{ fontSize: "12px", letterSpacing: "0.22em", color: "var(--color-gray-muted)", textAlign: "left" }}
           >
             Arizona State University
           </span>
           <span
             className="hidden sm:block"
             style={{
-              fontFamily: "var(--font-blackletter)",
+              fontFamily: "var(--font-serif)",
+              fontWeight: 700,
               fontSize: "20px",
-              letterSpacing: "0.02em",
+              letterSpacing: "0.01em",
               color: "var(--color-black-soft)",
               lineHeight: 1,
               textAlign: "center",
@@ -77,7 +79,7 @@ export default function HeroSection() {
           </span>
           <span
             className="font-bold uppercase"
-            style={{ fontSize: "10px", letterSpacing: "0.22em", color: "var(--color-gray-muted)", textAlign: "right" }}
+            style={{ fontSize: "12px", letterSpacing: "0.22em", color: "var(--color-gray-muted)", textAlign: "right" }}
           >
             Est.&nbsp;2022
           </span>
@@ -101,14 +103,14 @@ export default function HeroSection() {
             >
               <span
                 className="font-black uppercase shrink-0"
-                style={{ fontSize: "10px", letterSpacing: "0.22em", color: "var(--color-brand-red)" }}
+                style={{ fontSize: "12px", letterSpacing: "0.22em", color: "var(--color-brand-red)" }}
               >
                 01
               </span>
               <div style={{ flex: 1, height: "1px", background: "rgba(12,12,14,0.14)" }} />
               <span
                 className="font-bold uppercase shrink-0"
-                style={{ fontSize: "10px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}
+                style={{ fontSize: "12px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}
               >
                 Student Career Network
               </span>
@@ -162,12 +164,12 @@ export default function HeroSection() {
 
             {/* Body text + CTAs */}
             <div
-              className="hero-anim flex flex-col md:flex-row md:items-end justify-between gap-6"
+              className="hero-anim flex flex-col lg:flex-row lg:items-end justify-between gap-6"
               style={{ "--delay": "0.60s" } as CSSProperties}
             >
               <p
                 className="gcn-body-col"
-                style={{ color: "var(--color-gray-muted)", maxWidth: "300px" }}
+                style={{ color: "var(--color-gray-muted)", maxWidth: "340px" }}
               >
                 Connecting international students at ASU with professional
                 opportunities, resume mentorship, and a global network of
@@ -177,24 +179,9 @@ export default function HeroSection() {
               <div className="flex flex-wrap gap-3 shrink-0">
                 <Link
                   href="/join"
-                  className="relative inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white overflow-hidden transition-all hover:scale-[1.03] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-                  style={{
-                    background: "var(--color-brand-red)",
-                    boxShadow: "0 4px 20px rgba(158,34,26,0.30)",
-                    outlineColor: "var(--color-brand-red)",
-                  }}
+                  className="gcn-btn gcn-btn-primary inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white"
+                  style={{ boxShadow: "0 4px 20px rgba(158,34,26,0.30)" }}
                 >
-                  <span
-                    aria-hidden="true"
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      background:
-                        "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.20) 50%, transparent 100%)",
-                      animation: "gcn-shimmer-sweep 2.8s ease-in-out infinite",
-                      pointerEvents: "none",
-                    }}
-                  />
                   Join GCN Today
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                     <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
@@ -203,7 +190,7 @@ export default function HeroSection() {
 
                 <Link
                   href="/events"
-                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold border transition-all hover:scale-[1.03]"
+                  className="gcn-btn gcn-btn-outline inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold border"
                   style={{
                     color: "var(--color-black-soft)",
                     borderColor: "rgba(12,12,14,0.22)",
@@ -232,7 +219,7 @@ export default function HeroSection() {
               {MINI_STATS.map((s) => (
                 <div key={s.label} className="flex flex-col gap-1">
                   <span
-                    className="font-extrabold leading-none tabular-nums"
+                    className="font-bold leading-none tabular-nums"
                     style={{
                       fontFamily: "var(--font-serif)",
                       fontSize: "1.75rem",
@@ -240,11 +227,11 @@ export default function HeroSection() {
                       color: "var(--color-black-soft)",
                     }}
                   >
-                    {s.value}
+                    <CountUp end={s.end} suffix={s.suffix} />
                   </span>
                   <span
                     className="font-semibold uppercase"
-                    style={{ fontSize: "9px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}
+                    style={{ fontSize: "12px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}
                   >
                     {s.label}
                   </span>
@@ -259,6 +246,7 @@ export default function HeroSection() {
             style={{ "--delay": "0.85s" } as CSSProperties}
           >
             <div
+              className="gcn-hero-zoom"
               style={{
                 position: "relative",
                 width: "100%",
@@ -269,7 +257,7 @@ export default function HeroSection() {
               <GlobeWrapper className="w-full h-full" />
               <p
                 className="absolute bottom-4 left-1/2 -translate-x-1/2 text-xs flex items-center gap-1.5 select-none"
-                style={{ color: "var(--color-gray-muted)", opacity: 0.5, whiteSpace: "nowrap" }}
+                style={{ color: "var(--color-gray-muted)", opacity: 0.85, whiteSpace: "nowrap" }}
               >
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                   <circle cx="3" cy="6" r="2" fill="currentColor" opacity="0.4" />

@@ -146,7 +146,7 @@ export default function EventSlideshow({ events }: EventSlideshowProps) {
         >
           <span
             className="font-bold uppercase"
-            style={{ fontSize: "10px", letterSpacing: "0.2em", color: "var(--color-gray-muted)" }}
+            style={{ fontSize: "12px", letterSpacing: "0.2em", color: "var(--color-gray-muted)" }}
           >
             Scroll to advance
           </span>

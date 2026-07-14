@@ -57,7 +57,7 @@ export default function Footer() {
                 GCN <span style={{ color: "var(--color-brand-red)" }}>AT ASU</span>
               </span>
             </Link>
-            <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
+            <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.72)" }}>
               Connecting international students at ASU with global career opportunities.
             </p>
             <div className="flex gap-3 mt-1">
@@ -71,7 +71,7 @@ export default function Footer() {
                   className="flex items-center justify-center w-9 h-9 rounded-full transition-colors"
                   style={{
                     background: "rgba(255,255,255,0.08)",
-                    color: "rgba(255,255,255,0.6)",
+                    color: "rgba(255,255,255,0.72)",
                   }}
                 >
                   {icon}
@@ -87,8 +87,8 @@ export default function Footer() {
                 <li key={href}>
                   <Link
                     href={href}
-                    className="text-sm transition-colors hover:text-white"
-                    style={{ color: "rgba(255,255,255,0.5)" }}
+                    className="gcn-link-underline text-sm transition-colors hover:text-white"
+                    style={{ color: "rgba(255,255,255,0.72)" }}
                   >
                     {label}
                   </Link>
@@ -102,7 +102,7 @@ export default function Footer() {
           className="mt-10 pt-6 border-t text-xs"
           style={{
             borderColor: "rgba(255,255,255,0.08)",
-            color: "rgba(255,255,255,0.3)",
+            color: "rgba(255,255,255,0.72)",
           }}
         >
           © {new Date().getFullYear()} Global Career Network at Arizona State University. All rights reserved.

@@ -178,7 +178,7 @@ export default function Globe3D({ className }: Globe3DProps) {
   return (
     <div
       className={className}
-      aria-label="Auto-rotating 3D globe — drag to interact"
+      aria-label="Auto-rotating 3D globe. Drag to interact."
       role="img"
     >
       <Canvas

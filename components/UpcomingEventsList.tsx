@@ -18,12 +18,15 @@ export default function UpcomingEventsList({ events }: UpcomingEventsListProps) 
       {events.map((event, i) => (
         <article
           key={event.id}
-          className="flex flex-wrap items-baseline gap-x-5 gap-y-1.5 py-5"
-          style={{ borderTop: i > 0 ? "1px solid var(--color-gray-border)" : undefined }}
+          className="gcn-card-hover flex flex-wrap items-baseline gap-x-5 gap-y-1.5 py-5 px-4 -mx-4"
+          style={{
+            borderTop: i > 0 ? "1px solid var(--color-gray-border)" : undefined,
+            background: "var(--color-surface)",
+          }}
         >
           <p
             className="font-bold uppercase shrink-0"
-            style={{ fontSize: "10.5px", letterSpacing: "0.14em", color: "var(--color-brand-red)", minWidth: "108px" }}
+            style={{ fontSize: "12px", letterSpacing: "0.14em", color: "var(--color-brand-red)", minWidth: "108px" }}
           >
             {event.date}
           </p>
@@ -40,7 +43,7 @@ export default function UpcomingEventsList({ events }: UpcomingEventsListProps) 
                 background: "rgba(224,154,48,0.1)",
                 color: "#B07B10",
                 border: "1px solid rgba(224,154,48,0.22)",
-                fontSize: "9px",
+                fontSize: "12px",
                 letterSpacing: "0.12em",
               }}
             >
@@ -52,7 +55,7 @@ export default function UpcomingEventsList({ events }: UpcomingEventsListProps) 
             style={{ fontSize: "15px", lineHeight: 1.7, color: "var(--color-gray-text)" }}
           >
             {event.time ? `${event.time} · ` : ""}
-            {event.location} — {event.description}
+            {event.location} · {event.description}
           </p>
           {event.registrationUrl && (
             <a

@@ -7,21 +7,21 @@ import Reveal from "@/components/Reveal";
 const QUOTES = [
   {
     quote:
-      "// TODO: real testimonial needed — contact partner/sponsor for permission to use a real quote before launch.",
+      "// TODO: real testimonial needed: contact partner/sponsor for permission to use a real quote before launch.",
     name: "Partner Representative",
     title: "Sponsor / Corporate Partner",
     initials: "?",
   },
   {
     quote:
-      "// TODO: real testimonial needed — reach out to a GCN alumnus or past attendee for a genuine quote.",
+      "// TODO: real testimonial needed: reach out to a GCN alumnus or past attendee for a genuine quote.",
     name: "GCN Alumnus",
     title: "ASU Graduate · Class of 20XX",
     initials: "?",
   },
   {
     quote:
-      "// TODO: real testimonial needed — request a quote from an industry professional who has spoken at a GCN event.",
+      "// TODO: real testimonial needed: request a quote from an industry professional who has spoken at a GCN event.",
     name: "Industry Speaker",
     title: "Speaker · GlobeTalk 20XX",
     initials: "?",
@@ -52,7 +52,7 @@ export default function Testimonials() {
           </p>
           <h2
             id="testimonials-heading"
-            className="font-extrabold leading-tight"
+            className="font-bold leading-tight"
             style={{
               fontFamily: "var(--font-display)",
               fontSize: "clamp(2rem, 5vw, 3.5rem)",

@@ -44,7 +44,7 @@ export default function TeamCard({ member, size = "normal" }: TeamCardProps) {
       role="button"
       tabIndex={0}
       aria-expanded={flipped}
-      aria-label={`${member.name}, ${member.role} — press Enter to reveal details`}
+      aria-label={`${member.name}, ${member.role}, press Enter to reveal details`}
     >
       {/* Flip container */}
       <div
@@ -127,7 +127,7 @@ export default function TeamCard({ member, size = "normal" }: TeamCardProps) {
             <p className="font-bold text-sm leading-tight text-white">
               {member.name}
             </p>
-            <p style={{ color: "var(--color-brand-red)", fontSize: "11px", fontWeight: 600 }}>
+            <p style={{ color: "var(--color-brand-red)", fontSize: "12px", fontWeight: 600 }}>
               {member.role}
             </p>
             {member.major && (

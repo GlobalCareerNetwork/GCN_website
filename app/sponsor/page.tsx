@@ -203,14 +203,14 @@ function SectionEyebrow({ num, label, right }: { num: string; label: string; rig
     >
       <span
         className="font-black uppercase shrink-0"
-        style={{ fontSize: "10px", letterSpacing: "0.22em", color: "var(--color-brand-red)" }}
+        style={{ fontSize: "12px", letterSpacing: "0.22em", color: "var(--color-brand-red)" }}
       >
         {num}
       </span>
       <div style={{ flex: 1, height: "1px", background: "rgba(12,12,14,0.12)" }} />
       <span
         className="font-bold uppercase shrink-0"
-        style={{ fontSize: "10px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}
+        style={{ fontSize: "12px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}
       >
         {label}
       </span>
@@ -218,8 +218,8 @@ function SectionEyebrow({ num, label, right }: { num: string; label: string; rig
         <>
           <div style={{ flex: 1, height: "1px", background: "rgba(12,12,14,0.12)" }} />
           <span
-            className="font-bold uppercase shrink-0"
-            style={{ fontSize: "10px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}
+            className="font-bold uppercase shrink-0 hidden sm:block"
+            style={{ fontSize: "12px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}
           >
             {right}
           </span>
@@ -246,15 +246,15 @@ export default function SponsorPage() {
           className="mx-auto max-w-7xl px-6 py-2.5 flex items-center gap-4"
           style={{ borderBottom: "1px solid var(--color-gray-border)" }}
         >
-          <span className="font-black uppercase shrink-0" style={{ fontSize: "10px", letterSpacing: "0.22em", color: "var(--color-brand-red)" }}>
+          <span className="font-black uppercase shrink-0" style={{ fontSize: "12px", letterSpacing: "0.22em", color: "var(--color-brand-red)" }}>
             GCN
           </span>
           <div style={{ flex: 1, height: "1px", background: "rgba(12,12,14,0.12)" }} />
-          <span className="font-bold uppercase shrink-0" style={{ fontSize: "10px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}>
+          <span className="font-bold uppercase shrink-0" style={{ fontSize: "12px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}>
             Partnership Opportunities
           </span>
           <div style={{ flex: 1, height: "1px", background: "rgba(12,12,14,0.12)" }} />
-          <span className="font-bold uppercase shrink-0" style={{ fontSize: "10px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}>
+          <span className="font-bold uppercase shrink-0 hidden sm:block" style={{ fontSize: "12px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}>
             Arizona State University
           </span>
         </div>
@@ -264,7 +264,7 @@ export default function SponsorPage() {
           <div className="grid grid-cols-1 md:grid-cols-[1fr_1px_1fr] gap-0 items-stretch">
             {/* Left: headline */}
             <div className="md:pr-10">
-              <p className="font-bold uppercase mb-2" style={{ fontSize: "11px", letterSpacing: "0.2em", color: "var(--color-brand-red)" }}>
+              <p className="font-bold uppercase mb-2" style={{ fontSize: "12px", letterSpacing: "0.2em", color: "var(--color-brand-red)" }}>
                 2026 Sponsorship Listings
               </p>
               <h1
@@ -272,7 +272,7 @@ export default function SponsorPage() {
                 className="mb-4"
                 style={{
                   fontFamily: "var(--font-serif)",
-                  fontWeight: 800,
+                  fontWeight: 700,
                   fontSize: "clamp(2.1rem, 4vw, 3.3rem)",
                   letterSpacing: "-0.02em",
                   color: "var(--color-black-soft)",
@@ -295,7 +295,7 @@ export default function SponsorPage() {
 
             {/* Right: quick stats as newspaper-style fact box */}
             <div className="md:pl-10 pt-6 md:pt-0">
-              <p className="font-bold uppercase mb-4" style={{ fontSize: "10px", letterSpacing: "0.2em", color: "var(--color-gray-muted)" }}>
+              <p className="font-bold uppercase mb-4" style={{ fontSize: "12px", letterSpacing: "0.2em", color: "var(--color-gray-muted)" }}>
                 At a Glance
               </p>
               <div className="grid grid-cols-2 gap-0 overflow-hidden" style={{ border: "1px solid var(--color-gray-border)" }}>
@@ -395,7 +395,7 @@ export default function SponsorPage() {
         style={{ borderBottom: "1px solid var(--color-gray-border)" }}
       >
         <div className="mx-auto max-w-7xl px-6">
-          <SectionEyebrow num="02" label="Sponsorship Tiers — 2026 Season" right="Classified Listings" />
+          <SectionEyebrow num="02" label="Sponsorship Tiers: 2026 Season" right="Classified Listings" />
 
           {/* Scope note */}
           <div
@@ -447,7 +447,7 @@ export default function SponsorPage() {
                   >
                     <p
                       className="font-black uppercase mb-1"
-                      style={{ fontSize: "10px", letterSpacing: "0.26em", color: accentColor }}
+                      style={{ fontSize: "12px", letterSpacing: "0.26em", color: accentColor }}
                     >
                       {tier.badge}
                     </p>
@@ -486,7 +486,7 @@ export default function SponsorPage() {
                           className="font-bold flex-shrink-0 mt-px"
                           style={{ color: accentColor, fontSize: "12px" }}
                         >
-                          —
+                          ✦
                         </span>
                         {b}
                       </li>
@@ -495,8 +495,8 @@ export default function SponsorPage() {
 
                   {/* CTA */}
                   <a
-                    href="mailto:globalcareernetwork.club@gmail.com?subject=Sponsorship%20Inquiry%20—%20GCN%20at%20ASU"
-                    className="mt-5 block text-center py-2 text-xs font-semibold uppercase tracking-wide transition-opacity hover:opacity-80"
+                    href="mailto:globalcareernetwork.club@gmail.com?subject=Sponsorship%20Inquiry%20(GCN%20at%20ASU)"
+                    className="gcn-btn mt-5 block text-center py-2 text-xs font-semibold uppercase tracking-wide transition-opacity hover:opacity-80"
                     style={{
                       border: `1px solid ${accentColor}`,
                       color: accentColor,
@@ -537,7 +537,7 @@ export default function SponsorPage() {
                 </div>
                 <p
                   className="font-bold text-sm uppercase tracking-wide"
-                  style={{ fontSize: "11px", letterSpacing: "0.14em", color: "var(--color-black-soft)" }}
+                  style={{ fontSize: "12px", letterSpacing: "0.14em", color: "var(--color-black-soft)" }}
                 >
                   {label}
                 </p>
@@ -595,11 +595,11 @@ export default function SponsorPage() {
             className="flex items-center gap-4 mb-10 pb-3"
             style={{ borderBottom: "1px solid rgba(255,255,255,0.12)" }}
           >
-            <span className="font-black uppercase shrink-0" style={{ fontSize: "10px", letterSpacing: "0.22em", color: "var(--color-brand-red)" }}>
+            <span className="font-black uppercase shrink-0" style={{ fontSize: "12px", letterSpacing: "0.22em", color: "var(--color-brand-red)" }}>
               GCN
             </span>
             <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.1)" }} />
-            <span className="font-bold uppercase shrink-0" style={{ fontSize: "10px", letterSpacing: "0.18em", color: "rgba(255,255,255,0.4)" }}>
+            <span className="font-bold uppercase shrink-0" style={{ fontSize: "12px", letterSpacing: "0.18em", color: "rgba(255,255,255,0.75)" }}>
               Get in Touch
             </span>
           </div>
@@ -619,7 +619,7 @@ export default function SponsorPage() {
               >
                 Let&apos;s Build the Future Together
               </h2>
-              <p className="text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
+              <p className="text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.72)" }}>
                 Partner with GCN to support student success, strengthen your brand, and connect
                 with tomorrow&apos;s talent.
               </p>
@@ -631,9 +631,9 @@ export default function SponsorPage() {
             {/* Right: CTAs */}
             <div className="md:pl-12 pt-8 md:pt-0 flex flex-col gap-4">
               <a
-                href="mailto:globalcareernetwork.club@gmail.com?subject=Sponsorship%20Inquiry%20—%20GCN%20at%20ASU"
-                className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white uppercase tracking-wide transition-opacity hover:opacity-85 self-start"
-                style={{ background: "var(--color-brand-red)", letterSpacing: "0.12em" }}
+                href="mailto:globalcareernetwork.club@gmail.com?subject=Sponsorship%20Inquiry%20(GCN%20at%20ASU)"
+                className="gcn-btn gcn-btn-primary inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white uppercase tracking-wide self-start"
+                style={{ letterSpacing: "0.12em" }}
               >
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                   <rect x="1" y="3" width="14" height="10" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
@@ -646,7 +646,7 @@ export default function SponsorPage() {
                 href="https://www.instagram.com/gcn.asu"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold uppercase tracking-wide transition-opacity hover:opacity-85 self-start"
+                className="gcn-btn inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold uppercase tracking-wide transition-opacity hover:opacity-85 self-start"
                 style={{
                   border: "1px solid rgba(255,255,255,0.2)",
                   color: "rgba(255,255,255,0.8)",
@@ -658,10 +658,10 @@ export default function SponsorPage() {
 
               <Link
                 href="/"
-                className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold uppercase tracking-wide transition-opacity hover:opacity-85 self-start"
+                className="gcn-btn inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold uppercase tracking-wide transition-opacity hover:opacity-85 self-start"
                 style={{
                   border: "1px solid rgba(255,255,255,0.12)",
-                  color: "rgba(255,255,255,0.55)",
+                  color: "rgba(255,255,255,0.78)",
                   letterSpacing: "0.12em",
                 }}
               >
@@ -674,18 +674,18 @@ export default function SponsorPage() {
                 style={{
                   background: "rgba(255,255,255,0.04)",
                   border: "1px dashed rgba(255,255,255,0.15)",
-                  color: "rgba(255,255,255,0.28)",
+                  color: "rgba(255,255,255,0.62)",
                 }}
-                aria-label="Schedule a call — coming soon"
+                aria-label="Schedule a call (coming soon)"
               >
                 <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
                   <rect x="1" y="2" width="11" height="10" rx="1" stroke="currentColor" strokeWidth="1.2" />
                   <path d="M1 5h11M4.5 1v1.5M8.5 1v1.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
                 </svg>
-                Schedule a call — booking link coming soon
+                Schedule a call: booking link coming soon
               </div>
 
-              <p className="text-xs mt-2" style={{ color: "rgba(255,255,255,0.25)" }}>
+              <p className="text-xs mt-2" style={{ color: "rgba(255,255,255,0.72)" }}>
                 globalcareernetwork.club@gmail.com · @gcn.asu · Arizona State University
               </p>
             </div>

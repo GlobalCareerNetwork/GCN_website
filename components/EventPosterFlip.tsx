@@ -27,7 +27,7 @@ export default function EventPosterFlip({ event }: EventPosterFlipProps) {
       role="button"
       tabIndex={0}
       aria-expanded={flipped}
-      aria-label={`${event.name} poster — press Enter to reveal outcome`}
+      aria-label={`${event.name} poster, press Enter to reveal outcome`}
     >
       <div
         className="relative w-full h-full"
@@ -72,8 +72,10 @@ export default function EventPosterFlip({ event }: EventPosterFlipProps) {
                 <h3
                   className="leading-tight my-6"
                   style={{
-                    fontFamily: "var(--font-blackletter)",
-                    fontSize: "clamp(2.2rem, 4.4vw, 3.6rem)",
+                    fontFamily: "var(--font-serif)",
+                    fontWeight: 700,
+                    fontSize: "clamp(2rem, 4vw, 3.2rem)",
+                    letterSpacing: "-0.01em",
                     color: "var(--color-black-soft)",
                   }}
                 >
@@ -87,7 +89,7 @@ export default function EventPosterFlip({ event }: EventPosterFlipProps) {
           {/* Mobile-only interaction hint */}
           <span
             className="md:hidden absolute bottom-3 left-1/2 -translate-x-1/2 font-bold uppercase"
-            style={{ fontSize: "9.5px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}
+            style={{ fontSize: "12px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}
           >
             Tap to flip
           </span>
@@ -107,14 +109,14 @@ export default function EventPosterFlip({ event }: EventPosterFlipProps) {
           <div className="gcn-grain-overlay" aria-hidden="true" />
           <p
             className="font-black uppercase"
-            style={{ fontSize: "11px", letterSpacing: "0.22em", color: "var(--color-brand-red)" }}
+            style={{ fontSize: "12px", letterSpacing: "0.22em", color: "var(--color-brand-red)" }}
           >
             Outcome
           </p>
           {event.outcome && (
             <p
               className="gcn-body-col"
-              style={{ fontFamily: "var(--font-serif)", color: "var(--color-black-soft)", fontSize: "1.02rem" }}
+              style={{ fontFamily: "var(--font-serif)", fontWeight: 700, color: "var(--color-black-soft)", fontSize: "1.02rem" }}
             >
               {event.outcome}
             </p>

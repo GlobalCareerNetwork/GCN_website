@@ -1,5 +1,6 @@
 import TeamCard from "@/components/TeamCard";
 import Reveal from "@/components/Reveal";
+import CountUp from "@/components/CountUp";
 import {
   teamData,
   getExecutiveBoard,
@@ -36,21 +37,21 @@ export default function OrgTree() {
         >
           <span
             className="font-black uppercase shrink-0"
-            style={{ fontSize: "10px", letterSpacing: "0.22em", color: "var(--color-brand-red)" }}
+            style={{ fontSize: "12px", letterSpacing: "0.22em", color: "var(--color-brand-red)" }}
           >
             GCN
           </span>
           <div style={{ flex: 1, height: "1px", background: "rgba(12,12,14,0.12)" }} />
           <span
             className="font-bold uppercase shrink-0"
-            style={{ fontSize: "10px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}
+            style={{ fontSize: "12px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}
           >
             Our People
           </span>
           <div style={{ flex: 1, height: "1px", background: "rgba(12,12,14,0.12)" }} />
           <span
-            className="font-bold uppercase shrink-0"
-            style={{ fontSize: "10px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}
+            className="font-bold uppercase shrink-0 hidden sm:block"
+            style={{ fontSize: "12px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}
           >
             Arizona State University
           </span>
@@ -62,16 +63,17 @@ export default function OrgTree() {
             <div>
               <p
                 className="font-bold uppercase mb-2"
-                style={{ fontSize: "11px", letterSpacing: "0.2em", color: "var(--color-brand-red)" }}
+                style={{ fontSize: "12px", letterSpacing: "0.2em", color: "var(--color-brand-red)" }}
               >
                 Executive Board
               </p>
               <h1
                 className="leading-none"
                 style={{
-                  fontFamily: "var(--font-blackletter)",
+                  fontFamily: "var(--font-serif)",
+                  fontWeight: 700,
                   fontSize: "clamp(2.6rem, 5vw, 4.2rem)",
-                  letterSpacing: "0.01em",
+                  letterSpacing: "-0.02em",
                   color: "var(--color-black-soft)",
                 }}
               >
@@ -93,28 +95,28 @@ export default function OrgTree() {
 
       <div className="mx-auto max-w-7xl px-6 py-14">
 
-        {/* ── Section eyebrow: Executive Leadership ── */}
+        {/* ── Section eyebrow: Executive Board ── */}
         <div
           className="flex items-center gap-4 mb-8"
           style={{ borderBottom: "1px solid var(--color-gray-border)", paddingBottom: "12px" }}
         >
           <span
             className="font-black uppercase"
-            style={{ fontSize: "10px", letterSpacing: "0.22em", color: "var(--color-brand-red)" }}
+            style={{ fontSize: "12px", letterSpacing: "0.22em", color: "var(--color-brand-red)" }}
           >
             01
           </span>
           <div style={{ flex: 1, height: "1px", background: "rgba(12,12,14,0.10)" }} />
           <span
             className="font-bold uppercase"
-            style={{ fontSize: "10px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}
+            style={{ fontSize: "12px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}
           >
-            Executive Leadership
+            Executive Board
           </span>
         </div>
 
-        {/* ── Exec row ── */}
-        <div className="relative flex justify-center gap-10 mb-4">
+        {/* ── Exec row: horizontal, left to right, all faces on one line ── */}
+        <div className="flex flex-row flex-wrap items-start gap-10 mb-16">
           {exec.map((member, i) => (
             <Reveal key={member.id} delay={i * 120}>
               <TeamCard member={member} size="large" />
@@ -122,75 +124,42 @@ export default function OrgTree() {
           ))}
         </div>
 
-        {/* ── SVG connector ── */}
-        <div className="relative w-full overflow-hidden" style={{ height: "60px" }} aria-hidden="true">
-          <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 60">
-            <line x1="50" y1="0" x2="50" y2="30" stroke="var(--color-brand-red)" strokeWidth="0.5" opacity="0.35" />
-            <line x1="10" y1="30" x2="90" y2="30" stroke="var(--color-brand-red)" strokeWidth="0.5" opacity="0.35" />
-            {[10, 27.5, 45, 62.5, 80].map((x, i) => (
-              <line key={i} x1={x} y1="30" x2={x} y2="60" stroke="var(--color-brand-red)" strokeWidth="0.5" opacity="0.35" />
-            ))}
-          </svg>
-        </div>
+        {/* ── Department sections — stacked full-width, each a horizontal row ── */}
+        {allDepts.map((dept, deptIdx) => {
+          const members = getMembersByDepartment(dept);
+          return (
+            <div key={dept} className="mb-16">
+              {/* Section eyebrow */}
+              <div
+                className="flex items-center gap-4 mb-8"
+                style={{ borderBottom: "1px solid var(--color-gray-border)", paddingBottom: "12px" }}
+              >
+                <span
+                  className="font-black uppercase"
+                  style={{ fontSize: "12px", letterSpacing: "0.22em", color: "var(--color-brand-red)" }}
+                >
+                  {(deptIdx + 2).toString().padStart(2, "0")}
+                </span>
+                <div style={{ flex: 1, height: "1px", background: "rgba(12,12,14,0.10)" }} />
+                <span
+                  className="font-bold uppercase"
+                  style={{ fontSize: "12px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}
+                >
+                  {DEPT_LABELS[dept]}
+                </span>
+              </div>
 
-        {/* ── Section eyebrow: Departments ── */}
-        <div
-          className="flex items-center gap-4 mb-8"
-          style={{ borderBottom: "1px solid var(--color-gray-border)", paddingBottom: "12px" }}
-        >
-          <span
-            className="font-black uppercase"
-            style={{ fontSize: "10px", letterSpacing: "0.22em", color: "var(--color-brand-red)" }}
-          >
-            02
-          </span>
-          <div style={{ flex: 1, height: "1px", background: "rgba(12,12,14,0.10)" }} />
-          <span
-            className="font-bold uppercase"
-            style={{ fontSize: "10px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}
-          >
-            Departments
-          </span>
-        </div>
-
-        {/* ── Department sections ── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
-          {allDepts.map((dept, deptIdx) => {
-            const members = getMembersByDepartment(dept);
-            return (
-              <Reveal key={dept} delay={deptIdx * 80}>
-                <div className="flex flex-col items-center gap-4">
-                  {/* Department label — newspaper section style */}
-                  <div
-                    className="w-full flex items-center gap-2 pb-2"
-                    style={{ borderBottom: "1px solid var(--color-gray-border)" }}
-                  >
-                    <span
-                      className="font-black uppercase"
-                      style={{ fontSize: "9px", letterSpacing: "0.22em", color: "var(--color-brand-red)" }}
-                    >
-                      {(deptIdx + 1).toString().padStart(2, "0")}
-                    </span>
-                    <div style={{ flex: 1, height: "1px", background: "rgba(12,12,14,0.10)" }} />
-                    <span
-                      className="font-bold uppercase"
-                      style={{ fontSize: "9px", letterSpacing: "0.16em", color: "var(--color-gray-muted)" }}
-                    >
-                      {DEPT_LABELS[dept]}
-                    </span>
-                  </div>
-
-                  {/* Member cards */}
-                  <div className="flex flex-col gap-4 items-center">
-                    {members.map((member) => (
-                      <TeamCard key={member.id} member={member} size="normal" />
-                    ))}
-                  </div>
+              {/* Member row — left to right, tops aligned so no face sits higher than another */}
+              <Reveal delay={deptIdx * 80}>
+                <div className="flex flex-row flex-wrap items-start gap-8">
+                  {members.map((member) => (
+                    <TeamCard key={member.id} member={member} size="normal" />
+                  ))}
                 </div>
               </Reveal>
-            );
-          })}
-        </div>
+            </div>
+          );
+        })}
 
         {/* ── Stats row ── */}
         <div
@@ -201,10 +170,10 @@ export default function OrgTree() {
           }}
         >
           {[
-            { value: String(teamData.length), label: "Team Members" },
-            { value: String(allDepts.length), label: "Departments" },
-            { value: "2",  label: "Exec Leadership" },
-            { value: "5",  label: "Team Leads" },
+            { value: teamData.length, label: "Team Members" },
+            { value: allDepts.length, label: "Departments" },
+            { value: 2, label: "Exec Leadership" },
+            { value: 5, label: "Team Leads" },
           ].map(({ value, label }, i) => (
             <div
               key={label}
@@ -218,7 +187,7 @@ export default function OrgTree() {
                 className="font-bold leading-none"
                 style={{ fontFamily: "var(--font-serif)", fontSize: "2.2rem", color: "var(--color-brand-red)" }}
               >
-                {value}
+                <CountUp end={value} />
               </p>
               <p className="text-xs mt-2 uppercase tracking-wider" style={{ color: "var(--color-gray-muted)", letterSpacing: "0.16em" }}>
                 {label}
