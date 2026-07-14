@@ -71,11 +71,11 @@ export default function Navbar() {
           <Image
             src="/gcn.png"
             alt="GCN Logo"
-            width={88}
-            height={88}
+            width={116}
+            height={116}
             style={{
-              height: scrolled ? "60px" : "88px",
-              width: scrolled ? "60px" : "88px",
+              height: scrolled ? "78px" : "116px",
+              width: scrolled ? "78px" : "116px",
               transition: "height 0.3s var(--ease-fast), width 0.3s var(--ease-fast)",
             }}
             priority
