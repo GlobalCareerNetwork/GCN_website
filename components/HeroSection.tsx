@@ -40,36 +40,6 @@ export default function HeroSection() {
         }}
       />
 
-      {/* Floating maroon accent shapes — decorative, slow drift */}
-      <div
-        aria-hidden="true"
-        className="gcn-float-a"
-        style={{
-          position: "absolute",
-          left: "6%",
-          top: "18%",
-          width: "180px",
-          height: "180px",
-          borderRadius: "9999px",
-          background: "radial-gradient(circle, rgba(158,34,26,0.14) 0%, transparent 70%)",
-          pointerEvents: "none",
-        }}
-      />
-      <div
-        aria-hidden="true"
-        className="gcn-float-b"
-        style={{
-          position: "absolute",
-          left: "38%",
-          bottom: "8%",
-          width: "140px",
-          height: "140px",
-          borderRadius: "9999px",
-          background: "radial-gradient(circle, rgba(158,34,26,0.09) 0%, transparent 70%)",
-          pointerEvents: "none",
-        }}
-      />
-
       <div aria-hidden="true" className="gcn-grain-overlay" />
 
       <div

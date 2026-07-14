@@ -190,19 +190,6 @@ button:focus-visible,
   border: 0;
 }
 
-/* ── Floating decorative shapes ──────────────────────────────────────────── */
-/* Slow, subtle drift for background accent shapes — never on content itself. */
-@keyframes gcn-float-a {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50%       { transform: translate(14px, -18px) scale(1.05); }
-}
-@keyframes gcn-float-b {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50%       { transform: translate(-16px, 14px) scale(0.96); }
-}
-.gcn-float-a { animation: gcn-float-a 9s ease-in-out infinite; }
-.gcn-float-b { animation: gcn-float-b 11s ease-in-out infinite; }
-
 /* ── CTA glow pulse ──────────────────────────────────────────────────────── */
 @keyframes gcn-glow-pulse {
   0%, 100% { box-shadow: 0 4px 20px rgba(158,34,26,0.30); }
