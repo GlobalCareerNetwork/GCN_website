@@ -6,10 +6,11 @@ const NAV_LINKS = [
   { href: "/events", label: "Events" },
   { href: "/team", label: "Team" },
   { href: "/achievements", label: "Achievements" },
-  { href: "/join", label: "Join Us" },
   { href: "/resources", label: "Resources" },
   { href: "/sponsor", label: "Sponsor" },
 ];
+
+const JOIN_URL = "https://sundevilcentral.eoss.asu.edu/globalcareernetwork/club_signup";
 
 const SOCIAL_LINKS = [
   {
@@ -49,13 +50,10 @@ export default function Footer() {
               <Image
                 src="/gcn.png"
                 alt="GCN Logo"
-                width={36}
-                height={36}
-                className="h-9 w-9"
+                width={44}
+                height={44}
+                className="h-11 w-11"
               />
-              <span className="font-bold text-white">
-                GCN <span style={{ color: "var(--color-brand-red)" }}>AT ASU</span>
-              </span>
             </Link>
             <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.72)" }}>
               Connecting international students at ASU with global career opportunities.
@@ -94,6 +92,17 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <a
+                  href={JOIN_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="gcn-link-underline text-sm transition-colors hover:text-white"
+                  style={{ color: "rgba(255,255,255,0.72)" }}
+                >
+                  Join Us
+                </a>
+              </li>
             </ul>
           </nav>
         </div>

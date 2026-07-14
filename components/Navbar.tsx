@@ -10,8 +10,11 @@ const NAV_LINKS = [
   { href: "/events", label: "Events" },
   { href: "/team", label: "Team" },
   { href: "/sponsor", label: "Sponsor" },
-  { href: "/join", label: "Join Us" },
 ];
+
+// Official ASU Sun Devil Central club signup — the single "join" destination
+// sitewide (replaces the old in-house application form).
+const JOIN_URL = "https://sundevilcentral.eoss.asu.edu/globalcareernetwork/club_signup";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -53,28 +56,30 @@ export default function Navbar() {
         }}
         aria-label="Main navigation"
       >
-        {/* Logo */}
+        {/* Logo — doubles as a "back to top" button */}
         <Link
           href="/"
-          className="flex items-center gap-2.5 font-bold text-xl leading-none"
-          aria-label="Global Career Network Home"
+          className="flex items-center leading-none"
+          aria-label="Global Career Network — home, scroll to top"
+          onClick={(e) => {
+            if (pathname === "/") {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }
+          }}
         >
           <Image
             src="/gcn.png"
             alt="GCN Logo"
-            width={56}
-            height={56}
+            width={88}
+            height={88}
             style={{
-              height: scrolled ? "44px" : "56px",
-              width: scrolled ? "44px" : "56px",
+              height: scrolled ? "60px" : "88px",
+              width: scrolled ? "60px" : "88px",
               transition: "height 0.3s var(--ease-fast), width 0.3s var(--ease-fast)",
             }}
             priority
           />
-          <span style={{ color: "var(--color-black-soft)" }}>
-            GCN{" "}
-            <span style={{ color: "var(--color-brand-red)" }}>AT ASU</span>
-          </span>
         </Link>
 
         {/* Desktop links */}
@@ -103,12 +108,14 @@ export default function Navbar() {
             );
           })}
           <li>
-            <Link
-              href="/join"
+            <a
+              href={JOIN_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="gcn-btn gcn-btn-primary px-4 py-2 rounded-lg text-sm font-semibold text-white"
             >
               Join GCN
-            </Link>
+            </a>
           </li>
         </ul>
 
@@ -176,13 +183,15 @@ export default function Navbar() {
               </Link>
             );
           })}
-          <Link
-            href="/join"
+          <a
+            href={JOIN_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="gcn-btn gcn-btn-primary inline-flex justify-center px-4 py-2.5 rounded-lg text-sm font-semibold text-white"
             onClick={() => setOpen(false)}
           >
             Join GCN
-          </Link>
+          </a>
         </div>
       )}
     </header>
