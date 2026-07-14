@@ -24,7 +24,7 @@ export default function ClosingStatement() {
         <Reveal delay={100}>
           <h2
             id="closing-statement-heading"
-            className="mb-8"
+            className="mb-8 gcn-gradient-text"
             style={{
               fontFamily: "var(--font-serif)",
               fontWeight: 700,
@@ -32,7 +32,6 @@ export default function ClosingStatement() {
               fontSize: "clamp(1.8rem, 4vw, 2.8rem)",
               lineHeight: 1.15,
               letterSpacing: "-0.015em",
-              color: "var(--color-black-soft)",
             }}
           >
             We meet students where they are.

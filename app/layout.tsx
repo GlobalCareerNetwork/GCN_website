@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Cormorant_Garamond } from "next/font/google";
+import { Inter, Cormorant_Garamond, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -17,6 +17,15 @@ const cormorantGaramond = Cormorant_Garamond({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
   style: ["normal", "italic"],
+  display: "swap",
+});
+
+// Space Grotesk — accent font used sparingly for stat numbers, buttons, and
+// badges only (SIL OFL 1.1 license). Never used for body copy or headings.
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
   display: "swap",
 });
 
@@ -40,7 +49,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${cormorantGaramond.variable} h-full`}>
+    <html lang="en" className={`${inter.variable} ${cormorantGaramond.variable} ${spaceGrotesk.variable} h-full`}>
       <body className="min-h-full flex flex-col antialiased">
         <a href="#main-content" className="skip-link">
           Skip to main content

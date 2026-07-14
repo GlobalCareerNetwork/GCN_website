@@ -50,14 +50,13 @@ export default function WhoWeAre() {
               {/* Oversized watermark numeral — restrained editorial texture, not a graphic */}
               <span
                 aria-hidden="true"
-                className="absolute select-none pointer-events-none"
+                className="absolute select-none pointer-events-none gcn-gradient-text"
                 style={{
                   fontFamily: "var(--font-serif)",
                   fontWeight: 700,
                   fontSize: "clamp(7rem, 16vw, 12rem)",
                   lineHeight: 1,
-                  color: "var(--color-brand-red)",
-                  opacity: 0.06,
+                  opacity: 0.09,
                   top: "-1.2rem",
                   left: "-0.5rem",
                   zIndex: 0,
@@ -77,7 +76,8 @@ export default function WhoWeAre() {
                     letterSpacing: "-0.015em",
                   }}
                 >
-                  One of ASU&apos;s leading student-led career organizations
+                  One of ASU&apos;s <span className="gcn-gradient-text">leading</span> student-led
+                  career organizations
                 </h2>
               </div>
             </div>

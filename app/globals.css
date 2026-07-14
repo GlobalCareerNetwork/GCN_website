@@ -9,6 +9,8 @@
   /* Typography */
   --font-sans: var(--font-inter), system-ui, sans-serif;
   --font-display: var(--font-cormorant), Georgia, 'Times New Roman', serif;
+  /* Accent — Space Grotesk, used ONLY for stat numbers, buttons, and badges */
+  --font-accent: var(--font-space-grotesk), 'Helvetica Neue', Arial, sans-serif;
 
   /* Brand — Red */
   --color-brand-red:        #9e221a;
@@ -143,6 +145,49 @@ button:focus-visible,
 @keyframes gcn-fade-in {
   from { opacity: 0; }
   to   { opacity: 1; }
+}
+
+/* ── Gradient text (maroon → ASU gold) ───────────────────────────────────── */
+/* Used sparingly on key headline phrases for a vibrant accent moment. */
+@keyframes gcn-gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
+}
+.gcn-gradient-text {
+  background-image: linear-gradient(
+    100deg,
+    var(--color-brand-red) 0%,
+    var(--color-vivid-gold) 45%,
+    var(--color-brand-gold) 70%,
+    var(--color-brand-red) 100%
+  );
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gcn-gradient-shift 7s ease-in-out infinite;
+}
+
+/* ── Floating decorative shapes ──────────────────────────────────────────── */
+/* Slow, subtle drift for background accent shapes — never on content itself. */
+@keyframes gcn-float-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(14px, -18px) scale(1.05); }
+}
+@keyframes gcn-float-b {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(-16px, 14px) scale(0.96); }
+}
+.gcn-float-a { animation: gcn-float-a 9s ease-in-out infinite; }
+.gcn-float-b { animation: gcn-float-b 11s ease-in-out infinite; }
+
+/* ── CTA glow pulse ──────────────────────────────────────────────────────── */
+@keyframes gcn-glow-pulse {
+  0%, 100% { box-shadow: 0 4px 20px rgba(158,34,26,0.30); }
+  50%       { box-shadow: 0 4px 32px rgba(158,34,26,0.55), 0 0 0 4px rgba(255,198,39,0.14); }
+}
+.gcn-glow-pulse {
+  animation: gcn-glow-pulse 2.6s ease-in-out infinite;
 }
 
 /* ── Hero entrance (CSS-only, fires on page load) ───────────────────────── */

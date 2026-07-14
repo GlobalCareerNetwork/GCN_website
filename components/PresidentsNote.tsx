@@ -61,7 +61,8 @@ export default function PresidentsNote() {
               maxWidth: "18ch",
             }}
           >
-            No student should have to navigate their career journey alone.
+            No student should have to navigate their{" "}
+            <span className="gcn-gradient-text">career journey</span> alone.
           </h2>
         </Reveal>
 

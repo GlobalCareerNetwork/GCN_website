@@ -6,9 +6,12 @@ import type { CSSProperties } from "react";
 const JOIN_URL = "https://sundevilcentral.eoss.asu.edu/globalcareernetwork/club_signup";
 
 const MINI_STATS = [
-  { end: 2000, suffix: "+", label: "Members" },
-  { end: 88,   suffix: "",  label: "Countries" },
-  { end: 12,   suffix: "+", label: "Events / Semester" },
+  { end: 2000, suffix: "+", label: "Members",          color: "var(--color-brand-red)" },
+  // #7a5900 — a deepened ASU gold; the bright brand gold token fails contrast
+  // as text on the cream surface, so this darker shade reads as "gold" while
+  // clearing WCAG AA (~6:1, safe even at small sizes elsewhere it's reused).
+  { end: 88,   suffix: "",  label: "Countries",         color: "#7a5900" },
+  { end: 12,   suffix: "+", label: "Events / Semester", color: "var(--color-vivid-violet)" },
 ];
 
 export default function HeroSection() {
@@ -35,6 +38,36 @@ export default function HeroSection() {
           height: "100%",
           background:
             "radial-gradient(ellipse at 75% 45%, rgba(158,34,26,0.07) 0%, transparent 58%)",
+          pointerEvents: "none",
+        }}
+      />
+
+      {/* Floating gold + violet accent shapes — decorative, slow drift */}
+      <div
+        aria-hidden="true"
+        className="gcn-float-a"
+        style={{
+          position: "absolute",
+          left: "6%",
+          top: "18%",
+          width: "180px",
+          height: "180px",
+          borderRadius: "9999px",
+          background: "radial-gradient(circle, rgba(255,198,39,0.16) 0%, transparent 70%)",
+          pointerEvents: "none",
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="gcn-float-b"
+        style={{
+          position: "absolute",
+          left: "38%",
+          bottom: "8%",
+          width: "140px",
+          height: "140px",
+          borderRadius: "9999px",
+          background: "radial-gradient(circle, rgba(124,58,237,0.10) 0%, transparent 70%)",
           pointerEvents: "none",
         }}
       />
@@ -136,12 +169,11 @@ export default function HeroSection() {
                 Empowering Your
               </span>
               <span
-                className="hero-word"
+                className="hero-word gcn-gradient-text"
                 style={
                   {
                     "--delay": "0.30s",
                     display: "block",
-                    color: "var(--color-brand-red)",
                     marginTop: "0.12em",
                   } as CSSProperties
                 }
@@ -183,8 +215,7 @@ export default function HeroSection() {
                   href={JOIN_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="gcn-btn gcn-btn-primary inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white"
-                  style={{ boxShadow: "0 4px 20px rgba(158,34,26,0.30)" }}
+                  className="gcn-btn gcn-btn-primary gcn-glow-pulse inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white"
                 >
                   Join GCN Today
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
@@ -225,10 +256,10 @@ export default function HeroSection() {
                   <span
                     className="font-bold leading-none tabular-nums"
                     style={{
-                      fontFamily: "var(--font-serif)",
+                      fontFamily: "var(--font-accent)",
                       fontSize: "1.75rem",
-                      letterSpacing: "-0.02em",
-                      color: "var(--color-black-soft)",
+                      letterSpacing: "-0.01em",
+                      color: s.color,
                     }}
                   >
                     <CountUp end={s.end} suffix={s.suffix} />
