@@ -14,10 +14,10 @@ interface StatDef {
 }
 
 const STATS: StatDef[] = [
-  { raw: 2000, suffix: "+", label: "Members",          bg: "linear-gradient(135deg, #0C0C0E 0%, #241a33 100%)", fg: "#F5F1E8",                 labelFg: "rgba(245,241,232,0.78)" },
-  { raw: 88,   suffix: "",  label: "Countries",         bg: "linear-gradient(135deg, #FFC627 0%, #ffcf47 100%)", fg: "var(--color-black-soft)", labelFg: "rgba(12,12,14,0.62)" },
+  { raw: 2000, suffix: "+", label: "Members",          bg: "linear-gradient(135deg, #0C0C0E 0%, #1a1714 100%)", fg: "#F5F1E8",                 labelFg: "rgba(245,241,232,0.78)" },
+  { raw: 88,   suffix: "",  label: "Countries",         bg: "linear-gradient(135deg, #F5F1E8 0%, #FDFBF7 100%)", fg: "var(--color-black-soft)", labelFg: "var(--color-gray-text)" },
   { raw: 300,  suffix: "+", label: "Avg Attendees",     bg: "linear-gradient(135deg, #9e221a 0%, #b22820 100%)", fg: "#fff",                    labelFg: "rgba(255,255,255,0.88)" },
-  { raw: 12,   suffix: "+", label: "Events / Semester", bg: "linear-gradient(135deg, #7C3AED 0%, #6d28d9 100%)", fg: "#fff",                    labelFg: "rgba(255,255,255,0.85)" },
+  { raw: 12,   suffix: "+", label: "Events / Semester", bg: "linear-gradient(135deg, #1a1714 0%, #0C0C0E 100%)", fg: "#F5F1E8",                 labelFg: "rgba(245,241,232,0.78)" },
 ];
 
 function easeOutCubic(t: number) {

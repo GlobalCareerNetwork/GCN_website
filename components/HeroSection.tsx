@@ -1,17 +1,15 @@
 import Link from "next/link";
 import GlobeWrapper from "@/components/GlobeWrapper";
 import CountUp from "@/components/CountUp";
+import TypewriterText from "@/components/TypewriterText";
 import type { CSSProperties } from "react";
 
 const JOIN_URL = "https://sundevilcentral.eoss.asu.edu/globalcareernetwork/club_signup";
 
 const MINI_STATS = [
-  { end: 2000, suffix: "+", label: "Members",          color: "var(--color-brand-red)" },
-  // #7a5900 — a deepened ASU gold; the bright brand gold token fails contrast
-  // as text on the cream surface, so this darker shade reads as "gold" while
-  // clearing WCAG AA (~6:1, safe even at small sizes elsewhere it's reused).
-  { end: 88,   suffix: "",  label: "Countries",         color: "#7a5900" },
-  { end: 12,   suffix: "+", label: "Events / Semester", color: "var(--color-vivid-violet)" },
+  { end: 2000, suffix: "+", label: "Members" },
+  { end: 88,   suffix: "",  label: "Countries" },
+  { end: 12,   suffix: "+", label: "Events / Semester" },
 ];
 
 export default function HeroSection() {
@@ -42,7 +40,7 @@ export default function HeroSection() {
         }}
       />
 
-      {/* Floating gold + violet accent shapes — decorative, slow drift */}
+      {/* Floating maroon accent shapes — decorative, slow drift */}
       <div
         aria-hidden="true"
         className="gcn-float-a"
@@ -53,7 +51,7 @@ export default function HeroSection() {
           width: "180px",
           height: "180px",
           borderRadius: "9999px",
-          background: "radial-gradient(circle, rgba(255,198,39,0.16) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(158,34,26,0.14) 0%, transparent 70%)",
           pointerEvents: "none",
         }}
       />
@@ -67,7 +65,7 @@ export default function HeroSection() {
           width: "140px",
           height: "140px",
           borderRadius: "9999px",
-          background: "radial-gradient(circle, rgba(124,58,237,0.10) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(158,34,26,0.09) 0%, transparent 70%)",
           pointerEvents: "none",
         }}
       />
@@ -169,20 +167,19 @@ export default function HeroSection() {
                 Empowering Your
               </span>
               <span
-                className="hero-word gcn-gradient-text"
                 style={
                   {
-                    "--delay": "0.30s",
                     display: "block",
                     marginTop: "0.12em",
+                    color: "var(--color-brand-red)",
                   } as CSSProperties
                 }
               >
-                Global Career
+                <TypewriterText text="Global Career" startDelay={750} speed={65} />
               </span>
               <span
                 className="hero-word"
-                style={{ "--delay": "0.42s", display: "block" } as CSSProperties}
+                style={{ "--delay": "1.65s", display: "block" } as CSSProperties}
               >
                 Journey.
               </span>
@@ -259,7 +256,7 @@ export default function HeroSection() {
                       fontFamily: "var(--font-accent)",
                       fontSize: "1.75rem",
                       letterSpacing: "-0.01em",
-                      color: s.color,
+                      color: "var(--color-brand-red)",
                     }}
                   >
                     <CountUp end={s.end} suffix={s.suffix} />

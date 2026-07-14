@@ -2,12 +2,10 @@ import Reveal from "@/components/Reveal";
 import SectionEyebrow from "@/components/SectionEyebrow";
 
 const SUPPORT_ROW = [
-  { label: "Employer Connections", copy: "Direct access to recruiters, founders, and hiring teams.", color: "var(--color-brand-red)" },
-  // Colors below are deliberately darkened from their token defaults to clear
-  // WCAG AA (4.5:1) at this small bold size on the cream surface.
-  { label: "Career Development", copy: "Resume, interview, and offer-negotiation preparation.", color: "#7a5900" },
-  { label: "Student Community", copy: "A network of peers across dozens of majors and 88 countries.", color: "var(--color-vivid-violet)" },
-  { label: "Mentorship and Guidance", copy: "Upperclassmen and alumni who've walked the path first.", color: "#0a6b60" },
+  { label: "Employer Connections", copy: "Direct access to recruiters, founders, and hiring teams." },
+  { label: "Career Development", copy: "Resume, interview, and offer-negotiation preparation." },
+  { label: "Student Community", copy: "A network of peers across dozens of majors and 88 countries." },
+  { label: "Mentorship and Guidance", copy: "Upperclassmen and alumni who've walked the path first." },
 ];
 
 // Standalone full-width homepage section — "02 What We Do".
@@ -110,7 +108,7 @@ export default function WhatWeDo() {
               >
                 <p
                   className="font-bold uppercase mb-2"
-                  style={{ fontSize: "11.5px", letterSpacing: "0.14em", color: item.color }}
+                  style={{ fontSize: "11.5px", letterSpacing: "0.14em", color: "var(--color-brand-red)" }}
                 >
                   {item.label}
                 </p>
