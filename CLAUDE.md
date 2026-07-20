@@ -1,11 +1,4 @@
-# GCN Website — Migration & Build Protocol
-
-## Identity & Branch Rules
-- GitHub account must be Kesshhavvvv. Confirm this before any session begins — if wrong, stop immediately.
-- Active branch: `feature-nextjs-migration`. **Never commit to main.**
-- Brand primary color: `#9e221a` — resolve any conflicting red token to this single value.
-
----
+# GCN Website — Build & Design Protocol
 
 ## Tech Stack
 - **Framework**: Next.js (App Router, Turbopack, static prerendering)
@@ -117,10 +110,9 @@ All visual work through two major passes is complete and pushed:
 5. WCAG AA contrast confirmed on any new text/background combinations
 6. No vivid accent colors introduced (blue/violet/teal/orange/emerald)
 7. Blackletter font used only on masthead h1s (not subheadings, not nav, not body)
-8. Confirm GitHub auth is Kesshhavvvv before any push
 
 ## Self-Healing Rule
-If any check fails, fix it and restart from step 1. Never commit until all 8 pass.
+If any check fails, fix it and restart from step 1. Never commit until all checks pass.
 
 ## Hard Stop Conditions
 Stop immediately and wait for explicit user input if you encounter:
@@ -133,9 +125,9 @@ Stop immediately and wait for explicit user input if you encounter:
 1. Read all relevant files first
 2. State the plan before writing code
 3. Write code
-4. Run all 8 self-checks
+4. Run all self-checks
 5. Commit with descriptive message
-6. Push to `feature-nextjs-migration`
+6. Push to a feature branch and open a PR against `main` (CI must pass before merging)
 7. Report what changed + check results
 
 ## Commit Message Format

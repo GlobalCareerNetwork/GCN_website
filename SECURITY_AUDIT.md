@@ -2,7 +2,7 @@
 
 > Generated: 2026-06-30  
 > Branch: `feature-nextjs-migration`  
-> Auditor: Claude Code (Stage 10)
+> Auditor: Claude Code
 
 ---
 
