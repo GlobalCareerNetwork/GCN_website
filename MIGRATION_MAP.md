@@ -1,6 +1,6 @@
 # GCN Website — Migration Map
 > Stage 0 output. Source of truth for the HTML→Next.js migration.
-> Branch: feature-nextjs-migration | Auth: Kesshhavvvv
+> Branch: feature-nextjs-migration
 
 ---
 
