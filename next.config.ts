@@ -1,19 +1,20 @@
 import type { NextConfig } from "next";
 
-// Domains actually loaded by this app (audited 2026-06-30):
-// - fonts.googleapis.com  → Plus Jakarta Sans CSS (fallback)
-// - fonts.gstatic.com     → Plus Jakarta Sans font files (fallback)
-// - api.fontshare.com     → General Sans CSS
-// - cdn.fontshare.com     → General Sans font files
-// - blob:                 → Three.js WebGL worker scripts
-// - 'unsafe-eval'         → Three.js GLSL shader compilation (WebGL requirement)
+// Domains actually loaded by this app (re-audited 2026-07-20):
+// - fonts.googleapis.com     → Plus Jakarta Sans CSS (fallback)
+// - fonts.gstatic.com        → Plus Jakarta Sans font files (fallback)
+// - api.fontshare.com        → General Sans CSS
+// - cdn.fontshare.com        → General Sans font files
+// - blob:                    → Three.js WebGL worker scripts
+// - 'unsafe-eval'            → Three.js GLSL shader compilation (WebGL requirement)
+// - va.vercel-scripts.com    → Vercel Analytics script + event beacons
 const CSP = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-eval' 'unsafe-inline'", // unsafe-eval: Three.js shader compiler; unsafe-inline: Next.js RSC hydration payload scripts (no CSP nonce middleware configured — without this, the browser blocks every inline <script> tag Next.js emits for streaming/hydration, which silently breaks all client-side JS: the globe never mounts, scroll/flip handlers never attach)
+  "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://va.vercel-scripts.com", // unsafe-eval: Three.js shader compiler; unsafe-inline: Next.js RSC hydration payload scripts (no CSP nonce middleware configured — without this, the browser blocks every inline <script> tag Next.js emits for streaming/hydration, which silently breaks all client-side JS: the globe never mounts, scroll/flip handlers never attach)
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://api.fontshare.com",
   "font-src 'self' https://fonts.gstatic.com https://api.fontshare.com https://cdn.fontshare.com",
-  "img-src 'self' data: blob: https://_next",
-  "connect-src 'self'",
+  "img-src 'self' data: blob:",
+  "connect-src 'self' https://va.vercel-scripts.com",
   "worker-src blob:",                           // Three.js WebGL worker
   "frame-ancestors 'none'",
   "base-uri 'self'",

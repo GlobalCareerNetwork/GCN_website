@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 
-export const metadata: Metadata = { title: "Resources" };
+// Placeholder page with no real content yet — kept out of search results until
+// it's built out. Remove `robots` once real content ships.
+export const metadata: Metadata = {
+  title: "Resources",
+  robots: { index: false, follow: true },
+};
 
 export default function ResourcesPage() {
   return (

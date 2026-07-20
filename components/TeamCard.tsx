@@ -7,9 +7,10 @@ import type { TeamMember } from "@/lib/data/team";
 interface TeamCardProps {
   member: TeamMember;
   size?: "large" | "normal";
+  priority?: boolean;
 }
 
-export default function TeamCard({ member, size = "normal" }: TeamCardProps) {
+export default function TeamCard({ member, size = "normal", priority = false }: TeamCardProps) {
   const [flipped, setFlipped] = useState(false);
 
   const isLarge = size === "large";
@@ -76,6 +77,7 @@ export default function TeamCard({ member, size = "normal" }: TeamCardProps) {
               alt={member.name}
               fill
               sizes={isLarge ? "220px" : "180px"}
+              priority={priority}
               className="object-cover object-top"
               onError={(e) => {
                 (e.target as HTMLImageElement).src = "/images/team/placeholder.png";
@@ -160,7 +162,7 @@ export default function TeamCard({ member, size = "normal" }: TeamCardProps) {
               LinkedIn
             </a>
           ) : (
-            <p className="text-xs text-center" style={{ color: "rgba(245,241,232,0.28)" }}>
+            <p className="text-xs text-center" style={{ color: "rgba(245,241,232,0.72)" }}>
               No LinkedIn yet
             </p>
           )}

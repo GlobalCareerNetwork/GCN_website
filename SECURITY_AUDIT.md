@@ -60,31 +60,77 @@ All 8 self-checks passed post-update. See commit history.
 | `Strict-Transport-Security` | `max-age=63072000; includeSubDomains` | Forces HTTPS for 2 years; prevents SSL stripping |
 | `Permissions-Policy` | See below | Disables unneeded browser features (camera, mic, geolocation) |
 
-**CSP domains actually loaded from (audited):**
-- `fonts.googleapis.com` — Plus Jakarta Sans CSS
-- `fonts.gstatic.com` — Plus Jakarta Sans font files
-- `blob:` — Three.js WebGL contexts require blob: for worker scripts
+**CSP domains actually loaded from (re-audited 2026-07-20):**
+- `fonts.googleapis.com` / `api.fontshare.com` — font CSS
+- `fonts.gstatic.com` / `cdn.fontshare.com` — font files
+- `blob:` — Three.js WebGL worker scripts
 - `'unsafe-eval'` — Required by Three.js/WebGL shader compilation
-- `'wasm-unsafe-eval'` — Required by Three.js WASM modules
 
-**CSP note:** `'unsafe-inline'` is needed for Tailwind v4's runtime CSS-in-JS injection in development. In production static builds this is not needed but the header is served at the CDN/server level and applies equally.
+**CSP note:** `'unsafe-inline'` on `script-src` is required because there's no CSP nonce middleware configured — without it the browser blocks every inline `<script>` Next.js emits for RSC hydration/streaming, breaking all client-side JS (the globe never mounts, scroll/flip handlers never attach). `'unsafe-inline'` on `style-src` covers Tailwind's inline styles.
+
+**Correction (2026-07-20):** an earlier version of this doc listed `'wasm-unsafe-eval'` as an active CSP directive — that was never actually present in `next.config.ts` and has been removed from this doc to match the real config. Also fixed a live bug: `img-src` contained a stray `https://_next` entry (not a real external domain, just a copy-paste artifact) — removed; `'self'` already covers Next's own static assets.
 
 ---
 
-## Stage 12 — Form & Input Security (Join Us page)
+## Stage 12 — Form & Input Security (Join Us page) — **superseded, 2026-07-20**
 
-> Added 2026-06-30. See `app/api/join/route.ts` and `app/join/page.tsx`.
+> Originally added 2026-06-30, describing `app/api/join/route.ts` and `app/join/page.tsx`.
 
-**What was vulnerable:**
-- No Join Us form existed (placeholder page). Built from scratch with security-first design.
+**This section no longer reflects the deployed app.** The internal Join form/API route described
+below was never merged to the branch that shipped — the "Join Us" flow was instead pivoted to an
+external Sun Devil Central signup link (see `Navbar.tsx` / `HeroSection.tsx`, `JOIN_URL`). There is
+currently **no first-party form or API route on this site at all**, which is a smaller attack
+surface than a form would be, not a gap: no server-side input handling, no rate-limiting logic, and
+no CSRF surface exist because there's nothing here that accepts user input. If an internal form is
+ever reintroduced, re-apply the design below.
 
-**What was built:**
+**Original design (kept for reference if a form is reintroduced):**
 - Server-side Zod validation on all fields (name, email, major, year, message)
 - Input sanitization: all string fields stripped of leading/trailing whitespace; email normalized to lowercase
 - No sensitive data logged — form data logged only as `{ email: "[redacted]" }` in server logs
 - Rate limiting: 5 submissions per IP per 15-minute window via in-memory store
 - CSRF: Next.js App Router API routes require same-origin `Content-Type: application/json` — no cookie-based CSRF vector. Origin header validated.
 - No `<form action="">` HTML forms — all submission via `fetch()` to `/api/join`, which cannot be triggered by cross-site HTML forms.
+
+---
+
+## Stage 15 — SEO/Security/Launch-Readiness Pass (2026-07-20)
+
+**Dependency audit re-run:** `npm audit` still reports the same 2 moderate PostCSS advisories
+(GHSA-qx2v-qp2m-jg93), vendored inside `next`, build-tooling only. No new highs/criticals. No fix
+available yet without a major Next.js downgrade — unchanged from Stage 10's conclusion. Re-run
+periodically with `npm audit` (see `SECURITY_AUDIT.md#how-to-re-run-this-audit` below).
+
+**CSP fix:** removed the malformed `https://_next` entry from `img-src` (see correction note above).
+
+**Traffic-spike resilience:** every route on this site is a static/SSG-friendly Next.js page with
+no dynamic API routes — Vercel's CDN/edge cache absorbs burst traffic (e.g. an event announcement
+driving a spike of visitors) without any custom rate-limiting code needed. Revisit this if a
+dynamic endpoint (e.g. the pending Cal.com booking integration) is ever added — that would need
+its own rate limiting, matching the design pattern in the superseded Stage 12 section above.
+
+**Content-tampering / repo-access protection:** this is a GitHub repo setting, not application
+code — recommend enabling branch protection on `main` (require PR review before merge) since
+multiple people can push to this repo. Not enabled by an AI agent; a repo admin needs to do this
+in GitHub settings (Settings → Branches → Branch protection rules).
+
+**Analytics added:** `@vercel/analytics` — cookieless, no PII, aggregate pageview/referrer data
+only.
+
+**SEO surface added:** `app/robots.ts`, `app/sitemap.ts`, `app/manifest.ts`, Open Graph/Twitter
+metadata across all routes, JSON-LD `Organization` schema on the homepage, real favicon/apple-icon
+generated from `public/images/gcn-globe-mark.svg`. See `SEO_GUIDE.md`.
+
+### How to re-run this audit
+A teammate can redo the checks in this file without AI help:
+1. `npm audit` — dependency vulnerabilities
+2. Start the dev server (`npm run dev`), open browser devtools → Network tab → click any request →
+   check Response Headers for `Content-Security-Policy`, `X-Frame-Options`, `Strict-Transport-Security`,
+   `Referrer-Policy`, `Permissions-Policy`, `X-Content-Type-Options` are all present
+3. `git log --oneline -20` — confirm no secrets were ever committed (`grep`-search history for
+   `API_KEY`, `SECRET`, `PASSWORD` as a spot check)
+4. Re-read this file top to bottom and cross out/update anything that no longer matches the code —
+   stale security docs are worse than no docs.
 
 ---
 

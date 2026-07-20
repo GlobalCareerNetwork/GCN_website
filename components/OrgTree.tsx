@@ -119,7 +119,7 @@ export default function OrgTree() {
         <div className="flex flex-row flex-wrap items-start gap-10 mb-16">
           {exec.map((member, i) => (
             <Reveal key={member.id} delay={i * 120}>
-              <TeamCard member={member} size="large" />
+              <TeamCard member={member} size="large" priority={i === 0} />
             </Reveal>
           ))}
         </div>

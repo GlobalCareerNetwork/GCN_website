@@ -18,10 +18,13 @@ export default function HeroSection() {
       className="relative overflow-hidden"
       style={{
         background: "var(--color-surface)",
-        minHeight: "90vh",
+        // 95px = Navbar's unscrolled rendered height (20px top spacing + 75px
+        // nav bar, measured) — keeps Navbar + Hero exactly filling the first
+        // viewport so the next section never peeks in before the user scrolls.
+        minHeight: "calc(100vh - 95px)",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
+        justifyContent: "flex-start",
       }}
       aria-labelledby="hero-headline"
     >
@@ -43,7 +46,7 @@ export default function HeroSection() {
       <div aria-hidden="true" className="gcn-grain-overlay" />
 
       <div
-        className="relative mx-auto max-w-7xl w-full px-6 py-16 md:py-20"
+        className="relative mx-auto max-w-7xl w-full px-6 pt-6 pb-16 md:pt-8 md:pb-20"
         style={{ zIndex: 10 }}
       >
         {/* ── Newspaper masthead bar ── */}

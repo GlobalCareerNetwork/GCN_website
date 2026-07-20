@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 
-export const metadata: Metadata = { title: "Achievements" };
+// Placeholder page with no real content yet — kept out of search results until
+// it's built out (see MEMORY/CLAUDE.md pending items). Remove `robots` once
+// real content ships.
+export const metadata: Metadata = {
+  title: "Achievements",
+  robots: { index: false, follow: true },
+};
 
 export default function AchievementsPage() {
   return (

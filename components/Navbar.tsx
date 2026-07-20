@@ -39,6 +39,7 @@ export default function Navbar() {
     <header
       className="sticky top-0 z-50 w-full border-b"
       style={{
+        marginTop: "20px",
         background: scrolled ? "rgba(253,251,247,0.97)" : "rgba(245,241,232,0.94)",
         backdropFilter: "blur(12px)",
         borderColor: pastHero ? "var(--color-gray-border)" : "transparent",
@@ -48,7 +49,7 @@ export default function Navbar() {
       }}
     >
       <nav
-        className="mx-auto flex max-w-6xl items-center justify-between px-6"
+        className="mx-auto flex max-w-7xl items-center justify-between px-6"
         style={{
           paddingTop: scrolled ? "10px" : "16px",
           paddingBottom: scrolled ? "10px" : "16px",
@@ -71,12 +72,12 @@ export default function Navbar() {
           <Image
             src="/gcn.png"
             alt="GCN Logo"
-            width={116}
-            height={116}
+            width={315}
+            height={93}
             style={{
-              height: scrolled ? "78px" : "116px",
-              width: scrolled ? "78px" : "116px",
-              transition: "height 0.3s var(--ease-fast), width 0.3s var(--ease-fast)",
+              height: scrolled ? "28px" : "42px",
+              width: "auto",
+              transition: "height 0.3s var(--ease-fast)",
             }}
             priority
           />

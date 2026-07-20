@@ -3,6 +3,8 @@ import { Inter, Cormorant_Garamond, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { Analytics } from "@vercel/analytics/next";
+import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, pageMetadata } from "@/lib/site";
 
 // Inter — clean, highly readable sans for body and UI (SIL OFL 1.1 license)
 const inter = Inter({
@@ -30,12 +32,11 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Global Career Network at ASU",
+    default: SITE_NAME,
     template: "%s | GCN at ASU",
   },
-  description:
-    "Connecting international students at ASU with professional opportunities, resume mentorship, career guidance, and a global network of industry leaders.",
   keywords: [
     "career network",
     "ASU",
@@ -43,6 +44,16 @@ export const metadata: Metadata = {
     "professional development",
     "Arizona State University",
   ],
+  ...pageMetadata(SITE_NAME, SITE_DESCRIPTION, "/"),
+  robots: {
+    index: true,
+    follow: true,
+  },
+  // No Google Search Console / Bing Webmaster properties exist yet for this
+  // domain. Once created, add a `verification: { google: "...", other: {
+  // "msvalidate.01": "..." } }` field here with the real codes — see
+  // SEO_GUIDE.md for the exact steps. Left out entirely for now so no empty
+  // verification meta tags ship to production.
 };
 
 export default function RootLayout({
@@ -59,6 +70,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );

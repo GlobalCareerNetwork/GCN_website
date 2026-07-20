@@ -50,9 +50,9 @@ export default function Footer() {
               <Image
                 src="/gcn.png"
                 alt="GCN Logo"
-                width={44}
-                height={44}
-                className="h-11 w-11"
+                width={315}
+                height={93}
+                style={{ height: "28px", width: "auto" }}
               />
             </Link>
             <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.72)" }}>

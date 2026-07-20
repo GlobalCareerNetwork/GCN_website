@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { pageMetadata } from "@/lib/site";
+
+const sponsorDescription =
+  "Partner with Global Career Network at ASU. Sponsorship opportunities connecting your organization with 2,000+ students and professionals.";
 
 export const metadata: Metadata = {
   title: "Sponsor GCN",
-  description:
-    "Partner with Global Career Network at ASU. Sponsorship opportunities connecting your organization with 2,000+ students and professionals.",
+  ...pageMetadata("Sponsor GCN | GCN at ASU", sponsorDescription, "/sponsor"),
 };
 
 // ── Tier data ─────────────────────────────────────────────────────────────────
@@ -17,6 +20,8 @@ const TIERS = [
     accentBg: "rgba(184,137,42,0.05)",
     badgeFg: "#8A6515",
     borderColor: "#B8892A",
+    hero: true,
+    popular: false,
     benefits: [
       "Premium logo placement on all major marketing materials",
       "Featured sponsor recognition throughout the year",
@@ -36,6 +41,8 @@ const TIERS = [
     accentBg: "rgba(112,112,112,0.04)",
     badgeFg: "#4A4A4A",
     borderColor: "#909090",
+    hero: false,
+    popular: false,
     benefits: [
       "Logo placement across event promotions",
       "Featured sponsor recognition",
@@ -54,6 +61,8 @@ const TIERS = [
     accentBg: "rgba(155,106,58,0.05)",
     badgeFg: "#7A4E22",
     borderColor: "#9B6A3A",
+    hero: false,
+    popular: true,
     benefits: [
       "Logo placement on select event materials",
       "Social media recognition",
@@ -70,6 +79,8 @@ const TIERS = [
     accentBg: "rgba(158,34,26,0.03)",
     badgeFg: "var(--color-brand-red)",
     borderColor: "var(--color-brand-red)",
+    hero: false,
+    popular: false,
     benefits: [
       "Website recognition",
       "Community partner listing",
@@ -84,7 +95,7 @@ const BENEFITS = [
   {
     label: "Brand Visibility",
     icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
         <circle cx="10" cy="10" r="8.5" stroke="currentColor" strokeWidth="1.4" />
         <path d="M10 5v5l3 3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
       </svg>
@@ -93,7 +104,7 @@ const BENEFITS = [
   {
     label: "Talent Recruitment",
     icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
         <circle cx="8" cy="7" r="3.5" stroke="currentColor" strokeWidth="1.4" />
         <path d="M2 17c0-3.314 2.686-6 6-6s6 2.686 6 6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
         <path d="M15 9l2 2 3-3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
@@ -103,7 +114,7 @@ const BENEFITS = [
   {
     label: "Social Media Exposure",
     icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
         <circle cx="15" cy="4" r="2" stroke="currentColor" strokeWidth="1.4" />
         <circle cx="15" cy="16" r="2" stroke="currentColor" strokeWidth="1.4" />
         <circle cx="5" cy="10" r="2" stroke="currentColor" strokeWidth="1.4" />
@@ -114,7 +125,7 @@ const BENEFITS = [
   {
     label: "Event Engagement",
     icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
         <rect x="2" y="4" width="16" height="13" rx="1.5" stroke="currentColor" strokeWidth="1.4" />
         <path d="M2 8h16M7 2v2M13 2v2" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
       </svg>
@@ -123,7 +134,7 @@ const BENEFITS = [
   {
     label: "Community Impact",
     icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
         <path d="M10 17s-7-4.35-7-9a7 7 0 0114 0c0 4.65-7 9-7 9z" stroke="currentColor" strokeWidth="1.4" />
         <circle cx="10" cy="8" r="2" stroke="currentColor" strokeWidth="1.4" />
       </svg>
@@ -132,7 +143,7 @@ const BENEFITS = [
   {
     label: "Speaking Opportunities",
     icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
         <rect x="2" y="3" width="16" height="11" rx="1.5" stroke="currentColor" strokeWidth="1.4" />
         <path d="M7 17h6M10 14v3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
       </svg>
@@ -188,10 +199,72 @@ const PROGRAMS = [
 ];
 
 const IMPACT = [
-  "Growing network of students & professionals",
-  "Industry experts & guest speakers",
-  "Partnerships with startups, corporations & community organizations",
-  "Diverse and inclusive professional community",
+  {
+    title: "Expanding Network",
+    description:
+      "Cultivating a rich ecosystem connecting over 2,000+ ambitious students and industry professionals across Arizona.",
+  },
+  {
+    title: "Strategic Alliances",
+    description:
+      "Deep-level partnerships with leading startups, corporations, and community organizations to foster co-innovation.",
+  },
+  {
+    title: "Expert Network",
+    description:
+      "Powered by industry leaders and guest speakers from top-tier firms for exclusive insights.",
+  },
+  {
+    title: "Inclusive Community",
+    description:
+      "Building a diverse and inclusive professional collective committed to real-world outcomes.",
+  },
+];
+
+const AT_A_GLANCE = [
+  {
+    value: "2,000+",
+    label: "Community Members",
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <circle cx="7" cy="6.5" r="3" stroke="currentColor" strokeWidth="1.4" />
+        <path d="M1.5 17c0-3.03 2.46-5.5 5.5-5.5s5.5 2.47 5.5 5.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+        <circle cx="14.5" cy="7" r="2.2" stroke="currentColor" strokeWidth="1.2" />
+        <path d="M13 11.5c2.2 0 4 1.79 4 4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  {
+    value: "ASU",
+    label: "Arizona State University",
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <path d="M10 18s6-5.5 6-10.5A6 6 0 004 7.5C4 12.5 10 18 10 18z" stroke="currentColor" strokeWidth="1.4" />
+        <circle cx="10" cy="7.5" r="2" stroke="currentColor" strokeWidth="1.4" />
+      </svg>
+    ),
+  },
+  {
+    value: "Events",
+    label: "Career Dev, Networking & Innovation",
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <rect x="2" y="4" width="16" height="13" rx="1.5" stroke="currentColor" strokeWidth="1.4" />
+        <path d="M2 8h16M7 2v2M13 2v2" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  {
+    value: "Direct",
+    label: "Access to Emerging Talent",
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <circle cx="10" cy="10" r="7.5" stroke="currentColor" strokeWidth="1.4" />
+        <circle cx="10" cy="10" r="3.5" stroke="currentColor" strokeWidth="1.4" />
+        <circle cx="10" cy="10" r="0.9" fill="currentColor" />
+      </svg>
+    ),
+  },
 ];
 
 // ── Shared eyebrow component ──────────────────────────────────────────────────
@@ -293,33 +366,26 @@ export default function SponsorPage() {
               aria-hidden="true"
             />
 
-            {/* Right: quick stats as newspaper-style fact box */}
+            {/* Right: quick stats — open, borderless dashboard-style grid with icons */}
             <div className="md:pl-10 pt-6 md:pt-0">
               <p className="font-bold uppercase mb-4" style={{ fontSize: "12px", letterSpacing: "0.2em", color: "var(--color-gray-muted)" }}>
                 At a Glance
               </p>
-              <div className="grid grid-cols-2 gap-0 overflow-hidden" style={{ border: "1px solid var(--color-gray-border)" }}>
-                {[
-                  { value: "2,000+", label: "Community Members" },
-                  { value: "ASU", label: "Arizona State University" },
-                  { value: "Events", label: "Career Dev, Networking & Innovation" },
-                  { value: "Direct", label: "Access to Emerging Talent" },
-                ].map(({ value, label }, i) => (
-                  <div
-                    key={label}
-                    className="px-4 py-3"
-                    style={{
-                      borderLeft: i % 2 === 1 ? "1px solid var(--color-gray-border)" : undefined,
-                      borderTop: i >= 2 ? "1px solid var(--color-gray-border)" : undefined,
-                    }}
-                  >
-                    <p
-                      className="font-bold leading-none"
-                      style={{ fontFamily: "var(--font-serif)", fontSize: "1.2rem", color: "var(--color-brand-red)" }}
-                    >
-                      {value}
-                    </p>
-                    <p className="text-xs mt-1 leading-snug" style={{ color: "var(--color-gray-muted)" }}>{label}</p>
+              <div className="grid grid-cols-2 gap-x-6 gap-y-5">
+                {AT_A_GLANCE.map(({ value, label, icon }) => (
+                  <div key={label} className="flex items-start gap-2.5">
+                    <span className="mt-0.5 flex-shrink-0" style={{ color: "var(--color-brand-red)" }} aria-hidden="true">
+                      {icon}
+                    </span>
+                    <div>
+                      <p
+                        className="font-bold leading-none"
+                        style={{ fontFamily: "var(--font-serif)", fontSize: "1.2rem", color: "var(--color-brand-red)" }}
+                      >
+                        {value}
+                      </p>
+                      <p className="text-xs mt-1 leading-snug" style={{ color: "var(--color-gray-muted)" }}>{label}</p>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -355,31 +421,53 @@ export default function SponsorPage() {
                 Why partner with GCN?
               </h2>
               <p
+                className="font-bold mb-3"
+                style={{
+                  fontFamily: "var(--font-serif)",
+                  fontSize: "1.05rem",
+                  color: "var(--color-brand-red)",
+                }}
+              >
+                Connecting Talent with Opportunity
+              </p>
+              <p
                 className="gcn-body-col"
                 style={{ fontSize: "15.5px", color: "var(--color-gray-text)" }}
               >
-                Global Career Network (GCN) connects students, professionals, founders, and
-                organizations through career-focused events, mentorship programs, networking
-                opportunities, and innovation initiatives. By partnering with GCN, your
-                organization gains access to a highly engaged community of future leaders while
-                supporting professional growth and career development.
+                Global Career Network (GCN) actively bridges the gap between ambitious students,
+                top-tier professionals, and innovative founders. Through career-accelerating
+                events, high-impact mentorship, and strategic network-building, we cultivate the
+                next generation of global market leaders.{" "}
+                <strong>
+                  <em>
+                    Partner with GCN to unlock direct access to highly motivated, elite talent
+                    engineered for growth.
+                  </em>
+                </strong>
               </p>
             </div>
 
             {/* Vertical rule */}
             <div className="hidden md:block" style={{ background: "var(--color-gray-border)" }} aria-hidden="true" />
 
-            {/* Right: benefits as list */}
+            {/* Right: benefits — 2-col x 3-row grid with badged icons */}
             <div className="md:pl-10 pt-6 md:pt-0">
-              <div className="grid grid-cols-1 gap-0">
-                {BENEFITS.map(({ label, icon }, i) => (
-                  <div
-                    key={label}
-                    className="flex items-center gap-3 py-3"
-                    style={{ borderTop: i > 0 ? "1px solid var(--color-gray-border)" : undefined }}
-                  >
-                    <span style={{ color: "var(--color-brand-red)", flexShrink: 0 }}>{icon}</span>
-                    <span className="text-sm font-semibold" style={{ color: "var(--color-black-soft)" }}>{label}</span>
+              <div className="grid grid-cols-2 gap-x-5 gap-y-6">
+                {BENEFITS.map(({ label, icon }) => (
+                  <div key={label} className="flex items-center gap-3">
+                    <span
+                      className="flex items-center justify-center flex-shrink-0 rounded-full"
+                      style={{
+                        width: "38px",
+                        height: "38px",
+                        background: "var(--color-brand-red-light)",
+                        color: "var(--color-brand-red)",
+                      }}
+                      aria-hidden="true"
+                    >
+                      {icon}
+                    </span>
+                    <span className="text-sm font-semibold leading-snug" style={{ color: "var(--color-black-soft)" }}>{label}</span>
                   </div>
                 ))}
               </div>
@@ -418,28 +506,40 @@ export default function SponsorPage() {
             </p>
           </div>
 
-          {/* ── Classified grid — 2×2 with hairline rules ── */}
-          <div
-            className="grid grid-cols-1 sm:grid-cols-2 overflow-hidden mb-10"
-            style={{
-              border: "1px solid var(--color-gray-border)",
-              borderTop: "2px solid var(--color-black-soft)",
-            }}
-          >
-            {TIERS.map((tier, i) => {
-              const isSecondCol = i % 2 === 1;
-              const isSecondRow = i >= 2;
+          {/* ── Tier cards — flat/borderless, Gold isolated as hero card ── */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-10">
+            {TIERS.map((tier) => {
               const accentColor = typeof tier.accent === "string" ? tier.accent : "#9e221a";
               return (
                 <div
                   key={tier.name}
-                  className="flex flex-col p-6"
+                  className="relative flex flex-col p-6"
                   style={{
-                    borderLeft: isSecondCol ? "1px solid var(--color-gray-border)" : undefined,
-                    borderTop: isSecondRow ? "1px solid var(--color-gray-border)" : undefined,
-                    background: tier.accentBg,
+                    background: tier.hero ? "var(--color-surface-white)" : tier.accentBg,
+                    border: tier.hero
+                      ? "2px solid var(--color-brand-red)"
+                      : "1px solid var(--color-gray-border)",
+                    transform: tier.hero ? "scale(1.015)" : undefined,
                   }}
                 >
+                  {tier.popular && (
+                    <span
+                      className="absolute font-black uppercase"
+                      style={{
+                        top: "-13px",
+                        left: "24px",
+                        fontSize: "10.5px",
+                        letterSpacing: "0.14em",
+                        color: "#fff",
+                        background: "var(--color-brand-red)",
+                        borderRadius: "999px",
+                        padding: "4px 12px",
+                      }}
+                    >
+                      Most Popular
+                    </span>
+                  )}
+
                   {/* Tier header */}
                   <div
                     className="pb-4 mb-4"
@@ -462,11 +562,11 @@ export default function SponsorPage() {
                       {tier.name}
                     </p>
                     <p
-                      className="font-bold"
+                      className="font-extrabold"
                       style={{
                         fontFamily: "var(--font-serif)",
-                        fontSize: "1.5rem",
-                        color: accentColor,
+                        fontSize: "2rem",
+                        color: "var(--color-brand-red)",
                         letterSpacing: "-0.01em",
                       }}
                     >
@@ -475,20 +575,20 @@ export default function SponsorPage() {
                   </div>
 
                   {/* Benefits — classified-style dash list */}
-                  <ul className="flex flex-col gap-2 flex-1">
+                  <ul className="flex flex-col gap-2.5 flex-1" style={{ lineHeight: 1.5 }}>
                     {tier.benefits.map((b) => (
                       <li
                         key={b}
-                        className="flex items-start gap-2 text-sm"
+                        className="flex items-start gap-2.5 text-sm"
                         style={{ color: "var(--color-gray-text)" }}
                       >
                         <span
                           className="font-bold flex-shrink-0 mt-px"
                           style={{ color: accentColor, fontSize: "12px" }}
                         >
-                          ✦
+                          ♦
                         </span>
-                        {b}
+                        <span>{b}</span>
                       </li>
                     ))}
                   </ul>
@@ -496,12 +596,29 @@ export default function SponsorPage() {
                   {/* CTA */}
                   <a
                     href="mailto:globalcareernetwork.club@gmail.com?subject=Sponsorship%20Inquiry%20(GCN%20at%20ASU)"
-                    className="gcn-btn mt-5 block text-center py-2 text-xs font-semibold uppercase tracking-wide transition-opacity hover:opacity-80"
-                    style={{
-                      border: `1px solid ${accentColor}`,
-                      color: accentColor,
-                      letterSpacing: "0.14em",
-                    }}
+                    className="gcn-btn mt-5 text-center text-xs font-semibold uppercase tracking-wide transition-opacity hover:opacity-80"
+                    style={
+                      tier.hero
+                        ? {
+                            background: "var(--color-brand-red)",
+                            color: "#fff",
+                            border: "1px solid var(--color-brand-red)",
+                            letterSpacing: "0.14em",
+                            width: "70%",
+                            margin: "20px auto 0",
+                            padding: "12px 0",
+                            display: "block",
+                          }
+                        : {
+                            border: `1px solid ${accentColor}`,
+                            color: accentColor,
+                            letterSpacing: "0.14em",
+                            width: "70%",
+                            margin: "20px auto 0",
+                            padding: "12px 0",
+                            display: "block",
+                          }
+                    }
                   >
                     Inquire About {tier.badge} →
                   </a>
@@ -526,7 +643,7 @@ export default function SponsorPage() {
             {PROGRAMS.map(({ label, icon, items }, i) => (
               <div
                 key={label}
-                className="flex flex-col gap-3 p-5"
+                className="flex flex-col gap-4 p-5"
                 style={{ borderLeft: i > 0 ? "1px solid var(--color-gray-border)" : undefined }}
               >
                 <div
@@ -536,7 +653,7 @@ export default function SponsorPage() {
                   {icon}
                 </div>
                 <p
-                  className="font-bold text-sm uppercase tracking-wide"
+                  className="font-bold uppercase tracking-wide mt-1"
                   style={{ fontSize: "12px", letterSpacing: "0.14em", color: "var(--color-black-soft)" }}
                 >
                   {label}
@@ -555,7 +672,7 @@ export default function SponsorPage() {
         </div>
       </section>
 
-      {/* ── OUR IMPACT ── */}
+      {/* ── OUR IMPACT — asymmetric split, no grid lines ── */}
       <section
         className="py-0"
         aria-labelledby="impact-heading"
@@ -563,22 +680,33 @@ export default function SponsorPage() {
       >
         <div className="mx-auto max-w-7xl px-6">
           <SectionEyebrow num="04" label="Our Impact" right="Community Built on Real Outcomes" />
-          <div className="grid grid-cols-1 sm:grid-cols-2 overflow-hidden my-6 gap-0"
-            style={{ border: "1px solid var(--color-gray-border)" }}
-          >
-            {IMPACT.map((item, i) => (
-              <div
-                key={item}
-                className="flex items-center gap-4 px-5 py-4"
-                style={{
-                  borderLeft: i % 2 === 1 ? "1px solid var(--color-gray-border)" : undefined,
-                  borderTop: i >= 2 ? "1px solid var(--color-gray-border)" : undefined,
-                }}
+          <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] gap-10 md:gap-14 my-10 items-center">
+            {/* Left: metric badge */}
+            <div className="flex flex-col items-start justify-center">
+              <p
+                className="font-extrabold leading-none"
+                style={{ fontFamily: "var(--font-serif)", fontSize: "clamp(3rem, 6vw, 4.5rem)", color: "var(--color-brand-red)" }}
               >
-                <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "var(--color-brand-red)" }} />
-                <p className="text-sm font-medium" style={{ color: "var(--color-black-soft)" }}>{item}</p>
-              </div>
-            ))}
+                2,000+
+              </p>
+              <p className="font-bold uppercase mt-2" style={{ fontSize: "12px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}>
+                Members &amp; Growing
+              </p>
+            </div>
+
+            {/* Right: stacked value points */}
+            <div className="flex flex-col gap-6">
+              {IMPACT.map(({ title, description }) => (
+                <div key={title}>
+                  <p className="font-bold text-sm mb-1" style={{ color: "var(--color-black-soft)" }}>
+                    {title}
+                  </p>
+                  <p className="text-sm leading-relaxed" style={{ color: "var(--color-gray-text)" }}>
+                    {description}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -668,7 +796,7 @@ export default function SponsorPage() {
                 Visit GCN Website
               </Link>
 
-              {/* TODO: Cal.com booking — Stage 8 pending */}
+              {/* TODO: Cal.com booking — Stage 8 pending, awaiting CAL_COM_API_KEY + booking slug */}
               <div
                 className="inline-flex items-center gap-2 px-4 py-2.5 text-xs self-start"
                 style={{
