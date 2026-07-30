@@ -20,6 +20,7 @@ export const EventSchema = z.object({
   attendeeCount: z.number().nullable(),
   registrationUrl: z.string(),
   icon: z.string(),
+  attendanceMode: z.enum(["in-person", "virtual", "hybrid"]),
 });
 
 export type Event = z.infer<typeof EventSchema>;
@@ -39,6 +40,7 @@ const rawEventsData = [
     isoDate: "2025-08-18",
     time: "",
     location: "Multi-campus: Tempe, Downtown, Poly campuses",
+    attendanceMode: "in-person",
     description:
       "Every Thursday and throughout Welcome Week, our table became more than a place to promote upcoming events. It was often the first conversation a student had with GCN. Instead of asking people to simply scan a QR code and move on, we took the time to learn what they were studying, what they hoped to do after graduation, and what they were looking for on campus. Those conversations helped us recommend events that actually matched their interests, whether they were searching for internships, leadership opportunities, or simply a community to belong to.",
     outcome:
@@ -60,6 +62,7 @@ const rawEventsData = [
     isoDate: "2025-09-05",
     time: "4:00-5:30 PM",
     location: "ASU Tempe",
+    attendanceMode: "in-person",
     description:
       "GlobeTalk wasn't designed to be another speaker event where students sat quietly and left with a notebook full of quotes. We wanted students to hear honest stories about internships, career decisions, and the uncertainty that comes with starting out. The conversations felt approachable because they reflected the questions many students were already asking themselves at the beginning of the semester.",
     outcome:
@@ -81,6 +84,7 @@ const rawEventsData = [
     isoDate: "2025-10-23",
     time: "10:00 AM-4:00 PM",
     location: "Arizona Ballroom, Memorial Union",
+    attendanceMode: "in-person",
     description:
       "Full-day flagship workshop co-hosted with AWS, ISSC, and PMC. Met AWS recruiters in the morning, hands-on with AWS tools mid-day, mentor-led real-world projects in the afternoon. GCN's first full-day event of the year.",
     outcome:
@@ -102,6 +106,7 @@ const rawEventsData = [
     isoDate: "2025-11-06",
     time: "1:00-3:00 PM",
     location: "Amphitheater, SSV, ISSC",
+    attendanceMode: "in-person",
     description:
       "Leadership can feel intimidating until you hear someone else's story. Connect Forward brought together student leaders from across ASU who spoke honestly about the challenges, failures, and lessons that came with building organizations and leading teams. By hearing from students only a few years ahead of them, attendees could picture themselves taking on those same opportunities.",
     outcome:
@@ -123,6 +128,7 @@ const rawEventsData = [
     isoDate: "2025-11-22",
     time: "",
     location: "Tempe campus",
+    attendanceMode: "in-person",
     description:
       "Case competition where interdisciplinary teams tackled real business challenges from partner companies. Weekend-long format with faculty and industry mentors, presenting final decks to judging panels.",
     outcome:
@@ -146,6 +152,7 @@ const rawEventsData = [
     isoDate: "2026-01-27",
     time: "3:00-5:00 PM",
     location: "SSV Amphitheater",
+    attendanceMode: "in-person",
     description:
       "Structured networking session in partnership with ASU's Global Career Initiatives. Focused on building the on-campus network most students never intentionally develop.",
     outcome: "Second in a series of four GCI collab events, up from 1 the previous year.",
@@ -166,6 +173,7 @@ const rawEventsData = [
     isoDate: "2026-01-29",
     time: "5:00-7:00 PM",
     location: "Wilson Hall WLSN 237",
+    attendanceMode: "in-person",
     description:
       "First installment of our Careers in Conversation Series: a management-level industry panel featuring Amazon professionals. Speakers: Jugal Bhatt (SWE / AI content creator, 165k+ Instagram followers) and Billy Pierre (Business Continuity & Crisis Management Analyst).",
     outcome:
@@ -187,6 +195,7 @@ const rawEventsData = [
     isoDate: "2026-02-13",
     time: "5:00-7:00 PM",
     location: "Honey 2 A Bee café",
+    attendanceMode: "in-person",
     description:
       "Our first purely social event. A Valentine's-week anonymous matching mixer. Students were anonymously paired ahead of time, revealed their partner on-site, and worked through icebreaker prompts over lattes. 25% menu discount for attendees. Tagline: \"You don't know who you're sitting with… yet.\"",
     outcome:
@@ -208,6 +217,7 @@ const rawEventsData = [
     isoDate: "2026-02-24",
     time: "5:00-7:00 PM",
     location: "MU 220 Turquoise",
+    attendanceMode: "in-person",
     description:
       "Our flagship career fair, co-hosted with GCI. Format: employer panel first, then student-employer interaction. Company partners: Microsoft, Amazon, AWS, TSMC, DoorDash, American Express, IBM.",
     outcome:
@@ -229,6 +239,7 @@ const rawEventsData = [
     isoDate: "2026-03-06",
     time: "5:00-7:00 PM",
     location: "GCN × ACEL",
+    attendanceMode: "in-person",
     description:
       "Our first debate-format panel. Panelists argued opposing positions on startup vs. corporate careers. Co-hosted with ACEL (Asian Corporate and Entrepreneur Leaders).",
     outcome:
@@ -250,6 +261,7 @@ const rawEventsData = [
     isoDate: "2026-04-01",
     time: "4:30-6:30 PM",
     location: "COOR L1-84",
+    attendanceMode: "in-person",
     description:
       "Second Careers in Conversation panel. Speakers: Dan Rodriguez (VP & GM, Edge Computing Group, Intel), Praveen Mosur (Intel Fellow, Product Architecture), Jenna Lapaglia (VP & CFO Operations, Finance Front-End Group). Highest-profile speaker lineup of the year.",
     outcome: "~70 registrants, the highest Careers in Conversation attendance to date.",
@@ -270,6 +282,7 @@ const rawEventsData = [
     isoDate: "2026-04-18",
     time: "",
     location: "LSE104 (Sat), ECG101 (Sun)",
+    attendanceMode: "in-person",
     description:
       "Our biggest event of the year: Arizona's first Go-To-Market Strategy Hackathon, co-hosted with ACM. Not a software-build hackathon. Teams built go-to-market strategies for real products from real sponsors. 8 sponsoring companies. 4 main tracks + 4 side tracks. $11K in cash prizes. $4K in sponsor support. Track Sponsors: Moatable, Ink'd, Hydrawav3. Full sponsors: Red Bull, Lofty, Vector, Syncron, TruckerPath, Moatable, InsForge, 11ElevenLabs, HYDRAWAV3, ASU ISSC, FutureSelf, OLIPOP.",
     outcome:
@@ -293,6 +306,7 @@ const rawEventsData = [
     isoDate: "2026-09-10",
     time: "6:00-7:30 PM",
     location: "Tempe Campus MU 220",
+    attendanceMode: "in-person",
     description:
       "Get your resume reviewed by recruiters and learn how to optimize it for applicant tracking systems used by top employers.",
     outcome: null,
@@ -313,6 +327,7 @@ const rawEventsData = [
     isoDate: "2026-10-08",
     time: "5:30-7:00 PM",
     location: "Virtual Zoom",
+    attendanceMode: "virtual",
     description:
       "Master LinkedIn's algorithm, cold outreach messaging, and how to build a recruiter-facing presence that converts.",
     outcome: null,
@@ -333,6 +348,7 @@ const rawEventsData = [
     isoDate: "2026-11-12",
     time: "6:00-8:00 PM",
     location: "Tempe Campus MU 242",
+    attendanceMode: "in-person",
     description:
       "Paired mock interviews across behavioral, case, and technical formats with feedback from GCN mentors and industry volunteers.",
     outcome: null,
@@ -353,6 +369,7 @@ const rawEventsData = [
     isoDate: "2026-12-03",
     time: "5:00-6:30 PM",
     location: "Tempe Campus WPC 101",
+    attendanceMode: "in-person",
     description:
       "DSO-led session on CPT/OPT application timelines, employer requirements, and common mistakes that delay work authorization.",
     outcome: null,

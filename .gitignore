@@ -19,3 +19,10 @@ Thumbs.db
 # IDE
 .vscode/
 .idea/
+
+# Claude Code local settings
+.claude/
+
+# Local-only source files, not used by the site
+GCN - Past Event Posters/
+WEB OPTIMIZATION PROPOSAL_ GCN AT ASU.pdf
