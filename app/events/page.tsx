@@ -55,6 +55,9 @@ function parseEventTime(time: string): ParsedTime | null {
   };
 }
 
+type PlaceLocation = { "@type": "Place"; name: string };
+type VirtualLocation = { "@type": "VirtualLocation"; name: string };
+
 interface EventJsonLd {
   "@context": "https://schema.org";
   "@type": "Event";
@@ -64,10 +67,38 @@ interface EventJsonLd {
   endDate?: string;
   eventAttendanceMode: string;
   eventStatus: string;
-  location: { "@type": "Place"; name: string };
+  location: PlaceLocation | VirtualLocation | [PlaceLocation, VirtualLocation];
   image?: string;
   organizer: { "@type": "Organization"; name: string; url: string };
   offers?: { "@type": "Offer"; url: string; availability: string };
+}
+
+function buildAttendance(
+  event: Event
+): Pick<EventJsonLd, "eventAttendanceMode" | "location"> {
+  const place: PlaceLocation = { "@type": "Place", name: event.location };
+  const virtualLocation: VirtualLocation = {
+    "@type": "VirtualLocation",
+    name: event.location,
+  };
+
+  switch (event.attendanceMode) {
+    case "virtual":
+      return {
+        eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
+        location: virtualLocation,
+      };
+    case "hybrid":
+      return {
+        eventAttendanceMode: "https://schema.org/MixedEventAttendanceMode",
+        location: [place, virtualLocation],
+      };
+    case "in-person":
+      return {
+        eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+        location: place,
+      };
+  }
 }
 
 function buildEventJsonLd(event: Event): EventJsonLd {
@@ -83,9 +114,8 @@ function buildEventJsonLd(event: Event): EventJsonLd {
     name: event.name,
     description: event.description,
     startDate,
-    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    ...buildAttendance(event),
     eventStatus: "https://schema.org/EventScheduled",
-    location: { "@type": "Place", name: event.location },
     organizer: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
   };
 
