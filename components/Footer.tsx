@@ -97,7 +97,7 @@ export default function Footer() {
                   className="gcn-link-underline text-sm transition-colors hover:text-white"
                   style={{ color: "rgba(255,255,255,0.72)" }}
                 >
-                  Join Us
+                  Join GCN
                 </Link>
               </li>
             </ul>
