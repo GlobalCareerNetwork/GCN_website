@@ -2,6 +2,15 @@ import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/site";
 import { RESOURCES, type Resource } from "@/lib/data/resources";
 import SectionEyebrow from "@/components/SectionEyebrow";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 const resourcesDescription =
   "Curated career and immigration resources for GCN at ASU members — job search platforms, H-1B research tools, international student career guidance and AI tools at ASU.";
@@ -54,6 +63,27 @@ function ResourceIcon({ icon }: { icon: Resource["icon"] }) {
     default:
       return null;
   }
+}
+
+function ExternalLinkGlyph() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path
+        d="M6.5 3H3.5a1 1 0 00-1 1v8a1 1 0 001 1h8a1 1 0 001-1v-3"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M9 2.5h4v4M13 2.5L7 8.5"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
 }
 
 // ── Page ──────────────────────────────────────────────────────────────────────
@@ -120,50 +150,53 @@ export default function ResourcesPage() {
             <SectionEyebrow num="01">Curated Career &amp; Immigration Tools</SectionEyebrow>
           </div>
 
-          <div
-            className="overflow-hidden mb-10"
-            style={{ border: "1px solid var(--color-gray-border)" }}
-          >
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 -mt-px -ml-px">
-              {RESOURCES.map((resource) => (
-                <div
-                  key={resource.id}
-                  className="flex flex-col gap-4 p-6"
-                  style={{
-                    borderTop: "1px solid var(--color-gray-border)",
-                    borderLeft: "1px solid var(--color-gray-border)",
-                  }}
-                >
-                  <div
-                    className="w-11 h-11 flex items-center justify-center flex-shrink-0"
-                    style={{ color: "var(--color-brand-red)" }}
-                  >
-                    <ResourceIcon icon={resource.icon} />
-                  </div>
-                  <p
-                    className="font-bold uppercase tracking-wide"
-                    style={{ fontSize: "13px", letterSpacing: "0.1em", color: "var(--color-black-soft)" }}
-                  >
-                    {resource.title}
-                  </p>
-                  <p
-                    className="text-sm leading-relaxed flex-1"
-                    style={{ color: "var(--color-gray-text)" }}
-                  >
-                    {resource.description}
-                  </p>
-                  <a
-                    href={resource.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="gcn-btn gcn-btn-primary inline-flex items-center justify-center gap-2 px-5 py-2.5 text-xs font-semibold text-white uppercase tracking-wide self-start"
-                    style={{ letterSpacing: "0.12em" }}
-                  >
-                    Visit Resource →
-                  </a>
-                </div>
-              ))}
-            </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+            {RESOURCES.map((resource) => (
+              // Outer wrapper never transforms — it's what :hover binds to, so the
+              // hover boundary stays fixed even as the Card lifts. Lifting the Card
+              // itself on its own :hover would shift its box out from under the
+              // cursor and flicker (classic translate-on-hover-target bug).
+              <div key={resource.id} className="group">
+                <Card className="transition-transform duration-200 ease-out group-hover:-translate-y-1 group-hover:shadow-[var(--shadow-hover)]">
+                  <CardHeader>
+                    <div
+                      className="w-11 h-11 flex items-center justify-center flex-shrink-0"
+                      style={{ color: "var(--color-brand-red)" }}
+                    >
+                      <ResourceIcon icon={resource.icon} />
+                    </div>
+                    <CardAction style={{ color: "var(--color-gray-muted)" }}>
+                      <ExternalLinkGlyph />
+                    </CardAction>
+                    <CardTitle
+                      className="font-bold uppercase tracking-wide"
+                      style={{ fontSize: "13px", letterSpacing: "0.1em", color: "var(--color-black-soft)" }}
+                    >
+                      {resource.title}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="flex-1">
+                    <CardDescription
+                      className="leading-relaxed"
+                      style={{ color: "var(--color-gray-text)" }}
+                    >
+                      {resource.description}
+                    </CardDescription>
+                  </CardContent>
+                  <CardFooter>
+                    <a
+                      href={resource.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="gcn-btn gcn-btn-primary inline-flex items-center justify-center gap-2 px-5 py-2.5 text-xs font-semibold text-white uppercase tracking-wide"
+                      style={{ letterSpacing: "0.12em" }}
+                    >
+                      Visit Resource →
+                    </a>
+                  </CardFooter>
+                </Card>
+              </div>
+            ))}
           </div>
         </div>
       </section>
