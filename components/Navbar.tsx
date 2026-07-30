@@ -13,10 +13,6 @@ const NAV_LINKS = [
   { href: "/sponsor", label: "Sponsor" },
 ];
 
-// Official ASU Sun Devil Central club signup — the single "join" destination
-// sitewide (replaces the old in-house application form).
-const JOIN_URL = "https://sundevilcentral.eoss.asu.edu/globalcareernetwork/club_signup";
-
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -110,14 +106,12 @@ export default function Navbar() {
             );
           })}
           <li>
-            <a
-              href={JOIN_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/join"
               className="gcn-btn gcn-btn-primary px-4 py-2 rounded-lg text-sm font-semibold text-white"
             >
               Join GCN
-            </a>
+            </Link>
           </li>
         </ul>
 
@@ -185,15 +179,13 @@ export default function Navbar() {
               </Link>
             );
           })}
-          <a
-            href={JOIN_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/join"
             className="gcn-btn gcn-btn-primary inline-flex justify-center px-4 py-2.5 rounded-lg text-sm font-semibold text-white"
             onClick={() => setOpen(false)}
           >
             Join GCN
-          </a>
+          </Link>
         </div>
       )}
     </header>

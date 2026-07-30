@@ -10,6 +10,7 @@ const ROUTES: { path: string; priority: number }[] = [
   { path: "/events", priority: 0.8 },
   { path: "/sponsor", priority: 0.8 },
   { path: "/resources", priority: 0.7 },
+  { path: "/join", priority: 0.8 },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

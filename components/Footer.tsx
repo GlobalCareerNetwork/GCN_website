@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { SOCIAL_LINKEDIN } from "@/lib/site";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
@@ -10,11 +11,9 @@ const NAV_LINKS = [
   { href: "/sponsor", label: "Sponsor" },
 ];
 
-const JOIN_URL = "https://sundevilcentral.eoss.asu.edu/globalcareernetwork/club_signup";
-
 const SOCIAL_LINKS = [
   {
-    href: "https://www.linkedin.com/company/global-career-network-asu",
+    href: SOCIAL_LINKEDIN,
     label: "LinkedIn",
     icon: (
       <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -93,15 +92,13 @@ export default function Footer() {
                 </li>
               ))}
               <li>
-                <a
-                  href={JOIN_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href="/join"
                   className="gcn-link-underline text-sm transition-colors hover:text-white"
                   style={{ color: "rgba(255,255,255,0.72)" }}
                 >
-                  Join Us
-                </a>
+                  Join GCN
+                </Link>
               </li>
             </ul>
           </nav>
