@@ -4,8 +4,6 @@ import CountUp from "@/components/CountUp";
 import TypewriterText from "@/components/TypewriterText";
 import type { CSSProperties } from "react";
 
-const JOIN_URL = "https://sundevilcentral.eoss.asu.edu/globalcareernetwork/club_signup";
-
 const MINI_STATS = [
   { end: 2000, suffix: "+", label: "Members" },
   { end: 88,   suffix: "",  label: "Countries" },
@@ -181,17 +179,15 @@ export default function HeroSection() {
               </p>
 
               <div className="flex flex-wrap gap-3 shrink-0">
-                <a
-                  href={JOIN_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href="/join"
                   className="gcn-btn gcn-btn-primary gcn-glow-pulse inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white"
                 >
                   Join GCN Today
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                     <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
-                </a>
+                </Link>
 
                 <Link
                   href="/events"

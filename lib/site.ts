@@ -13,6 +13,11 @@ export const SITE_DESCRIPTION =
 
 export const SOCIAL_INSTAGRAM = "https://www.instagram.com/gcn.asu";
 
+export const SOCIAL_LINKEDIN = "https://www.linkedin.com/company/global-career-network";
+
+export const JOIN_SUNDEVIL_CENTRAL_URL =
+  "https://sundevilcentral.eoss.asu.edu/globalcareernetwork/club_signup";
+
 // Next.js metadata objects don't deep-merge between the root layout and a
 // page — setting a page-level `openGraph`/`twitter` REPLACES the root's
 // entire object, dropping fields like `images`/`type` you didn't repeat. This
