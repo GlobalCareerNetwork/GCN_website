@@ -73,6 +73,12 @@ Body has 5 warm radial gradient blotches in `background-image` (simulates foxing
 - `/team` → OrgTree (contains TeamCard)
 - `/events` → EventsTimeline
 - `/sponsor` → `app/sponsor/page.tsx` (server component, all inline)
+- `/resources` → `app/resources/page.tsx` (server component, maps over `RESOURCES` from `lib/data/resources.ts`)
+
+---
+
+## Adding a Resource Link
+To add a new resource link to the Resources page, add an entry to the `RESOURCES` array in `lib/data/resources.ts` following the existing `ResourceSchema` — the page itself never needs to change.
 
 ---
 
