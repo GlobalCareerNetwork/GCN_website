@@ -157,7 +157,7 @@ export default function ResourcesPage() {
               // itself on its own :hover would shift its box out from under the
               // cursor and flicker (classic translate-on-hover-target bug).
               <div key={resource.id} className="group">
-                <Card className="transition-transform duration-200 ease-out group-hover:-translate-y-1 group-hover:shadow-[var(--shadow-hover)]">
+                <Card className="h-full transition-transform duration-200 ease-out group-hover:-translate-y-1 group-hover:shadow-[var(--shadow-hover)]">
                   <CardHeader>
                     <div
                       className="w-11 h-11 flex items-center justify-center flex-shrink-0"
