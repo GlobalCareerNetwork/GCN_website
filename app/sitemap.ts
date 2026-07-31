@@ -1,7 +1,9 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
 
-// Add new routes here as they're built.
+// Add new routes here as they're built. The "coming soon" placeholder page
+// (/achievements) is intentionally left out — it's also marked
+// `robots: { index: false }` on the page itself until real content ships.
 const ROUTES: { path: string; priority: number }[] = [
   { path: "/", priority: 1 },
   { path: "/team", priority: 0.7 },
@@ -9,7 +11,6 @@ const ROUTES: { path: string; priority: number }[] = [
   { path: "/sponsor", priority: 0.8 },
   { path: "/resources", priority: 0.7 },
   { path: "/join", priority: 0.8 },
-  { path: "/achievements", priority: 0.7 },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
