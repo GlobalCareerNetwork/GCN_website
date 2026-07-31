@@ -25,7 +25,7 @@ const LETTER_BODY = [
 const letterParaStyle = {
   fontSize: "16.5px",
   lineHeight: 1.85,
-  color: "rgba(255,255,255,0.72)",
+  color: "rgba(255,255,255,0.84)",
 } as const;
 
 // Full-width homepage section — "03 President's Note".
@@ -36,6 +36,7 @@ const letterParaStyle = {
 export default function PresidentsNote() {
   return (
     <section
+      className="gcn-president-stage"
       style={{
         borderTop: "1px solid rgba(255,255,255,0.08)",
         borderBottom: "1px solid rgba(255,255,255,0.08)",
@@ -43,7 +44,7 @@ export default function PresidentsNote() {
       }}
       aria-labelledby="presidents-note-heading"
     >
-      <div className="mx-auto max-w-5xl px-6 py-20 md:py-28">
+      <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
         <Reveal>
           <SectionEyebrow num="03" dark>
             President&apos;s Note
@@ -52,7 +53,7 @@ export default function PresidentsNote() {
 
         {/* ── Pull quote — the visual anchor of the section ── */}
         <Reveal delay={80}>
-          <div className="relative mb-14 md:mb-20" style={{ maxWidth: "30rem" }}>
+          <div className="gcn-president-quote relative mb-12 md:mb-16">
             <span
               aria-hidden="true"
               className="block select-none"
@@ -85,41 +86,38 @@ export default function PresidentsNote() {
         </Reveal>
 
         <Reveal delay={160}>
-          <div className="grid grid-cols-1 md:grid-cols-[190px_1px_1fr] gap-10 md:gap-14">
+          <div className="gcn-president-letter-wrap">
 
             {/* ── Portrait — enlarged, given room to breathe ── */}
             {/* align-self: start keeps this grid cell from stretching to the letter
                 column's height (default grid align-items: stretch), which is what was
                 forcing the aspect-ratio square into a tall vertical strip. */}
-            <div className="flex justify-center md:justify-start" style={{ alignSelf: "start" }}>
+            <aside className="gcn-president-aside">
               <div
                 className="relative overflow-hidden shrink-0 w-full"
                 style={{
-                  maxWidth: "190px",
+                  maxWidth: "230px",
                   aspectRatio: "1 / 1",
-                  border: "1px solid rgba(255,255,255,0.15)",
+                  border: "1px solid rgba(255,255,255,0.22)",
                 }}
               >
                 <Image
                   src="/images/team/keshava.png"
                   alt="Keshava Olagappaa Subramanian, President of the Global Career Network"
                   fill
-                  sizes="190px"
+                  sizes="230px"
                   className="object-cover object-top"
                   style={{ filter: "grayscale(0.25) contrast(1.05)" }}
                 />
               </div>
-            </div>
-
-            {/* Letter-margin rule */}
-            <div
-              className="hidden md:block w-px"
-              style={{ background: "rgba(255,255,255,0.14)" }}
-              aria-hidden="true"
-            />
+              <div className="gcn-president-id">
+                <p>Keshava Olagappaa Subramanian</p>
+                <span>President, Global Career Network</span>
+              </div>
+            </aside>
 
             {/* ── Letter body ── */}
-            <article style={{ maxWidth: "64ch" }}>
+            <article className="gcn-president-letter">
               <p className="mb-8" style={letterParaStyle}>
                 Dear Valued Partner,
               </p>
@@ -136,7 +134,7 @@ export default function PresidentsNote() {
                     fontFamily: "var(--font-serif)",
                     fontStyle: "italic",
                     fontSize: "1.15rem",
-                    color: "rgba(255,255,255,0.75)",
+                    color: "rgba(255,255,255,0.82)",
                   }}
                 >
                   Warmly,
@@ -155,7 +153,7 @@ export default function PresidentsNote() {
                   </p>
                   <p
                     className="mt-1"
-                    style={{ fontSize: "13px", letterSpacing: "0.04em", color: "rgba(255,255,255,0.55)" }}
+                    style={{ fontSize: "13px", letterSpacing: "0.04em", color: "rgba(255,255,255,0.72)" }}
                   >
                     President, Global Career Network
                   </p>

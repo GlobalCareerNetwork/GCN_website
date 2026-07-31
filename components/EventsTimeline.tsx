@@ -15,13 +15,13 @@ export default function EventsTimeline() {
   const upcomingEvents = getEventsSortedByDate(getUpcomingEvents());
 
   return (
-    <div style={{ background: "var(--color-surface)" }}>
+    <div className="gcn-events-page" style={{ background: "var(--color-surface)" }}>
 
       {/* ── Newspaper masthead ── */}
-      <div style={{ background: "var(--color-surface-white)" }}>
+      <div className="gcn-page-masthead gcn-page-masthead-chronicle" style={{ background: "var(--color-surface-white)" }}>
         <div className="mx-auto max-w-5xl px-6 pt-12 pb-5 text-center">
           <h1
-            className="leading-none mb-3"
+            className="gcn-masthead-title leading-none mb-3"
             style={{
               fontFamily: "var(--font-serif)",
               fontWeight: 700,

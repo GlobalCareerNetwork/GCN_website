@@ -1,33 +1,23 @@
 import type { Metadata } from "next";
-import { Inter, Cormorant_Garamond, Space_Grotesk } from "next/font/google";
+import { Plus_Jakarta_Sans, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import CursorLayer from "@/components/CursorLayer";
 import Footer from "@/components/Footer";
 import { Analytics } from "@vercel/analytics/next";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, pageMetadata } from "@/lib/site";
 
-// Inter — clean, highly readable sans for body and UI (SIL OFL 1.1 license)
-const inter = Inter({
-  variable: "--font-inter",
+const plusJakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-plus-jakarta-sans",
   subsets: ["latin"],
   display: "swap",
 });
 
-// Cormorant Garamond — elegant display serif for headings and wordmarks (SIL OFL 1.1 license)
-const cormorantGaramond = Cormorant_Garamond({
-  variable: "--font-cormorant",
+const playfairDisplay = Playfair_Display({
+  variable: "--font-playfair",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800", "900"],
   style: ["normal", "italic"],
-  display: "swap",
-});
-
-// Space Grotesk — accent font used sparingly for stat numbers, buttons, and
-// badges only (SIL OFL 1.1 license). Never used for body copy or headings.
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
   display: "swap",
 });
 
@@ -60,11 +50,15 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${cormorantGaramond.variable} ${spaceGrotesk.variable} h-full`}>
+    <html
+      lang="en"
+      className={`${plusJakartaSans.variable} ${playfairDisplay.variable} h-full`}
+    >
       <body className="min-h-full flex flex-col antialiased">
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
+        <CursorLayer />
         <Navbar />
         <main id="main-content" className="flex-1">
           {children}

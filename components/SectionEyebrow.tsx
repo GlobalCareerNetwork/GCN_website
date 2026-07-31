@@ -13,17 +13,25 @@ interface SectionEyebrowProps {
 // (Who We Are / What We Do / President's Note): "01 ── LABEL".
 export default function SectionEyebrow({ num, children, reverse = false, dark = false }: SectionEyebrowProps) {
   return (
-    <div className={`flex items-center gap-3 mb-5 ${reverse ? "flex-row-reverse" : ""}`}>
+    <div className={`flex items-center gap-3 mb-5 min-w-0 ${reverse ? "flex-row-reverse" : ""}`}>
       <span
         className="font-black shrink-0"
         style={{ fontSize: "12px", letterSpacing: "0.22em", color: "var(--color-brand-red)" }}
       >
         {num}
       </span>
-      <div style={{ flex: 1, height: "1px", background: dark ? "rgba(255,255,255,0.14)" : "rgba(12,12,14,0.12)" }} />
+      <div style={{ flex: 1, minWidth: "1.75rem", height: "1px", background: dark ? "rgba(255,255,255,0.14)" : "rgba(12,12,14,0.12)" }} />
       <span
-        className="font-bold shrink-0 uppercase"
-        style={{ fontSize: "12px", letterSpacing: "0.18em", color: dark ? "rgba(255,255,255,0.75)" : "var(--color-gray-muted)" }}
+        className="font-bold uppercase"
+        style={{
+          minWidth: 0,
+          maxWidth: "min(70vw, 36rem)",
+          overflowWrap: "break-word",
+          textAlign: reverse ? "left" : "right",
+          fontSize: "12px",
+          letterSpacing: "0.18em",
+          color: dark ? "rgba(255,255,255,0.75)" : "var(--color-gray-muted)",
+        }}
       >
         {children}
       </span>

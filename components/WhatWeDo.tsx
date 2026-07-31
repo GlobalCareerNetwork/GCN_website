@@ -15,6 +15,7 @@ const SUPPORT_ROW = [
 export default function WhatWeDo() {
   return (
     <section
+      className="gcn-story-section gcn-story-section-muted"
       style={{
         borderTop: "1px solid var(--color-gray-border)",
         borderBottom: "1px solid var(--color-gray-border)",
@@ -31,22 +32,6 @@ export default function WhatWeDo() {
                via `order` so the composition reads as WhoWeAre's mirror. ── */}
           <Reveal delay={0} className="md:order-2">
             <div className="relative md:text-right">
-              <span
-                aria-hidden="true"
-                className="absolute select-none pointer-events-none hidden md:block gcn-gradient-text"
-                style={{
-                  fontFamily: "var(--font-serif)",
-                  fontWeight: 700,
-                  fontSize: "clamp(7rem, 16vw, 12rem)",
-                  lineHeight: 1,
-                  opacity: 0.09,
-                  top: "-1.2rem",
-                  right: "-0.5rem",
-                  zIndex: 0,
-                }}
-              >
-                02
-              </span>
               <div className="relative" style={{ zIndex: 1 }}>
                 <SectionEyebrow num="02" reverse>
                   What We Do

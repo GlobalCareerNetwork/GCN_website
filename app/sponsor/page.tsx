@@ -1,5 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import {
+  SponsorBenefitPill,
+  SponsorImpactItem,
+  SponsorLogoGrid,
+  SponsorProgramCard,
+  SponsorScrollProgress,
+  SponsorSectionEyebrow,
+  SponsorSignalChip,
+  SponsorStatCard,
+} from "@/components/SponsorAtoms";
+import SponsorMotionLayer from "@/components/SponsorMotionLayer";
+import SponsorTierSnap from "@/components/SponsorTierSnap";
 import { pageMetadata } from "@/lib/site";
 
 const sponsorDescription =
@@ -16,10 +28,10 @@ const TIERS = [
     name: "Gold Sponsor",
     price: "$1,500+",
     badge: "GOLD",
-    accent: "#B8892A",
-    accentBg: "rgba(184,137,42,0.05)",
-    badgeFg: "#8A6515",
-    borderColor: "#B8892A",
+    metal: "gold",
+    accent: "#B8872D",
+    accentBg: "rgba(184,135,45,0.12)",
+    foil: "#F4D27B",
     hero: true,
     popular: false,
     benefits: [
@@ -37,10 +49,10 @@ const TIERS = [
     name: "Silver Sponsor",
     price: "$1,000",
     badge: "SILVER",
-    accent: "#707070",
-    accentBg: "rgba(112,112,112,0.04)",
-    badgeFg: "#4A4A4A",
-    borderColor: "#909090",
+    metal: "silver",
+    accent: "#8D929A",
+    accentBg: "rgba(141,146,154,0.13)",
+    foil: "#D9DEE5",
     hero: false,
     popular: false,
     benefits: [
@@ -57,10 +69,10 @@ const TIERS = [
     name: "Bronze Sponsor",
     price: "$500",
     badge: "BRONZE",
-    accent: "#9B6A3A",
-    accentBg: "rgba(155,106,58,0.05)",
-    badgeFg: "#7A4E22",
-    borderColor: "#9B6A3A",
+    metal: "bronze",
+    accent: "#9A5A32",
+    accentBg: "rgba(154,90,50,0.13)",
+    foil: "#C98955",
     hero: false,
     popular: true,
     benefits: [
@@ -75,10 +87,10 @@ const TIERS = [
     name: "Community Partner",
     price: "In-Kind / Collaborative",
     badge: "PARTNER",
+    metal: "partner",
     accent: "var(--color-brand-red)",
     accentBg: "rgba(158,34,26,0.03)",
-    badgeFg: "var(--color-brand-red)",
-    borderColor: "var(--color-brand-red)",
+    foil: "var(--color-brand-red-light)",
     hero: false,
     popular: false,
     benefits: [
@@ -267,58 +279,26 @@ const AT_A_GLANCE = [
   },
 ];
 
-// ── Shared eyebrow component ──────────────────────────────────────────────────
-function SectionEyebrow({ num, label, right }: { num: string; label: string; right?: string }) {
-  return (
-    <div
-      className="flex items-center gap-4 py-2.5"
-      style={{ borderBottom: "1px solid var(--color-gray-border)" }}
-    >
-      <span
-        className="font-black uppercase shrink-0"
-        style={{ fontSize: "12px", letterSpacing: "0.22em", color: "var(--color-brand-red)" }}
-      >
-        {num}
-      </span>
-      <div style={{ flex: 1, height: "1px", background: "rgba(12,12,14,0.12)" }} />
-      <span
-        className="font-bold uppercase shrink-0"
-        style={{ fontSize: "12px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}
-      >
-        {label}
-      </span>
-      {right && (
-        <>
-          <div style={{ flex: 1, height: "1px", background: "rgba(12,12,14,0.12)" }} />
-          <span
-            className="font-bold uppercase shrink-0 hidden sm:block"
-            style={{ fontSize: "12px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}
-          >
-            {right}
-          </span>
-        </>
-      )}
-    </div>
-  );
-}
+const PARTNER_LOGOS = [
+  { src: "/images/sponsors/amazon.png", alt: "Amazon" },
+  { src: "/images/sponsors/nvidia.png", alt: "NVIDIA" },
+  { src: "/images/sponsors/intel.png", alt: "Intel" },
+  { src: "/images/sponsors/jpmc.svg", alt: "JPMorgan Chase" },
+  { src: "/images/sponsors/pwc.png", alt: "PwC" },
+  { src: "/images/sponsors/bain.svg", alt: "Bain & Company" },
+  { src: "/images/sponsors/tsmc.png", alt: "TSMC" },
+  { src: "/images/sponsors/perplexity.png", alt: "Perplexity AI" },
+];
 
 // ── Page ──────────────────────────────────────────────────────────────────────
 export default function SponsorPage() {
   return (
-    <div style={{ background: "var(--color-surface)" }}>
+    <SponsorMotionLayer className="gcn-sponsor-page" style={{ background: "var(--color-surface)" }}>
+      <SponsorScrollProgress />
 
-      {/* ── NEWSPAPER MASTHEAD HEADER ── */}
-      <div
-        style={{
-          borderBottom: "2px solid var(--color-black-soft)",
-          background: "var(--color-surface-white)",
-        }}
-      >
-        {/* Top eyebrow rule */}
-        <div
-          className="mx-auto max-w-7xl px-6 py-2.5 flex items-center gap-4"
-          style={{ borderBottom: "1px solid var(--color-gray-border)" }}
-        >
+      {/* ── Sponsor masthead starts immediately under navbar ── */}
+      <div className="gcn-sponsor-kicker-row">
+        <div className="mx-auto max-w-7xl px-6 py-2.5 flex items-center gap-4">
           <span className="font-black uppercase shrink-0" style={{ fontSize: "12px", letterSpacing: "0.22em", color: "var(--color-brand-red)" }}>
             GCN
           </span>
@@ -331,18 +311,26 @@ export default function SponsorPage() {
             Arizona State University
           </span>
         </div>
+      </div>
 
-        {/* Masthead */}
-        <div className="mx-auto max-w-7xl px-6 py-14 md:py-20">
+      {/* ── Sponsor headline ── */}
+      <div
+        className="gcn-page-masthead gcn-page-masthead-split gcn-sponsor-hero"
+        style={{
+          borderBottom: "2px solid var(--color-black-soft)",
+          background: "var(--color-surface-white)",
+        }}
+      >
+        <div className="mx-auto max-w-7xl px-6 py-8 md:py-12">
           <div className="grid grid-cols-1 md:grid-cols-[1fr_1px_1fr] gap-10 md:gap-16 items-stretch">
             {/* Left: headline */}
-            <div>
+            <div className="gcn-sponsor-hero-copy">
               <p className="font-bold uppercase mb-2" style={{ fontSize: "12px", letterSpacing: "0.2em", color: "var(--color-brand-red)" }}>
                 2026 Sponsorship Listings
               </p>
               <h1
                 id="sponsor-heading"
-                className="mb-4"
+                className="gcn-masthead-title mb-4"
                 style={{
                   fontFamily: "var(--font-serif)",
                   fontWeight: 700,
@@ -357,6 +345,14 @@ export default function SponsorPage() {
               <p className="text-base font-medium" style={{ color: "var(--color-brand-red)" }}>
                 Connect. Learn. Succeed.
               </p>
+              <div className="gcn-sponsor-signal" aria-hidden="true">
+                <SponsorSignalChip>Brand visibility</SponsorSignalChip>
+                <SponsorSignalChip>Recruiting access</SponsorSignalChip>
+                <SponsorSignalChip>Speaker moments</SponsorSignalChip>
+                <SponsorSignalChip>Event presence</SponsorSignalChip>
+                <SponsorSignalChip>Talent pipeline</SponsorSignalChip>
+                <SponsorSignalChip>Campus credibility</SponsorSignalChip>
+              </div>
             </div>
 
             {/* Vertical rule */}
@@ -366,48 +362,36 @@ export default function SponsorPage() {
               aria-hidden="true"
             />
 
-            {/* Right: quick stats — open, borderless dashboard-style grid with icons */}
-            <div>
+            {/* Right: compact sponsorship facts */}
+            <div className="gcn-sponsor-hero-facts">
               <p className="font-bold uppercase mb-4" style={{ fontSize: "12px", letterSpacing: "0.2em", color: "var(--color-gray-muted)" }}>
                 At a Glance
               </p>
-              <div className="grid grid-cols-2 gap-x-8 gap-y-8">
+              <div className="gcn-sponsor-stat-grid">
                 {AT_A_GLANCE.map(({ value, label, icon }) => (
-                  <div key={label} className="flex items-start gap-2.5">
-                    <span className="mt-0.5 flex-shrink-0" style={{ color: "var(--color-brand-red)" }} aria-hidden="true">
-                      {icon}
-                    </span>
-                    <div>
-                      <p
-                        className="font-bold leading-none"
-                        style={{ fontFamily: "var(--font-serif)", fontSize: "1.2rem", color: "var(--color-brand-red)" }}
-                      >
-                        {value}
-                      </p>
-                      <p className="text-xs mt-1 leading-snug" style={{ color: "var(--color-gray-muted)" }}>{label}</p>
-                    </div>
-                  </div>
+                  <SponsorStatCard key={label} value={value} label={label} icon={icon} />
                 ))}
               </div>
             </div>
           </div>
         </div>
       </div>
-      {/* Thin companion rule — completes the thick-thin double rule at bottom of masthead */}
-      <div style={{ height: "1px", background: "rgba(12,12,14,0.22)", marginTop: "3px" }} />
-
       {/* ── WHY PARTNER ── */}
       <section
+        id="sponsor-why"
         className="py-0"
         style={{ borderBottom: "1px solid var(--color-gray-border)", background: "#fff" }}
         aria-labelledby="why-partner-heading"
       >
         <div className="mx-auto max-w-7xl px-6">
           <div className="py-6">
-            <SectionEyebrow num="01" label="Why Partner With GCN" right="Partnership Benefits" />
+            <SponsorSectionEyebrow num="01" label="Why Partner With GCN" right="Partnership Benefits" />
           </div>
 
-          <div className="grid md:grid-cols-[1fr_1px_1fr] gap-12 md:gap-20 items-start py-14 md:py-16">
+          <div
+            className="gcn-sponsor-benefit-grid grid md:grid-cols-[1fr_1px_1fr] gap-12 md:gap-20 items-start py-14 md:py-16"
+            data-sponsor-reveal
+          >
             {/* Left: article text */}
             <div>
               <h2
@@ -456,21 +440,7 @@ export default function SponsorPage() {
             <div>
               <div className="grid grid-cols-2 gap-x-8 gap-y-9">
                 {BENEFITS.map(({ label, icon }) => (
-                  <div key={label} className="flex items-center gap-3">
-                    <span
-                      className="flex items-center justify-center flex-shrink-0 rounded-full"
-                      style={{
-                        width: "46px",
-                        height: "46px",
-                        background: "var(--color-brand-red-light)",
-                        color: "var(--color-brand-red)",
-                      }}
-                      aria-hidden="true"
-                    >
-                      {icon}
-                    </span>
-                    <span className="text-sm font-semibold leading-snug" style={{ color: "var(--color-black-soft)" }}>{label}</span>
-                  </div>
+                  <SponsorBenefitPill key={label} label={label} icon={icon} />
                 ))}
               </div>
             </div>
@@ -478,20 +448,62 @@ export default function SponsorPage() {
         </div>
       </section>
 
-      {/* ── SPONSORSHIP TIERS — newspaper classified layout ── */}
+      {/* ── PARTNER PROOF ── */}
       <section
-        className="py-0"
+        id="sponsor-proof"
+        className="gcn-sponsor-proof py-0"
+        style={{ background: "var(--color-surface-white)", borderBottom: "1px solid var(--color-gray-border)" }}
+        aria-labelledby="partner-proof-heading"
+      >
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="py-6">
+            <SponsorSectionEyebrow num="02" label="Partner Proof" right="Real GCN Ecosystem" />
+          </div>
+
+          <div className="gcn-sponsor-proof-grid" data-sponsor-reveal>
+            <div>
+              <p
+                className="font-bold uppercase mb-3"
+                style={{ fontSize: "12px", letterSpacing: "0.2em", color: "var(--color-brand-red)" }}
+              >
+                Trusted rooms, real companies
+              </p>
+              <h2
+                id="partner-proof-heading"
+                className="font-bold leading-tight"
+                style={{
+                  fontFamily: "var(--font-serif)",
+                  fontSize: "clamp(1.55rem, 2.8vw, 2.2rem)",
+                  color: "var(--color-black-soft)",
+                  letterSpacing: "-0.015em",
+                }}
+              >
+                GCN programs have brought students into conversations with
+                recognizable employers, sponsors, and industry communities.
+              </h2>
+            </div>
+
+            <SponsorLogoGrid logos={PARTNER_LOGOS} />
+          </div>
+        </div>
+      </section>
+
+      {/* ── SPONSORSHIP TIERS — sticky snap experience ── */}
+      <section
+        id="sponsor-tiers"
+        className="gcn-sponsor-tier-section py-0"
         aria-labelledby="tiers-heading"
         style={{ borderBottom: "1px solid var(--color-gray-border)" }}
       >
         <div className="mx-auto max-w-7xl px-6">
           <div className="py-6">
-            <SectionEyebrow num="02" label="Sponsorship Tiers: 2026 Season" right="Classified Listings" />
+            <SponsorSectionEyebrow num="03" label="Sponsorship Tiers: 2026 Season" right="Focused Listings" />
           </div>
 
           {/* Scope note */}
           <div
-            className="flex items-start gap-3 py-4 my-4"
+            className="gcn-sponsor-scope-note flex items-start gap-3 py-4 my-4"
+            data-sponsor-reveal
             style={{
               borderTop: "1px solid var(--color-gray-border)",
               borderBottom: "1px solid var(--color-gray-border)",
@@ -499,10 +511,10 @@ export default function SponsorPage() {
             role="note"
           >
             <svg width="16" height="16" viewBox="0 0 18 18" fill="none" className="flex-shrink-0 mt-0.5" aria-hidden="true">
-              <circle cx="9" cy="9" r="7.5" stroke="#B8892A" strokeWidth="1.4" />
-              <path d="M9 8v5M9 6v.5" stroke="#B8892A" strokeWidth="1.6" strokeLinecap="round" />
+              <circle cx="9" cy="9" r="7.5" stroke="var(--color-brand-red)" strokeWidth="1.4" />
+              <path d="M9 8v5M9 6v.5" stroke="var(--color-brand-red)" strokeWidth="1.6" strokeLinecap="round" />
             </svg>
-            <p className="text-sm leading-relaxed" style={{ color: "#6B4E10" }}>
+            <p className="text-sm leading-relaxed" style={{ color: "var(--color-brand-red-dark)" }}>
               <strong>Sponsorship scope:</strong> Each tier listed below applies to a{" "}
               <strong>single featured GCN event</strong> (e.g., GlobeTalk or GlobeHack), not a
               full-year club sponsorship. For ongoing year-round partnerships, contact us directly
@@ -510,169 +522,40 @@ export default function SponsorPage() {
             </p>
           </div>
 
-          {/* ── Tier cards — flat/borderless, Gold isolated as hero card ── */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-10">
-            {TIERS.map((tier) => {
-              const accentColor = typeof tier.accent === "string" ? tier.accent : "#9e221a";
-              return (
-                <div
-                  key={tier.name}
-                  className="relative flex flex-col p-6"
-                  style={{
-                    background: tier.hero ? "var(--color-surface-white)" : tier.accentBg,
-                    border: tier.hero
-                      ? "2px solid var(--color-brand-red)"
-                      : "1px solid var(--color-gray-border)",
-                    transform: tier.hero ? "scale(1.015)" : undefined,
-                  }}
-                >
-                  {tier.popular && (
-                    <span
-                      className="absolute font-black uppercase"
-                      style={{
-                        top: "-13px",
-                        left: "24px",
-                        fontSize: "10.5px",
-                        letterSpacing: "0.14em",
-                        color: "#fff",
-                        background: "var(--color-brand-red)",
-                        borderRadius: "999px",
-                        padding: "4px 12px",
-                      }}
-                    >
-                      Most Popular
-                    </span>
-                  )}
-
-                  {/* Tier header */}
-                  <div
-                    className="pb-4 mb-4"
-                    style={{ borderBottom: "1px solid var(--color-gray-border)" }}
-                  >
-                    <p
-                      className="font-black uppercase mb-1"
-                      style={{ fontSize: "12px", letterSpacing: "0.26em", color: accentColor }}
-                    >
-                      {tier.badge}
-                    </p>
-                    <p
-                      className="font-bold leading-tight mb-2"
-                      style={{
-                        fontFamily: "var(--font-serif)",
-                        fontSize: "1.15rem",
-                        color: "var(--color-black-soft)",
-                      }}
-                    >
-                      {tier.name}
-                    </p>
-                    <p
-                      className="font-extrabold"
-                      style={{
-                        fontFamily: "var(--font-serif)",
-                        fontSize: "2rem",
-                        color: "var(--color-brand-red)",
-                        letterSpacing: "-0.01em",
-                      }}
-                    >
-                      {tier.price}
-                    </p>
-                  </div>
-
-                  {/* Benefits — classified-style dash list */}
-                  <ul className="flex flex-col gap-2.5 flex-1" style={{ lineHeight: 1.5 }}>
-                    {tier.benefits.map((b) => (
-                      <li
-                        key={b}
-                        className="flex items-start gap-2.5 text-sm"
-                        style={{ color: "var(--color-gray-text)" }}
-                      >
-                        <span
-                          className="font-bold flex-shrink-0 mt-px"
-                          style={{ color: accentColor, fontSize: "12px" }}
-                        >
-                          ♦
-                        </span>
-                        <span>{b}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  {/* CTA */}
-                  <a
-                    href="mailto:globalcareernetwork.club@gmail.com?subject=Sponsorship%20Inquiry%20(GCN%20at%20ASU)"
-                    className="gcn-btn mt-5 text-center text-xs font-semibold uppercase tracking-wide transition-opacity hover:opacity-80"
-                    style={
-                      tier.hero
-                        ? {
-                            background: "var(--color-brand-red)",
-                            color: "#fff",
-                            border: "1px solid var(--color-brand-red)",
-                            letterSpacing: "0.14em",
-                            width: "70%",
-                            margin: "20px auto 0",
-                            padding: "12px 0",
-                            display: "block",
-                          }
-                        : {
-                            border: `1px solid ${accentColor}`,
-                            color: accentColor,
-                            letterSpacing: "0.14em",
-                            width: "70%",
-                            margin: "20px auto 0",
-                            padding: "12px 0",
-                            display: "block",
-                          }
-                    }
-                  >
-                    Inquire About {tier.badge} →
-                  </a>
-                </div>
-              );
-            })}
-          </div>
+          <h2 id="tiers-heading" className="sr-only">
+            Sponsorship tiers
+          </h2>
+          <SponsorTierSnap tiers={TIERS} />
         </div>
       </section>
 
       {/* ── PROGRAMS & INITIATIVES ── */}
       <section
+        id="sponsor-programs"
         className="py-0"
         style={{ background: "var(--color-surface-white)", borderBottom: "1px solid var(--color-gray-border)" }}
         aria-labelledby="programs-heading"
       >
+        <h2 id="programs-heading" className="sr-only">
+          GCN programs and initiatives
+        </h2>
         <div className="mx-auto max-w-7xl px-6">
           <div className="py-6">
-            <SectionEyebrow num="03" label="GCN Programs & Initiatives" right="What We Run" />
+            <SponsorSectionEyebrow num="04" label="GCN Programs & Initiatives" right="What We Run" />
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 overflow-hidden py-10 md:py-12 gap-0"
+          <div
+            className="gcn-sponsor-program-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 overflow-hidden py-10 md:py-12 gap-0"
+            data-sponsor-reveal
             style={{ borderTop: "none" }}
           >
             {PROGRAMS.map(({ label, icon, items }, i) => (
-              <div
+              <SponsorProgramCard
                 key={label}
-                className="flex flex-col gap-4 p-5"
-                style={{ borderLeft: i > 0 ? "1px solid var(--color-gray-border)" : undefined }}
-              >
-                <div
-                  className="w-10 h-10 flex items-center justify-center flex-shrink-0"
-                  style={{ color: "var(--color-brand-red)" }}
-                >
-                  {icon}
-                </div>
-                <p
-                  className="font-bold uppercase tracking-wide mt-1"
-                  style={{ fontSize: "12px", letterSpacing: "0.14em", color: "var(--color-black-soft)" }}
-                >
-                  {label}
-                </p>
-                <ul className="flex flex-col gap-1.5 list-none m-0 p-0">
-                  {items.map((item) => (
-                    <li key={item} className="flex items-center gap-2 text-xs" style={{ color: "var(--color-gray-muted)" }}>
-                      <span className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: "var(--color-brand-red)", opacity: 0.5 }} />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                label={label}
+                icon={icon}
+                items={items}
+                index={i}
+              />
             ))}
           </div>
         </div>
@@ -680,15 +563,22 @@ export default function SponsorPage() {
 
       {/* ── OUR IMPACT — asymmetric split, no grid lines ── */}
       <section
+        id="sponsor-impact"
         className="py-0"
         aria-labelledby="impact-heading"
         style={{ borderBottom: "1px solid var(--color-gray-border)" }}
       >
+        <h2 id="impact-heading" className="sr-only">
+          Our impact
+        </h2>
         <div className="mx-auto max-w-7xl px-6">
           <div className="py-6">
-            <SectionEyebrow num="04" label="Our Impact" right="Community Built on Real Outcomes" />
+            <SponsorSectionEyebrow num="05" label="Our Impact" right="Community Built on Real Outcomes" />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] gap-10 md:gap-14 my-12 md:my-16 items-center">
+          <div
+            className="gcn-sponsor-impact-grid grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] gap-10 md:gap-14 my-12 md:my-16 items-center"
+            data-sponsor-reveal
+          >
             {/* Left: metric badge */}
             <div className="flex flex-col items-start justify-center">
               <p
@@ -705,14 +595,7 @@ export default function SponsorPage() {
             {/* Right: stacked value points */}
             <div className="flex flex-col gap-6">
               {IMPACT.map(({ title, description }) => (
-                <div key={title}>
-                  <p className="font-bold text-sm mb-1" style={{ color: "var(--color-black-soft)" }}>
-                    {title}
-                  </p>
-                  <p className="text-sm leading-relaxed" style={{ color: "var(--color-gray-text)" }}>
-                    {description}
-                  </p>
-                </div>
+                <SponsorImpactItem key={title} title={title} description={description} />
               ))}
             </div>
           </div>
@@ -721,6 +604,7 @@ export default function SponsorPage() {
 
       {/* ── CLOSING CTA ── */}
       <section
+        id="sponsor-contact"
         className="py-20 md:py-24"
         style={{ background: "var(--color-black-soft)", borderTop: "none" }}
         aria-labelledby="cta-heading"
@@ -740,7 +624,10 @@ export default function SponsorPage() {
             </span>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-[1fr_1px_1fr] gap-0 items-start">
+          <div
+            className="gcn-sponsor-cta-grid grid grid-cols-1 md:grid-cols-[1fr_1px_1fr] gap-0 items-start"
+            data-sponsor-reveal
+          >
             {/* Left: headline */}
             <div className="md:pr-12">
               <h2
@@ -812,6 +699,6 @@ export default function SponsorPage() {
         </div>
       </section>
 
-    </div>
+    </SponsorMotionLayer>
   );
 }

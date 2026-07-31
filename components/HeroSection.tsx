@@ -1,234 +1,101 @@
 import Link from "next/link";
 import GlobeWrapper from "@/components/GlobeWrapper";
-import TypewriterText from "@/components/TypewriterText";
 import type { CSSProperties } from "react";
+
+const HIGHLIGHTS = [
+  { value: "2,000+", label: "Students Connected" },
+  { value: "88", label: "Countries Represented" },
+  { value: "12+", label: "Career Events Each Semester" },
+];
+
+const TRUST_INDICATORS = [
+  "Official ASU Student Organization",
+  "Supported by ASU Career Services",
+];
 
 export default function HeroSection() {
   return (
-    <section
-      className="relative overflow-hidden"
-      style={{
-        background: "var(--color-surface)",
-        // 95px = Navbar's unscrolled rendered height (20px top spacing + 75px
-        // nav bar, measured) — keeps Navbar + Hero exactly filling the first
-        // viewport so the next section never peeks in before the user scrolls.
-        minHeight: "calc(100vh - 95px)",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "flex-start",
-      }}
-      aria-labelledby="hero-headline"
-    >
-      {/* Subtle brand-red ambient glow near globe */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          right: 0,
-          top: 0,
-          width: "55%",
-          height: "100%",
-          background:
-            "radial-gradient(ellipse at 75% 45%, rgba(158,34,26,0.07) 0%, transparent 58%)",
-          pointerEvents: "none",
-        }}
-      />
+    <section id="hero" className="gcn-hero" aria-labelledby="hero-headline">
+      <div className="gcn-world-grid" aria-hidden="true" />
 
-      <div aria-hidden="true" className="gcn-grain-overlay" />
-
-      <div
-        className="relative mx-auto max-w-7xl w-full px-6 pt-6 pb-16 md:pt-8 md:pb-20"
-        style={{ zIndex: 10 }}
-      >
-        {/* ── Newspaper masthead bar ── */}
+      <div className="gcn-hero-shell">
         <div
-          className="hero-anim mb-3"
-          style={
-            {
-              "--delay": "0.04s",
-              display: "grid",
-              gridTemplateColumns: "minmax(0, 1fr) auto minmax(0, 1fr)",
-              alignItems: "center",
-              columnGap: "1rem",
-            } as CSSProperties
-          }
+          className="gcn-hero-meta hero-anim"
+          style={{ "--delay": "0.04s" } as CSSProperties}
         >
-          <span
-            className="font-bold uppercase"
-            style={{ fontSize: "12px", letterSpacing: "0.22em", color: "var(--color-gray-muted)", textAlign: "left" }}
-          >
-            Arizona State University
-          </span>
-          <span
-            className="hidden sm:block"
-            style={{
-              fontFamily: "var(--font-serif)",
-              fontWeight: 700,
-              fontSize: "20px",
-              letterSpacing: "0.01em",
-              color: "var(--color-black-soft)",
-              lineHeight: 1,
-              textAlign: "center",
-              justifySelf: "center",
-            }}
-          >
-            Global Career Network
-          </span>
-          <span
-            className="font-bold uppercase"
-            style={{ fontSize: "12px", letterSpacing: "0.22em", color: "var(--color-gray-muted)", textAlign: "right" }}
-          >
-            Est.&nbsp;2022
-          </span>
+          <span>ASU · Tempe, Arizona</span>
+          <span>Student-led since 2022</span>
+          <span className="hidden sm:inline">33.42° N · 111.93° W</span>
         </div>
 
-        {/* Top double rule — major masthead break */}
-        <div
-          className="hero-anim gcn-double-rule mb-10"
-          style={{ "--delay": "0.08s" } as CSSProperties}
-        />
-
-        {/* 2-column grid: headline left, globe right */}
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_420px] gap-8 md:gap-16 items-center">
-
-          {/* ── Left: headline, body, CTAs, stats ── */}
-          <div>
-            {/* Eyebrow label */}
-            <div
-              className="hero-anim flex items-center gap-3 mb-6"
+        <div className="gcn-hero-stage">
+          <div className="gcn-hero-copy">
+            <p
+              className="gcn-kicker hero-anim"
               style={{ "--delay": "0.12s" } as CSSProperties}
             >
-              <span
-                className="font-black uppercase shrink-0"
-                style={{ fontSize: "12px", letterSpacing: "0.22em", color: "var(--color-brand-red)" }}
-              >
-                01
-              </span>
-              <div style={{ flex: 1, height: "1px", background: "rgba(12,12,14,0.14)" }} />
-              <span
-                className="font-bold uppercase shrink-0"
-                style={{ fontSize: "12px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}
-              >
-                Student Career Network
-              </span>
-            </div>
+              Careers without borders
+            </p>
 
-            {/* Playfair Display editorial headline */}
-            <h1
-              id="hero-headline"
-              style={{
-                fontFamily: "var(--font-serif)",
-                fontSize: "clamp(2.8rem, 5.5vw, 5rem)",
-                lineHeight: 0.92,
-                letterSpacing: "-0.025em",
-                color: "var(--color-black-soft)",
-              }}
-            >
-              <span
-                className="hero-word"
-                style={{ "--delay": "0.18s", display: "block" } as CSSProperties}
-              >
-                Empowering Your
-              </span>
-              <span
-                style={
-                  {
-                    display: "block",
-                    marginTop: "0.12em",
-                    color: "var(--color-brand-red)",
-                  } as CSSProperties
-                }
-              >
-                <TypewriterText text="Global Career" startDelay={750} speed={65} />
-              </span>
-              <span
-                className="hero-word"
-                style={{ "--delay": "1.65s", display: "block" } as CSSProperties}
-              >
-                Journey.
+            <h1 id="hero-headline" className="gcn-hero-title">
+              <span className="hero-word" style={{ "--delay": "0.18s" } as CSSProperties}>
+                <span className="gcn-hero-initial">G</span>lobal{" "}
+                <span className="gcn-hero-initial">C</span>areer{" "}
+                <span className="gcn-hero-initial">N</span>etwork
               </span>
             </h1>
 
-            {/* Rule below headline */}
             <div
-              className="hero-anim mt-8 mb-7 h-px"
-              style={
-                { "--delay": "0.52s", background: "rgba(12,12,14,0.14)" } as CSSProperties
-              }
-            />
-
-            {/* Body text + CTAs */}
-            <div
-              className="hero-anim flex flex-col lg:flex-row lg:items-end justify-between gap-6"
-              style={{ "--delay": "0.60s" } as CSSProperties}
+              className="gcn-hero-intro hero-anim"
+              style={{ "--delay": "0.52s" } as CSSProperties}
             >
-              <p
-                className="gcn-body-col"
-                style={{ color: "var(--color-gray-muted)", maxWidth: "340px" }}
-              >
-                Connecting international students at ASU with professional
-                opportunities, resume mentorship, and a global network of
-                industry leaders.
+              <p>
+                Helping international and globally minded students land internships,
+                build professional networks, and launch successful careers.
               </p>
-
-              <div className="flex flex-wrap gap-3 shrink-0">
-                <Link
-                  href="/join"
-                  className="gcn-btn gcn-btn-primary gcn-glow-pulse inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white"
-                >
-                  Join GCN Today
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                    <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
+              <div className="gcn-hero-actions">
+                <Link href="/join" className="gcn-btn gcn-btn-primary gcn-action">
+                  Join GCN <span aria-hidden="true">→</span>
                 </Link>
-
-                <Link
-                  href="/events"
-                  className="gcn-btn gcn-btn-outline inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold border"
-                  style={{
-                    color: "var(--color-black-soft)",
-                    borderColor: "rgba(12,12,14,0.22)",
-                    background: "transparent",
-                  }}
-                >
-                  Explore Events
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                    <rect x="1" y="2" width="12" height="11" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
-                    <path d="M1 6h12M5 1v2M9 1v2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                  </svg>
+                <Link href="/events" className="gcn-btn gcn-action gcn-action-ghost">
+                  View events <span aria-hidden="true">→</span>
                 </Link>
               </div>
+              <ul className="gcn-hero-trust" aria-label="GCN trust indicators">
+                {TRUST_INDICATORS.map((indicator) => (
+                  <li key={indicator}>
+                    <span aria-hidden="true">✓</span>
+                    {indicator}
+                  </li>
+                ))}
+              </ul>
             </div>
-          </div>
 
-          {/* ── Right: Globe — fully contained in grid column ── */}
-          <div
-            className="hero-fade hidden md:flex flex-col items-center justify-center"
-            style={{ "--delay": "0.85s" } as CSSProperties}
-          >
-            <div
-              className="gcn-hero-zoom"
-              style={{
-                position: "relative",
-                width: "100%",
-                maxWidth: "420px",
-                aspectRatio: "1 / 1",
-              }}
+            <dl
+              className="gcn-hero-highlights hero-anim"
+              style={{ "--delay": "0.62s" } as CSSProperties}
             >
-              <GlobeWrapper className="w-full h-full" />
-              <p
-                className="absolute bottom-4 left-1/2 -translate-x-1/2 text-xs flex items-center gap-1.5 select-none"
-                style={{ color: "var(--color-gray-muted)", opacity: 0.85, whiteSpace: "nowrap" }}
-              >
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                  <circle cx="3" cy="6" r="2" fill="currentColor" opacity="0.4" />
-                  <circle cx="9" cy="6" r="2" fill="currentColor" opacity="0.4" />
-                </svg>
-                Drag to rotate
-              </p>
-            </div>
+              {HIGHLIGHTS.map((item) => (
+                <div key={item.label}>
+                  <dt>{item.value}</dt>
+                  <dd>{item.label}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
 
+          <div
+            className="gcn-hero-globe hero-fade"
+            style={{ "--delay": "0.36s" } as CSSProperties}
+          >
+            <GlobeWrapper className="gcn-globe-canvas" />
+            <div className="gcn-globe-frame" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+              <span />
+            </div>
+          </div>
         </div>
       </div>
     </section>

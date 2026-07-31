@@ -33,13 +33,20 @@ export function pageMetadata(title: string, description: string, path: string) {
       siteName: SITE_NAME,
       title,
       description,
-      images: [{ url: "/images/home_page.png", width: 1200, height: 630, alt: SITE_NAME }],
+      images: [
+        {
+          url: "/og.png",
+          width: 1200,
+          height: 630,
+          alt: "Global Career Network — Careers Without Borders",
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image" as const,
       title,
       description,
-      images: ["/images/home_page.png"],
+      images: ["/og.png"],
     },
   };
 }

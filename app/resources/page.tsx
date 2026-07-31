@@ -89,10 +89,11 @@ function ExternalLinkGlyph() {
 // ── Page ──────────────────────────────────────────────────────────────────────
 export default function ResourcesPage() {
   return (
-    <div style={{ background: "var(--color-surface)" }}>
+    <div className="gcn-directory-page" style={{ background: "var(--color-surface)" }}>
 
       {/* ── MASTHEAD HEADER ── */}
       <div
+        className="gcn-page-masthead"
         style={{
           borderBottom: "2px solid var(--color-black-soft)",
           background: "var(--color-surface-white)",
@@ -121,7 +122,7 @@ export default function ResourcesPage() {
           </p>
           <h1
             id="resources-heading"
-            className="mb-4"
+            className="gcn-masthead-title mb-4"
             style={{
               fontFamily: "var(--font-serif)",
               fontWeight: 700,

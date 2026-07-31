@@ -70,7 +70,7 @@ export default function Testimonials() {
           {QUOTES.map(({ quote, name, title, initials }, i) => (
             <Reveal key={name} delay={i * 120}>
             <div
-              className="flex flex-col justify-between p-7 rounded-none"
+              className="flex flex-col justify-between p-7 rounded-md"
               style={{
                 border: "1px solid rgba(255,255,255,0.12)",
                 background: "transparent",
