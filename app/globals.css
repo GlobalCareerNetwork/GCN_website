@@ -345,11 +345,8 @@ button:focus-visible,
 
 /* ── Newspaper / editorial utilities ────────────────────────────────────── */
 
-/* Justified body text for article columns */
+/* Body text for article columns */
 .gcn-body-col {
-  text-align: justify;
-  hyphens: auto;
-  -webkit-hyphens: auto;
   font-size: 14.5px;
   line-height: 1.68;
 }

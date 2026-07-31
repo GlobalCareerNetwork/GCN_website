@@ -1,14 +1,7 @@
 import Link from "next/link";
 import GlobeWrapper from "@/components/GlobeWrapper";
-import CountUp from "@/components/CountUp";
 import TypewriterText from "@/components/TypewriterText";
 import type { CSSProperties } from "react";
-
-const MINI_STATS = [
-  { end: 2000, suffix: "+", label: "Members" },
-  { end: 88,   suffix: "",  label: "Countries" },
-  { end: 12,   suffix: "+", label: "Events / Semester" },
-];
 
 export default function HeroSection() {
   return (
@@ -205,39 +198,6 @@ export default function HeroSection() {
                   </svg>
                 </Link>
               </div>
-            </div>
-
-            {/* Mini stats strip */}
-            <div
-              className="hero-anim mt-8 pt-6 flex flex-wrap gap-10"
-              style={
-                {
-                  "--delay": "0.72s",
-                  borderTop: "1px solid rgba(12,12,14,0.10)",
-                } as CSSProperties
-              }
-            >
-              {MINI_STATS.map((s) => (
-                <div key={s.label} className="flex flex-col gap-1">
-                  <span
-                    className="font-bold leading-none tabular-nums"
-                    style={{
-                      fontFamily: "var(--font-accent)",
-                      fontSize: "1.75rem",
-                      letterSpacing: "-0.01em",
-                      color: "var(--color-brand-red)",
-                    }}
-                  >
-                    <CountUp end={s.end} suffix={s.suffix} />
-                  </span>
-                  <span
-                    className="font-semibold uppercase"
-                    style={{ fontSize: "12px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}
-                  >
-                    {s.label}
-                  </span>
-                </div>
-              ))}
             </div>
           </div>
 
