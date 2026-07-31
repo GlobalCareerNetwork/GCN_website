@@ -5,7 +5,8 @@ import Navbar from "@/components/Navbar";
 import CursorLayer from "@/components/CursorLayer";
 import Footer from "@/components/Footer";
 import { Analytics } from "@vercel/analytics/next";
-import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, pageMetadata } from "@/lib/site";
+import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, pageMetadata, GA_MEASUREMENT_ID } from "@/lib/site";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta-sans",
@@ -39,11 +40,6 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-  // No Google Search Console / Bing Webmaster properties exist yet for this
-  // domain. Once created, add a `verification: { google: "...", other: {
-  // "msvalidate.01": "..." } }` field here with the real codes — see
-  // SEO_GUIDE.md for the exact steps. Left out entirely for now so no empty
-  // verification meta tags ship to production.
 };
 
 export default function RootLayout({
@@ -65,6 +61,7 @@ export default function RootLayout({
         </main>
         <Footer />
         <Analytics />
+        <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
       </body>
     </html>
   );
