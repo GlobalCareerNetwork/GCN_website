@@ -43,7 +43,7 @@ function longitudePoints(lon: number, radius: number, segments = 80): THREE.Vect
 // ── Globe mesh ────────────────────────────────────────────────────────────
 
 const BRAND_RED = "#9e221a";
-const RED_DIM = "rgba(158,34,26,0.35)";
+const RED_DIM = "#9e221a";
 const SPHERE_RADIUS = 1.8;
 
 // Latitude rings and longitude arcs that form the orbit-line motif

@@ -24,7 +24,7 @@ export default function TeamCard({ member, size = "normal", priority = false }: 
 
   return (
     <div
-      className={`${cardW} ${cardH} cursor-pointer select-none`}
+      className={`gcn-team-card ${cardW} ${cardH} cursor-pointer select-none`}
       style={{
         perspective: "900px",
         transform: flipped ? "translateY(-6px)" : "translateY(0)",
@@ -58,7 +58,7 @@ export default function TeamCard({ member, size = "normal", priority = false }: 
       >
         {/* ── FRONT ── */}
         <div
-          className="absolute inset-0 rounded-2xl overflow-hidden flex flex-col"
+          className="gcn-team-card-front absolute inset-0 overflow-hidden flex flex-col"
           style={{
             backfaceVisibility: "hidden",
             WebkitBackfaceVisibility: "hidden",
@@ -83,6 +83,7 @@ export default function TeamCard({ member, size = "normal", priority = false }: 
                 (e.target as HTMLImageElement).src = "/images/team/placeholder.png";
               }}
             />
+            <div className="gcn-halftone-overlay" aria-hidden="true" />
             {/* Gradient overlay at bottom of photo */}
             <div
               className="absolute bottom-0 left-0 right-0 h-14"
@@ -115,7 +116,7 @@ export default function TeamCard({ member, size = "normal", priority = false }: 
 
         {/* ── BACK ── */}
         <div
-          className="absolute inset-0 rounded-2xl flex flex-col justify-between p-4"
+          className="gcn-team-card-back absolute inset-0 flex flex-col justify-between p-4"
           style={{
             backfaceVisibility: "hidden",
             WebkitBackfaceVisibility: "hidden",

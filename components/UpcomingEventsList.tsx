@@ -41,7 +41,7 @@ export default function UpcomingEventsList({ events }: UpcomingEventsListProps) 
               className="text-xs px-2 py-0.5 font-medium uppercase"
               style={{
                 background: "rgba(224,154,48,0.1)",
-                color: "#B07B10",
+                color: "var(--color-brand-red)",
                 border: "1px solid rgba(224,154,48,0.22)",
                 fontSize: "12px",
                 letterSpacing: "0.12em",

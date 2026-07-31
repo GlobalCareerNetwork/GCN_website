@@ -1,33 +1,24 @@
+/* eslint-disable @next/next/no-page-custom-font */
 import type { Metadata } from "next";
-import { Inter, Cormorant_Garamond, Space_Grotesk } from "next/font/google";
+import { Plus_Jakarta_Sans, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ExperienceLayer from "@/components/ExperienceLayer";
 import { Analytics } from "@vercel/analytics/next";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, pageMetadata } from "@/lib/site";
 
-// Inter — clean, highly readable sans for body and UI (SIL OFL 1.1 license)
-const inter = Inter({
-  variable: "--font-inter",
+const plusJakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-plus-jakarta-sans",
   subsets: ["latin"],
   display: "swap",
 });
 
-// Cormorant Garamond — elegant display serif for headings and wordmarks (SIL OFL 1.1 license)
-const cormorantGaramond = Cormorant_Garamond({
-  variable: "--font-cormorant",
+const playfairDisplay = Playfair_Display({
+  variable: "--font-playfair",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800", "900"],
   style: ["normal", "italic"],
-  display: "swap",
-});
-
-// Space Grotesk — accent font used sparingly for stat numbers, buttons, and
-// badges only (SIL OFL 1.1 license). Never used for body copy or headings.
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
   display: "swap",
 });
 
@@ -60,11 +51,29 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${cormorantGaramond.variable} ${spaceGrotesk.variable} h-full`}>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={`${plusJakartaSans.variable} ${playfairDisplay.variable} h-full`}
+    >
+      <head>
+        <link rel="preconnect" href="https://api.fontshare.com" />
+        <link
+          rel="stylesheet"
+          href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap"
+        />
+      </head>
       <body className="min-h-full flex flex-col antialiased">
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
+        <ExperienceLayer />
         <Navbar />
         <main id="main-content" className="flex-1">
           {children}

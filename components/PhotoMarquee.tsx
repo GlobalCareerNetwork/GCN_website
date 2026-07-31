@@ -26,7 +26,7 @@ export default function PhotoMarquee() {
 
   return (
     <section
-      className="py-16 overflow-hidden"
+      className="gcn-people-rail py-16 overflow-hidden"
       style={{
         background: "var(--color-surface)",
         borderTop: "1px solid var(--color-gray-border)",
@@ -66,7 +66,7 @@ export default function PhotoMarquee() {
       {/* Edge-faded marquee wrapper */}
       <div className="gcn-marquee-fade overflow-hidden">
         <div
-          className="relative flex"
+          className="gcn-people-strip relative flex"
           style={{
             animation: "gcn-marquee 30s linear infinite",
             width: "max-content",
@@ -82,7 +82,7 @@ export default function PhotoMarquee() {
           {strip.map((photo, idx) => (
             <div
               key={idx}
-              className="gcn-card-hover relative flex-shrink-0 mx-2 rounded-2xl overflow-hidden"
+              className="gcn-people-frame gcn-card-hover relative flex-shrink-0 mx-2 overflow-hidden"
               style={{
                 width: "160px",
                 height: "200px",

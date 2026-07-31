@@ -7,6 +7,7 @@ import SectionEyebrow from "@/components/SectionEyebrow";
 export default function WhoWeAre() {
   return (
     <section
+      className="gcn-story-section gcn-story-section-light"
       style={{
         borderTop: "1px solid var(--color-gray-border)",
         borderBottom: "1px solid var(--color-gray-border)",

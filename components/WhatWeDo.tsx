@@ -15,6 +15,7 @@ const SUPPORT_ROW = [
 export default function WhatWeDo() {
   return (
     <section
+      className="gcn-story-section gcn-story-section-muted"
       style={{
         borderTop: "1px solid var(--color-gray-border)",
         borderBottom: "1px solid var(--color-gray-border)",

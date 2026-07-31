@@ -4,7 +4,7 @@ import Reveal from "@/components/Reveal";
 export default function ClosingStatement() {
   return (
     <section
-      className="relative overflow-hidden"
+      className="gcn-closing-stage relative overflow-hidden"
       style={{
         background: "var(--color-surface)",
         borderTop: "1px solid var(--color-gray-border)",

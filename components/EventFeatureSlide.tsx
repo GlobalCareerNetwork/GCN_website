@@ -99,7 +99,7 @@ export default function EventFeatureSlide({ event, index, total, isActive, setRe
           <div className="mx-auto w-full" style={{ maxWidth: "52ch" }}>
             <p
               className="gcn-body-article gcn-dropcap"
-              style={{ fontFamily: "var(--font-serif)", fontWeight: 700, color: "#26241F" }}
+              style={{ fontFamily: "var(--font-serif)", fontWeight: 700, color: "var(--color-black-soft)" }}
             >
               {event.description}
             </p>
@@ -109,7 +109,7 @@ export default function EventFeatureSlide({ event, index, total, isActive, setRe
                 <div className="gcn-rule-full my-5" />
                 <p
                   className="gcn-body-article"
-                  style={{ fontFamily: "var(--font-serif)", fontWeight: 700, fontStyle: "italic", color: "#45423B" }}
+                  style={{ fontFamily: "var(--font-serif)", fontWeight: 700, fontStyle: "italic", color: "var(--color-stats-ink)" }}
                 >
                   {event.outcome}
                 </p>

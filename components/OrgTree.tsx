@@ -21,10 +21,11 @@ export default function OrgTree() {
   const allDepts = (Object.keys(DEPT_LABELS) as Exclude<Department, "Executive">[]);
 
   return (
-    <div style={{ background: "var(--color-surface)" }}>
+    <div className="gcn-team-page" style={{ background: "var(--color-surface)" }}>
 
       {/* ── Newspaper masthead header ── */}
       <div
+        className="gcn-page-masthead"
         style={{
           borderBottom: "2px solid var(--color-black-soft)",
           background: "var(--color-surface-white)",
@@ -68,7 +69,7 @@ export default function OrgTree() {
                 Executive Board
               </p>
               <h1
-                className="leading-none"
+                className="gcn-masthead-title leading-none"
                 style={{
                   fontFamily: "var(--font-serif)",
                   fontWeight: 700,

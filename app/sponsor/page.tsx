@@ -16,10 +16,10 @@ const TIERS = [
     name: "Gold Sponsor",
     price: "$1,500+",
     badge: "GOLD",
-    accent: "#B8892A",
-    accentBg: "rgba(184,137,42,0.05)",
-    badgeFg: "#8A6515",
-    borderColor: "#B8892A",
+    accent: "var(--color-brand-red)",
+    accentBg: "rgba(158,34,26,0.05)",
+    badgeFg: "var(--color-brand-red-dark)",
+    borderColor: "var(--color-brand-red)",
     hero: true,
     popular: false,
     benefits: [
@@ -37,10 +37,10 @@ const TIERS = [
     name: "Silver Sponsor",
     price: "$1,000",
     badge: "SILVER",
-    accent: "#707070",
-    accentBg: "rgba(112,112,112,0.04)",
-    badgeFg: "#4A4A4A",
-    borderColor: "#909090",
+    accent: "var(--color-gray-text)",
+    accentBg: "rgba(75,85,99,0.04)",
+    badgeFg: "var(--color-gray-text)",
+    borderColor: "var(--color-gray-border)",
     hero: false,
     popular: false,
     benefits: [
@@ -57,10 +57,10 @@ const TIERS = [
     name: "Bronze Sponsor",
     price: "$500",
     badge: "BRONZE",
-    accent: "#9B6A3A",
-    accentBg: "rgba(155,106,58,0.05)",
-    badgeFg: "#7A4E22",
-    borderColor: "#9B6A3A",
+    accent: "var(--color-brand-red-dark)",
+    accentBg: "rgba(122,24,20,0.05)",
+    badgeFg: "var(--color-brand-red-dark)",
+    borderColor: "var(--color-brand-red-dark)",
     hero: false,
     popular: true,
     benefits: [
@@ -305,10 +305,11 @@ function SectionEyebrow({ num, label, right }: { num: string; label: string; rig
 // ── Page ──────────────────────────────────────────────────────────────────────
 export default function SponsorPage() {
   return (
-    <div style={{ background: "var(--color-surface)" }}>
+    <div className="gcn-sponsor-page" style={{ background: "var(--color-surface)" }}>
 
       {/* ── NEWSPAPER MASTHEAD HEADER ── */}
       <div
+        className="gcn-page-masthead gcn-page-masthead-split"
         style={{
           borderBottom: "2px solid var(--color-black-soft)",
           background: "var(--color-surface-white)",
@@ -342,7 +343,7 @@ export default function SponsorPage() {
               </p>
               <h1
                 id="sponsor-heading"
-                className="mb-4"
+                className="gcn-masthead-title mb-4"
                 style={{
                   fontFamily: "var(--font-serif)",
                   fontWeight: 700,
@@ -402,6 +403,9 @@ export default function SponsorPage() {
         style={{ borderBottom: "1px solid var(--color-gray-border)", background: "#fff" }}
         aria-labelledby="why-partner-heading"
       >
+        <h2 id="tiers-heading" className="sr-only">
+          Sponsorship tiers
+        </h2>
         <div className="mx-auto max-w-7xl px-6">
           <div className="py-6">
             <SectionEyebrow num="01" label="Why Partner With GCN" right="Partnership Benefits" />
@@ -484,6 +488,9 @@ export default function SponsorPage() {
         aria-labelledby="tiers-heading"
         style={{ borderBottom: "1px solid var(--color-gray-border)" }}
       >
+        <h2 id="programs-heading" className="sr-only">
+          GCN programs and initiatives
+        </h2>
         <div className="mx-auto max-w-7xl px-6">
           <div className="py-6">
             <SectionEyebrow num="02" label="Sponsorship Tiers: 2026 Season" right="Classified Listings" />
@@ -499,10 +506,10 @@ export default function SponsorPage() {
             role="note"
           >
             <svg width="16" height="16" viewBox="0 0 18 18" fill="none" className="flex-shrink-0 mt-0.5" aria-hidden="true">
-              <circle cx="9" cy="9" r="7.5" stroke="#B8892A" strokeWidth="1.4" />
-              <path d="M9 8v5M9 6v.5" stroke="#B8892A" strokeWidth="1.6" strokeLinecap="round" />
+              <circle cx="9" cy="9" r="7.5" stroke="var(--color-brand-red)" strokeWidth="1.4" />
+              <path d="M9 8v5M9 6v.5" stroke="var(--color-brand-red)" strokeWidth="1.6" strokeLinecap="round" />
             </svg>
-            <p className="text-sm leading-relaxed" style={{ color: "#6B4E10" }}>
+            <p className="text-sm leading-relaxed" style={{ color: "var(--color-brand-red-dark)" }}>
               <strong>Sponsorship scope:</strong> Each tier listed below applies to a{" "}
               <strong>single featured GCN event</strong> (e.g., GlobeTalk or GlobeHack), not a
               full-year club sponsorship. For ongoing year-round partnerships, contact us directly
@@ -639,6 +646,9 @@ export default function SponsorPage() {
         style={{ background: "var(--color-surface-white)", borderBottom: "1px solid var(--color-gray-border)" }}
         aria-labelledby="programs-heading"
       >
+        <h2 id="impact-heading" className="sr-only">
+          Our impact
+        </h2>
         <div className="mx-auto max-w-7xl px-6">
           <div className="py-6">
             <SectionEyebrow num="03" label="GCN Programs & Initiatives" right="What We Run" />

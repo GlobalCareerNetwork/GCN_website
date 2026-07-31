@@ -25,7 +25,7 @@ export default function SponsorLogoWall() {
 
   return (
     <section
-      className="py-14 overflow-hidden"
+      className="gcn-partner-rail py-14 overflow-hidden"
       style={{
         background: "var(--color-surface-white)",
         borderTop: "1px solid var(--color-gray-border)",
@@ -65,7 +65,7 @@ export default function SponsorLogoWall() {
       {/* Edge-faded marquee wrapper */}
       <div className="gcn-marquee-fade overflow-hidden">
         <div
-          className="relative flex items-center"
+          className="gcn-partner-track relative flex items-center"
           style={{
             animation: "gcn-marquee-reverse 35s linear infinite",
             width: "max-content",
@@ -91,6 +91,8 @@ export default function SponsorLogoWall() {
                 height={48}
                 className="object-contain w-auto"
                 style={{
+                  width: "auto",
+                  height: "auto",
                   maxHeight: "40px",
                   filter: "grayscale(1) opacity(0.45)",
                   transition: "filter 0.25s ease",

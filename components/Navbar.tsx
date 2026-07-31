@@ -6,82 +6,57 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const NAV_LINKS = [
-  { href: "/", label: "Home" },
-  { href: "/events", label: "Events" },
-  { href: "/team", label: "Team" },
-  { href: "/resources", label: "Resources" },
-  { href: "/sponsor", label: "Sponsor" },
+  { href: "/", label: "Home", index: "01" },
+  { href: "/events", label: "Events", index: "02" },
+  { href: "/team", label: "Team", index: "03" },
+  { href: "/resources", label: "Resources", index: "04" },
+  { href: "/sponsor", label: "Sponsor", index: "05" },
 ];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [pastHero, setPastHero] = useState(false);
   const pathname = usePathname();
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   useEffect(() => {
-    const handler = () => {
-      setScrolled(window.scrollY > 20);
-      setPastHero(window.scrollY > window.innerHeight * 0.7);
-    };
+    const handler = () => setScrolled(window.scrollY > 24);
     window.addEventListener("scroll", handler, { passive: true });
-    handler(); // set initial state
+    handler();
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   return (
-    <header
-      className="sticky top-0 z-50 w-full border-b"
-      style={{
-        marginTop: "20px",
-        background: scrolled ? "rgba(253,251,247,0.97)" : "rgba(245,241,232,0.94)",
-        backdropFilter: "blur(12px)",
-        borderColor: pastHero ? "var(--color-gray-border)" : "transparent",
-        boxShadow: pastHero ? "0 2px 20px rgba(12,12,14,0.07)" : "none",
-        transition:
-          "background 0.3s var(--ease-fast), box-shadow 0.3s var(--ease-fast), border-color 0.3s var(--ease-fast)",
-      }}
-    >
-      <nav
-        className="mx-auto flex max-w-7xl items-center justify-between px-6"
-        style={{
-          paddingTop: scrolled ? "10px" : "16px",
-          paddingBottom: scrolled ? "10px" : "16px",
-          transition: "padding 0.3s var(--ease-fast)",
-        }}
-        aria-label="Main navigation"
-      >
-        {/* Logo — doubles as a "back to top" button */}
+    <header className={`gcn-navbar ${scrolled ? "is-scrolled" : ""}`}>
+      <nav className="gcn-navbar-inner" aria-label="Main navigation">
         <Link
           href="/"
-          className="flex items-center leading-none"
-          aria-label="Global Career Network — home, scroll to top"
-          onClick={(e) => {
+          className="gcn-brand-lockup"
+          aria-label="Global Career Network — home"
+          onClick={(event) => {
             if (pathname === "/") {
-              e.preventDefault();
+              event.preventDefault();
               window.scrollTo({ top: 0, behavior: "smooth" });
             }
           }}
         >
-          <Image
-            src="/gcn.png"
-            alt="GCN Logo"
-            width={315}
-            height={93}
-            style={{
-              height: scrolled ? "28px" : "42px",
-              width: "auto",
-              transition: "height 0.3s var(--ease-fast)",
-            }}
-            priority
-          />
+          <Image src="/gcn.png" alt="" width={315} height={93} priority />
+          <span>
+            Global Career Network
+            <small>Arizona State University</small>
+          </span>
         </Link>
 
-        {/* Desktop links */}
-        <ul className="hidden md:flex items-center gap-7 list-none m-0 p-0">
+        <ul className="gcn-desktop-nav">
           {NAV_LINKS.map(({ href, label }) => {
             const active = isActive(href);
             return (
@@ -90,104 +65,52 @@ export default function Navbar() {
                   href={href}
                   aria-current={active ? "page" : undefined}
                   data-active={active}
-                  className="gcn-link-underline uppercase transition-colors"
-                  style={{
-                    fontSize: "12px",
-                    letterSpacing: "0.14em",
-                    fontWeight: active ? 800 : 600,
-                    color: active ? "var(--color-black-soft)" : "var(--color-gray-text)",
-                    paddingBottom: "4px",
-                    transition: "color 0.2s ease",
-                  }}
                 >
                   {label}
                 </Link>
               </li>
             );
           })}
-          <li>
-            <Link
-              href="/join"
-              className="gcn-btn gcn-btn-primary px-4 py-2 rounded-lg text-sm font-semibold text-white"
-            >
-              Join GCN
-            </Link>
-          </li>
         </ul>
 
-        {/* Mobile hamburger */}
+        <Link href="/join" className="gcn-nav-cta">
+          Join GCN <span aria-hidden="true">↗</span>
+        </Link>
+
         <button
-          className="flex md:hidden flex-col gap-1.5 p-2"
+          type="button"
+          className="gcn-menu-toggle"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
+          onClick={() => setOpen((value) => !value)}
         >
-          <span
-            className="block w-6 h-0.5 transition-all"
-            style={{
-              background: "var(--color-black-soft)",
-              transform: open ? "translateY(8px) rotate(45deg)" : undefined,
-            }}
-          />
-          <span
-            className="block w-6 h-0.5 transition-all"
-            style={{
-              background: "var(--color-black-soft)",
-              opacity: open ? 0 : 1,
-            }}
-          />
-          <span
-            className="block w-6 h-0.5 transition-all"
-            style={{
-              background: "var(--color-black-soft)",
-              transform: open ? "translateY(-8px) rotate(-45deg)" : undefined,
-            }}
-          />
+          <span>{open ? "Close" : "Menu"}</span>
+          <i aria-hidden="true" />
         </button>
       </nav>
 
-      {/* Mobile menu */}
-      {open && (
-        <div
-          className="md:hidden border-t px-6 py-4 flex flex-col gap-4"
-          style={{
-            background: "var(--color-surface-white)",
-            borderColor: "var(--color-gray-border)",
-          }}
-        >
-          {NAV_LINKS.map(({ href, label }) => {
-            const active = isActive(href);
-            return (
-              <Link
-                key={href}
-                href={href}
-                aria-current={active ? "page" : undefined}
-                className="text-sm uppercase"
-                style={{
-                  fontSize: "12px",
-                  letterSpacing: "0.12em",
-                  fontWeight: active ? 800 : 500,
-                  color: active ? "var(--color-brand-red)" : "var(--color-gray-text)",
-                  borderLeft: active
-                    ? "3px solid var(--color-brand-red)"
-                    : "3px solid transparent",
-                  paddingLeft: "10px",
-                }}
-                onClick={() => setOpen(false)}
-              >
-                {label}
-              </Link>
-            );
-          })}
-          <Link
-            href="/join"
-            className="gcn-btn gcn-btn-primary inline-flex justify-center px-4 py-2.5 rounded-lg text-sm font-semibold text-white"
-            onClick={() => setOpen(false)}
-          >
+      <div className={`gcn-mobile-menu ${open ? "is-open" : ""}`} aria-hidden={!open}>
+        <div className="gcn-mobile-menu-grid" aria-hidden="true" />
+        <nav aria-label="Mobile navigation">
+          {NAV_LINKS.map(({ href, label, index }) => (
+            <Link
+              key={href}
+              href={href}
+              tabIndex={open ? 0 : -1}
+              aria-current={isActive(href) ? "page" : undefined}
+              onClick={() => setOpen(false)}
+            >
+              <span>{index}</span>
+              {label}
+            </Link>
+          ))}
+          <Link href="/join" tabIndex={open ? 0 : -1} onClick={() => setOpen(false)}>
+            <span>06</span>
             Join GCN
           </Link>
-        </div>
-      )}
+        </nav>
+        <p>Careers without borders · Est. 2022</p>
+      </div>
     </header>
   );
 }

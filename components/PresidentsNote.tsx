@@ -36,6 +36,7 @@ const letterParaStyle = {
 export default function PresidentsNote() {
   return (
     <section
+      className="gcn-president-stage"
       style={{
         borderTop: "1px solid rgba(255,255,255,0.08)",
         borderBottom: "1px solid rgba(255,255,255,0.08)",
