@@ -927,7 +927,7 @@ button:focus-visible,
 }
 
 .gcn-spotlight-card {
-  min-width: 176px;
+  width: min(258px, 74vw);
   display: grid;
   grid-template-columns: 42px 1fr;
   align-items: center;
@@ -1005,15 +1005,16 @@ button:focus-visible,
 }
 
 .gcn-spotlight-card strong {
-  margin-top: 0.08rem;
+  margin-top: 0.16rem;
   color: var(--color-gray-text);
-  font-size: 0.72rem;
+  font-family: var(--font-serif);
+  font-size: 0.82rem;
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.24;
 }
 
 .gcn-spotlight-card small {
-  margin-top: 0.08rem;
+  margin-top: 0.22rem;
   color: var(--color-gray-muted);
   font-size: 0.62rem;
   font-weight: 700;

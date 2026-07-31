@@ -57,7 +57,7 @@ const CAREER_MARKERS = [
     flag: "🇮🇳",
     name: "Arjun",
     origin: "India",
-    role: "NVIDIA Intern",
+    quote: "GCN helped me turn career uncertainty into a clear internship plan.",
     initials: "A",
     lat: 20.6,
     lon: 78.9,
@@ -69,7 +69,7 @@ const CAREER_MARKERS = [
     flag: "🇻🇳",
     name: "Minh",
     origin: "Vietnam",
-    role: "Product Intern @ Intel",
+    quote: "The workshops helped me understand which roles actually fit me.",
     initials: "M",
     lat: 14.1,
     lon: 108.3,
@@ -81,7 +81,7 @@ const CAREER_MARKERS = [
     flag: "🇺🇸",
     name: "Ava",
     origin: "United States",
-    role: "SWE Intern @ Amazon",
+    quote: "GCN made networking feel approachable instead of intimidating.",
     initials: "A",
     lat: 39.8,
     lon: -98.6,
@@ -93,7 +93,7 @@ const CAREER_MARKERS = [
     flag: "🇦🇪",
     name: "Noor",
     origin: "Dubai, UAE",
-    role: "Deloitte Consulting",
+    quote: "I found mentors at GCN who pushed me to apply with confidence.",
     initials: "N",
     lat: 25.2,
     lon: 55.3,
@@ -105,7 +105,7 @@ const CAREER_MARKERS = [
     flag: "🇨🇳",
     name: "Li Wei",
     origin: "China",
-    role: "Apple Intern",
+    quote: "GCN gave me a better picture of the career path I wanted.",
     initials: "LW",
     lat: 35.9,
     lon: 104.2,
@@ -118,7 +118,7 @@ const CAREER_MARKERS = [
     flag: "🇦🇺",
     name: "Olivia",
     origin: "Australia",
-    role: "Data Intern @ Canva",
+    quote: "Every event gave me practical steps I could use right away.",
     initials: "O",
     lat: -25.3,
     lon: 133.8,
@@ -130,7 +130,7 @@ const CAREER_MARKERS = [
     flag: "🇧🇷",
     name: "Maria",
     origin: "Brazil",
-    role: "Consulting Intern @ Deloitte",
+    quote: "GCN helped me build the professional confidence I was missing.",
     initials: "M",
     lat: -14.2,
     lon: -51.9,
@@ -142,7 +142,7 @@ const CAREER_MARKERS = [
     flag: "🇿🇦",
     name: "Thabo",
     origin: "South Africa",
-    role: "Finance Intern @ AWS",
+    quote: "I left GCN events with real people to follow up with, not just notes.",
     initials: "T",
     lat: -30.6,
     lon: 22.9,
@@ -337,7 +337,7 @@ function CareerMarker({ marker, active }: CareerMarkerProps) {
             <p>
               <span>{marker.flag}</span> {marker.name}
             </p>
-            <strong>{marker.role}</strong>
+            <strong>&ldquo;{marker.quote}&rdquo;</strong>
             <small>{marker.origin}</small>
           </div>
         </article>
@@ -393,7 +393,7 @@ function GlobeScene({ controlsRef, resumeRef }: GlobeSceneProps) {
 
   useFrame((_, delta) => {
     if (autoRotate.current && meshRef.current) {
-      meshRef.current.rotation.y += delta * 0.25;
+      meshRef.current.rotation.y += delta * 0.14;
     }
     // Keep orbit controls in sync with the mesh rotation
     if (controlsRef.current) {
@@ -556,7 +556,7 @@ export default function Globe3D({ className }: Globe3DProps) {
           enablePan={false}
           enableDamping
           dampingFactor={0.08}
-          rotateSpeed={0.6}
+          rotateSpeed={0.42}
         />
       </Canvas>
     </div>
