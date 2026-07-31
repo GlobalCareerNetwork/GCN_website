@@ -25,7 +25,7 @@ export default function HeroSection() {
         >
           <span>ASU · Tempe, Arizona</span>
           <span>Student-led since 2022</span>
-          <span className="hidden sm:inline">34.42° N · 111.93° W</span>
+          <span className="hidden sm:inline">33.42° N · 111.93° W</span>
         </div>
 
         <div className="gcn-hero-stage">

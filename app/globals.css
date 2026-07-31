@@ -1990,6 +1990,7 @@ button:focus-visible,
   border-radius: var(--radius-md);
   background: rgba(253,251,247,0.78);
   position: relative;
+  isolation: isolate;
   z-index: 2;
   transform: translateZ(18px);
 }
@@ -2017,8 +2018,19 @@ button:focus-visible,
   letter-spacing: 0.18em;
   text-indent: 0.18em;
   text-transform: uppercase;
+  pointer-events: none;
   transform: translateZ(8px);
   animation: gcn-tier-orb-float 6s var(--ease-slow) infinite;
+}
+
+.gcn-tier-panel-header,
+.gcn-tier-price,
+.gcn-tier-metal-strip,
+.gcn-tier-scope,
+.gcn-tier-benefits,
+.gcn-tier-inquiry {
+  position: relative;
+  z-index: 1;
 }
 
 .gcn-tier-metal-strip {
@@ -2043,6 +2055,8 @@ button:focus-visible,
 .gcn-tier-panel[data-active="true"] .gcn-tier-metal-strip span:nth-child(3) { animation-delay: 280ms; }
 
 .gcn-tier-panel-header {
+  position: relative;
+  z-index: 2;
   display: flex;
   gap: 1rem;
   justify-content: space-between;

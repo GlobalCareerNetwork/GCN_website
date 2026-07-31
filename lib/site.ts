@@ -36,8 +36,8 @@ export function pageMetadata(title: string, description: string, path: string) {
       images: [
         {
           url: "/og.png",
-          width: 1731,
-          height: 909,
+          width: 1200,
+          height: 630,
           alt: "Global Career Network — Careers Without Borders",
         },
       ],
