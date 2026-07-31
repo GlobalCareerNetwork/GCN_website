@@ -120,6 +120,7 @@ export default function ResourcesPage() {
             Member Resource Directory
           </p>
           <h1
+            id="resources-heading"
             className="mb-4"
             style={{
               fontFamily: "var(--font-serif)",

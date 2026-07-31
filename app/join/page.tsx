@@ -120,6 +120,7 @@ export default function JoinPage() {
             Join The Network
           </p>
           <h1
+            id="join-heading"
             className="mb-4"
             style={{
               fontFamily: "var(--font-serif)",
