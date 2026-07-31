@@ -54,13 +54,6 @@ export default function RootLayout({
       lang="en"
       className={`${plusJakartaSans.variable} ${playfairDisplay.variable} h-full`}
     >
-      <head>
-        <link rel="preconnect" href="https://api.fontshare.com" />
-        <link
-          rel="stylesheet"
-          href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap"
-        />
-      </head>
       <body className="min-h-full flex flex-col antialiased">
         <a href="#main-content" className="skip-link">
           Skip to main content
