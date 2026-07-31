@@ -52,10 +52,6 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="gcn-footer-wordmark" aria-hidden="true">
-          GCN
-        </div>
-
         <div className="gcn-footer-base">
           <span>© {new Date().getFullYear()} Global Career Network</span>
           <span>Student-built at ASU · Est. 2022</span>

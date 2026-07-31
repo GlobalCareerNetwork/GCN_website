@@ -87,6 +87,7 @@ export default function PhotoMarquee() {
                 width: "160px",
                 height: "200px",
                 border: "1px solid var(--color-gray-border)",
+                borderRadius: "var(--radius-md)",
                 boxShadow: "0 4px 16px rgba(12,12,14,0.07)",
               }}
             >

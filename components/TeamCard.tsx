@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
+import type { MouseEvent } from "react";
 import type { TeamMember } from "@/lib/data/team";
 
 interface TeamCardProps {
@@ -12,6 +13,7 @@ interface TeamCardProps {
 
 export default function TeamCard({ member, size = "normal", priority = false }: TeamCardProps) {
   const [flipped, setFlipped] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   const isLarge = size === "large";
   const cardW = isLarge ? "w-[220px]" : "w-[180px]";
@@ -22,19 +24,51 @@ export default function TeamCard({ member, size = "normal", priority = false }: 
   // wrap instead of truncating
   const nameH = isLarge ? 86 : 86;
 
+  const resetTilt = () => {
+    const card = cardRef.current;
+    if (!card) return;
+    card.style.setProperty("--gcn-tilt-x", "0deg");
+    card.style.setProperty("--gcn-tilt-y", "0deg");
+    card.style.setProperty("--gcn-glare-x", "50%");
+    card.style.setProperty("--gcn-glare-y", "40%");
+  };
+
+  const handlePointerMove = (event: MouseEvent<HTMLDivElement>) => {
+    const card = cardRef.current;
+    if (!card) return;
+
+    const rect = card.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width;
+    const y = (event.clientY - rect.top) / rect.height;
+    const rotateY = (x - 0.5) * 5;
+    const rotateX = (0.5 - y) * 4;
+
+    card.style.setProperty("--gcn-tilt-x", `${rotateX.toFixed(2)}deg`);
+    card.style.setProperty("--gcn-tilt-y", `${rotateY.toFixed(2)}deg`);
+    card.style.setProperty("--gcn-glare-x", `${(x * 100).toFixed(1)}%`);
+    card.style.setProperty("--gcn-glare-y", `${(y * 100).toFixed(1)}%`);
+  };
+
   return (
     <div
+      ref={cardRef}
       className={`gcn-team-card ${cardW} ${cardH} cursor-pointer select-none`}
       style={{
         perspective: "900px",
-        transform: flipped ? "translateY(-6px)" : "translateY(0)",
+        transform: flipped
+          ? "translateY(-6px) rotateX(var(--gcn-tilt-x, 0deg)) rotateY(var(--gcn-tilt-y, 0deg))"
+          : "translateY(0) rotateX(var(--gcn-tilt-x, 0deg)) rotateY(var(--gcn-tilt-y, 0deg))",
         transition: "transform 0.25s var(--ease-fast), box-shadow 0.25s var(--ease-fast)",
         boxShadow: flipped
           ? "0 20px 50px rgba(158,34,26,0.22), 0 8px 20px rgba(12,12,14,0.16)"
           : undefined,
       }}
       onMouseEnter={() => setFlipped(true)}
-      onMouseLeave={() => setFlipped(false)}
+      onMouseMove={handlePointerMove}
+      onMouseLeave={() => {
+        setFlipped(false);
+        resetTilt();
+      }}
       onClick={() => setFlipped((v) => !v)}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
@@ -83,7 +117,6 @@ export default function TeamCard({ member, size = "normal", priority = false }: 
                 (e.target as HTMLImageElement).src = "/images/team/placeholder.png";
               }}
             />
-            <div className="gcn-halftone-overlay" aria-hidden="true" />
             {/* Gradient overlay at bottom of photo */}
             <div
               className="absolute bottom-0 left-0 right-0 h-14"

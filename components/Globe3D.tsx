@@ -1,8 +1,10 @@
 "use client";
 
-import { useRef, useEffect, useCallback } from "react";
+import { useRef, useEffect, useCallback, useState } from "react";
+import type { CSSProperties } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { OrbitControls, Line } from "@react-three/drei";
+import { Html, OrbitControls, Line } from "@react-three/drei";
+import Image from "next/image";
 import * as THREE from "three";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 
@@ -50,15 +52,330 @@ const SPHERE_RADIUS = 1.8;
 const LAT_LINES = [-60, -30, 0, 30, 60];
 const LON_LINES = [0, 45, 90, 135, 180, 225, 270, 315];
 
+const CAREER_MARKERS = [
+  {
+    flag: "🇮🇳",
+    name: "Arjun",
+    origin: "India",
+    role: "NVIDIA Intern",
+    initials: "A",
+    lat: 20.6,
+    lon: 78.9,
+    cardOffset: [-220, 82],
+    visibilityCutoff: 0.38,
+    avatarSrc: "/images/career-avatars/arjun.jpg",
+  },
+  {
+    flag: "🇻🇳",
+    name: "Minh",
+    origin: "Vietnam",
+    role: "Product Intern @ Intel",
+    initials: "M",
+    lat: 14.1,
+    lon: 108.3,
+    cardOffset: [46, 72],
+    visibilityCutoff: 0.38,
+    avatarSrc: "/images/career-avatars/minh.jpg",
+  },
+  {
+    flag: "🇺🇸",
+    name: "Ava",
+    origin: "United States",
+    role: "SWE Intern @ Amazon",
+    initials: "A",
+    lat: 39.8,
+    lon: -98.6,
+    cardOffset: [-96, 94],
+    visibilityCutoff: 0.38,
+    avatarSrc: "/images/career-avatars/ava.jpg",
+  },
+  {
+    flag: "🇦🇪",
+    name: "Noor",
+    origin: "Dubai, UAE",
+    role: "Deloitte Consulting",
+    initials: "N",
+    lat: 25.2,
+    lon: 55.3,
+    cardOffset: [-168, 72],
+    visibilityCutoff: 0.38,
+    avatarSrc: "/images/career-avatars/noor.jpg",
+  },
+  {
+    flag: "🇨🇳",
+    name: "Li Wei",
+    origin: "China",
+    role: "Apple Intern",
+    initials: "LW",
+    lat: 35.9,
+    lon: 104.2,
+    cardOffset: [46, 48],
+    visibilityCutoff: 0.38,
+    avatarSrc: "/images/career-avatars/li-wei.jpg",
+    spotlightBias: 0.25,
+  },
+  {
+    flag: "🇦🇺",
+    name: "Olivia",
+    origin: "Australia",
+    role: "Data Intern @ Canva",
+    initials: "O",
+    lat: -25.3,
+    lon: 133.8,
+    cardOffset: [-184, -150],
+    visibilityCutoff: 0.38,
+    avatarSrc: "/images/career-avatars/olivia.jpg",
+  },
+  {
+    flag: "🇧🇷",
+    name: "Maria",
+    origin: "Brazil",
+    role: "Consulting Intern @ Deloitte",
+    initials: "M",
+    lat: -14.2,
+    lon: -51.9,
+    cardOffset: [-196, -136],
+    visibilityCutoff: 0.38,
+    avatarSrc: "/images/career-avatars/maria.jpg",
+  },
+  {
+    flag: "🇿🇦",
+    name: "Thabo",
+    origin: "South Africa",
+    role: "Finance Intern @ AWS",
+    initials: "T",
+    lat: -30.6,
+    lon: 22.9,
+    cardOffset: [-218, -132],
+    visibilityCutoff: 0.38,
+    avatarSrc: "/images/career-avatars/thabo.jpg",
+  },
+];
+
+function latLonToSpherePoint(lat: number, lon: number, radius: number) {
+  const latitude = lat * (Math.PI / 180);
+  const theta = ((lon + 180) / 360) * Math.PI * 2;
+  const cosLat = Math.cos(latitude);
+
+  return new THREE.Vector3(
+    -radius * Math.cos(theta) * cosLat,
+    radius * Math.sin(latitude),
+    radius * Math.sin(theta) * cosLat
+  );
+}
+
+type Coordinate = [number, number];
+
+interface LandFeature {
+  type: "Feature";
+  geometry: {
+    type: "Polygon" | "MultiPolygon";
+    coordinates: Coordinate[][] | Coordinate[][][];
+  };
+}
+
+interface LandFeatureCollection {
+  type: "FeatureCollection";
+  features: LandFeature[];
+}
+
+function projectCoordinate([longitude, latitude]: Coordinate, width: number, height: number) {
+  return {
+    x: ((longitude + 180) / 360) * width,
+    y: ((90 - latitude) / 180) * height,
+  };
+}
+
+function drawRing(
+  context: CanvasRenderingContext2D,
+  ring: Coordinate[],
+  width: number,
+  height: number
+) {
+  ring.forEach((coordinate, index) => {
+    const point = projectCoordinate(coordinate, width, height);
+    if (index === 0) context.moveTo(point.x, point.y);
+    else context.lineTo(point.x, point.y);
+  });
+}
+
+function drawPolygon(
+  context: CanvasRenderingContext2D,
+  rings: Coordinate[][],
+  width: number,
+  height: number
+) {
+  if (!rings.length) return;
+
+  context.beginPath();
+  drawRing(context, rings[0], width, height);
+  context.closePath();
+  context.fill();
+  context.stroke();
+
+  context.save();
+  context.globalCompositeOperation = "destination-out";
+  rings.slice(1).forEach((ring) => {
+    context.beginPath();
+    drawRing(context, ring, width, height);
+    context.closePath();
+    context.fill();
+  });
+  context.restore();
+}
+
+function createEtchedMapTexture(landData?: LandFeatureCollection) {
+  if (typeof document === "undefined") return null;
+
+  const canvas = document.createElement("canvas");
+  canvas.width = 1024;
+  canvas.height = 512;
+  const context = canvas.getContext("2d");
+  if (!context) return null;
+
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  context.strokeStyle = "rgba(158, 34, 26, 0.16)";
+  context.lineWidth = 1;
+
+  for (let x = 0; x <= canvas.width; x += 64) {
+    context.beginPath();
+    context.moveTo(x, 0);
+    context.lineTo(x, canvas.height);
+    context.stroke();
+  }
+
+  for (let y = 0; y <= canvas.height; y += 48) {
+    context.beginPath();
+    context.moveTo(0, y);
+    context.lineTo(canvas.width, y);
+    context.stroke();
+  }
+
+  if (landData) {
+    context.fillStyle = "rgba(122, 24, 20, 0.26)";
+    context.strokeStyle = "rgba(122, 24, 20, 0.78)";
+    context.lineWidth = 1.55;
+
+    landData.features.forEach((feature) => {
+      if (feature.geometry.type === "Polygon") {
+        drawPolygon(context, feature.geometry.coordinates as Coordinate[][], canvas.width, canvas.height);
+        return;
+      }
+
+      (feature.geometry.coordinates as Coordinate[][][]).forEach((polygon) => {
+        drawPolygon(context, polygon, canvas.width, canvas.height);
+      });
+    });
+  }
+
+  for (let i = 0; i < 900; i += 1) {
+    const x = ((i * 193) % canvas.width) + 0.5;
+    const y = ((i * 389) % canvas.height) + 0.5;
+    context.fillStyle = "rgba(12, 12, 14, 0.026)";
+    context.fillRect(x, y, 1, 1);
+  }
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.wrapS = THREE.RepeatWrapping;
+  texture.wrapT = THREE.ClampToEdgeWrapping;
+  return texture;
+}
+
 interface GlobeSceneProps {
   controlsRef: React.RefObject<OrbitControlsImpl | null>;
   resumeRef: React.MutableRefObject<ReturnType<typeof setTimeout> | null>;
 }
 
+interface CareerMarkerProps {
+  marker: (typeof CAREER_MARKERS)[number];
+  active: boolean;
+}
+
+function CareerMarker({ marker, active }: CareerMarkerProps) {
+  const surfacePosition = latLonToSpherePoint(marker.lat, marker.lon, SPHERE_RADIUS * 1.035);
+  const labelOffset = surfacePosition.clone().normalize().multiplyScalar(0.38);
+
+  return (
+    <group position={surfacePosition}>
+      <mesh visible={active}>
+        <sphereGeometry args={[0.038, 16, 16]} />
+        <meshBasicMaterial color={BRAND_RED} />
+      </mesh>
+      <mesh visible={active}>
+        <sphereGeometry args={[0.082, 16, 16]} />
+        <meshBasicMaterial color={BRAND_RED} transparent opacity={0.12} />
+      </mesh>
+      <Html
+        center
+        distanceFactor={3.4}
+        position={labelOffset}
+        style={{ pointerEvents: "none" }}
+        zIndexRange={marker.name === "Arjun" ? [42, 0] : [16, 0]}
+      >
+        <article
+          className="gcn-spotlight-card gcn-spotlight-card-anchored"
+          data-visible={active ? "true" : "false"}
+          style={
+            {
+              "--card-x": `${marker.cardOffset[0]}px`,
+              "--card-y": `${marker.cardOffset[1]}px`,
+            } as CSSProperties
+          }
+        >
+          <div className="gcn-spotlight-avatar" aria-hidden="true">
+            <Image
+              src={marker.avatarSrc}
+              alt=""
+              width={42}
+              height={42}
+              sizes="42px"
+              unoptimized
+            />
+          </div>
+          <div>
+            <p>
+              <span>{marker.flag}</span> {marker.name}
+            </p>
+            <strong>{marker.role}</strong>
+            <small>{marker.origin}</small>
+          </div>
+        </article>
+      </Html>
+    </group>
+  );
+}
+
 function GlobeScene({ controlsRef, resumeRef }: GlobeSceneProps) {
-  const meshRef = useRef<THREE.Mesh>(null);
+  const meshRef = useRef<THREE.Group>(null);
   const autoRotate = useRef(true);
-  const { gl } = useThree();
+  const activeMarkerRef = useRef<string | null>(null);
+  const { camera, gl } = useThree();
+  const [mapTexture, setMapTexture] = useState<THREE.CanvasTexture | null>(() =>
+    createEtchedMapTexture()
+  );
+  const [activeMarker, setActiveMarker] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    fetch("/data/land-110m.geojson")
+      .then((response) => response.json() as Promise<LandFeatureCollection>)
+      .then((landData) => {
+        if (cancelled) return;
+        const texture = createEtchedMapTexture(landData);
+        if (texture) setMapTexture(texture);
+      })
+      .catch(() => {
+        if (cancelled) return;
+        const texture = createEtchedMapTexture();
+        if (texture) setMapTexture(texture);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   // Pause auto-rotation when user drags; resume after 2.5s idle
   useEffect(() => {
@@ -82,18 +399,44 @@ function GlobeScene({ controlsRef, resumeRef }: GlobeSceneProps) {
     if (controlsRef.current) {
       controlsRef.current.update();
     }
+
+    if (meshRef.current) {
+      meshRef.current.updateMatrixWorld();
+
+      const nextActive =
+        CAREER_MARKERS.map((marker) => {
+          const localPosition = latLonToSpherePoint(marker.lat, marker.lon, SPHERE_RADIUS * 1.035);
+          const worldPosition = localPosition.applyMatrix4(meshRef.current!.matrixWorld);
+          const normal = worldPosition.clone().normalize();
+          const cameraDirection = camera.position.clone().sub(worldPosition).normalize();
+          const frontScore = normal.dot(cameraDirection);
+          const sortScore = frontScore + (marker.spotlightBias ?? 0);
+
+          return { marker, frontScore, sortScore };
+        })
+          .filter(({ marker, frontScore }) => frontScore > marker.visibilityCutoff)
+          .sort((a, b) => b.sortScore - a.sortScore)[0]?.marker.name ?? null;
+
+      if (nextActive !== activeMarkerRef.current) {
+        activeMarkerRef.current = nextActive;
+        setActiveMarker(nextActive);
+      }
+    }
   });
 
   return (
-    <group ref={meshRef}>
+    <group ref={meshRef} rotation={[0, -2.25, 0]}>
       {/* Sphere */}
       <mesh>
         <sphereGeometry args={[SPHERE_RADIUS, 48, 48]} />
         <meshStandardMaterial
-          color={BRAND_RED}
+          color="#f5efe3"
+          map={mapTexture ?? undefined}
           transparent
-          opacity={0.12}
+          opacity={0.96}
           wireframe={false}
+          roughness={0.9}
+          metalness={0}
         />
       </mesh>
 
@@ -103,7 +446,7 @@ function GlobeScene({ controlsRef, resumeRef }: GlobeSceneProps) {
         <meshStandardMaterial
           color={BRAND_RED}
           transparent
-          opacity={0.04}
+          opacity={0.08}
           side={THREE.BackSide}
         />
       </mesh>
@@ -116,7 +459,7 @@ function GlobeScene({ controlsRef, resumeRef }: GlobeSceneProps) {
           color={lat === 0 ? BRAND_RED : RED_DIM}
           lineWidth={lat === 0 ? 1.5 : 0.8}
           transparent
-          opacity={lat === 0 ? 0.9 : 0.45}
+          opacity={lat === 0 ? 0.75 : 0.32}
         />
       ))}
 
@@ -128,7 +471,7 @@ function GlobeScene({ controlsRef, resumeRef }: GlobeSceneProps) {
           color={RED_DIM}
           lineWidth={0.8}
           transparent
-          opacity={0.35}
+          opacity={0.28}
         />
       ))}
 
@@ -151,6 +494,22 @@ function GlobeScene({ controlsRef, resumeRef }: GlobeSceneProps) {
           opacity={0.6}
         />
       </group>
+      <group rotation={[Math.PI / 8, 0, -Math.PI / 4]}>
+        <Line
+          points={latitudePoints(0, SPHERE_RADIUS * 1.035)}
+          color={BRAND_RED}
+          lineWidth={0.9}
+          transparent
+          opacity={0.5}
+        />
+      </group>
+      {CAREER_MARKERS.map((marker) => (
+        <CareerMarker
+          key={`${marker.origin}-${marker.name}`}
+          marker={marker}
+          active={activeMarker === marker.name}
+        />
+      ))}
     </group>
   );
 }

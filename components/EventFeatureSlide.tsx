@@ -55,7 +55,7 @@ export default function EventFeatureSlide({ event, index, total, isActive, setRe
           </span>
           <div style={{ flex: 1, height: "1px", background: "rgba(12,12,14,0.12)" }} />
           <span
-            className="font-bold uppercase shrink-0 hidden sm:block"
+            className="font-bold uppercase shrink-0 hidden xl:block"
             style={{ fontSize: "12px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}
           >
             Arizona State University

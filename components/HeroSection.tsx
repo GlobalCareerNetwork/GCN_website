@@ -2,23 +2,21 @@ import Link from "next/link";
 import GlobeWrapper from "@/components/GlobeWrapper";
 import type { CSSProperties } from "react";
 
-const SIGNALS = [
-  "88 countries represented",
-  "2,000+ members",
-  "12+ events every semester",
-  "Built by students for students",
+const HIGHLIGHTS = [
+  { value: "2,000+", label: "Students Connected" },
+  { value: "88", label: "Countries Represented" },
+  { value: "12+", label: "Career Events Each Semester" },
+];
+
+const TRUST_INDICATORS = [
+  "Official ASU Student Organization",
+  "Supported by ASU Career Services",
 ];
 
 export default function HeroSection() {
   return (
-    <section className="gcn-hero" aria-labelledby="hero-headline">
+    <section id="hero" className="gcn-hero" aria-labelledby="hero-headline">
       <div className="gcn-world-grid" aria-hidden="true" />
-      <div className="gcn-hero-radar" aria-hidden="true">
-        <span />
-        <span />
-        <span />
-      </div>
-      <div className="gcn-grain-overlay" aria-hidden="true" />
 
       <div className="gcn-hero-shell">
         <div
@@ -40,23 +38,10 @@ export default function HeroSection() {
             </p>
 
             <h1 id="hero-headline" className="gcn-hero-title">
-              <span
-                className="hero-word"
-                style={{ "--delay": "0.18s" } as CSSProperties}
-              >
-                Global
-              </span>
-              <span
-                className="hero-word gcn-hero-title-outline"
-                style={{ "--delay": "0.28s" } as CSSProperties}
-              >
-                Career
-              </span>
-              <span
-                className="hero-word"
-                style={{ "--delay": "0.38s" } as CSSProperties}
-              >
-                Network
+              <span className="hero-word" style={{ "--delay": "0.18s" } as CSSProperties}>
+                <span className="gcn-hero-initial">G</span>lobal{" "}
+                <span className="gcn-hero-initial">C</span>areer{" "}
+                <span className="gcn-hero-initial">N</span>etwork
               </span>
             </h1>
 
@@ -65,48 +50,52 @@ export default function HeroSection() {
               style={{ "--delay": "0.52s" } as CSSProperties}
             >
               <p>
-                The student-built network connecting international ambition
-                with people, practice, and opportunity at Arizona State.
+                Helping international and globally minded students land internships,
+                build professional networks, and launch successful careers.
               </p>
               <div className="gcn-hero-actions">
                 <Link href="/join" className="gcn-btn gcn-btn-primary gcn-action">
-                  Enter the network <span aria-hidden="true">↗</span>
+                  Join GCN <span aria-hidden="true">→</span>
                 </Link>
                 <Link href="/events" className="gcn-btn gcn-action gcn-action-ghost">
-                  Explore the chronicle <span aria-hidden="true">→</span>
+                  View events <span aria-hidden="true">→</span>
                 </Link>
               </div>
+              <ul className="gcn-hero-trust" aria-label="GCN trust indicators">
+                {TRUST_INDICATORS.map((indicator) => (
+                  <li key={indicator}>
+                    <span aria-hidden="true">✓</span>
+                    {indicator}
+                  </li>
+                ))}
+              </ul>
             </div>
+
+            <dl
+              className="gcn-hero-highlights hero-anim"
+              style={{ "--delay": "0.62s" } as CSSProperties}
+            >
+              {HIGHLIGHTS.map((item) => (
+                <div key={item.label}>
+                  <dt>{item.value}</dt>
+                  <dd>{item.label}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
 
           <div
             className="gcn-hero-globe hero-fade"
             style={{ "--delay": "0.36s" } as CSSProperties}
           >
-            <div className="gcn-globe-orbit gcn-globe-orbit-a" aria-hidden="true" />
-            <div className="gcn-globe-orbit gcn-globe-orbit-b" aria-hidden="true" />
             <GlobeWrapper className="gcn-globe-canvas" />
-            <div className="gcn-globe-caption">
-              <span className="gcn-live-dot" aria-hidden="true" />
-              Global signal active
+            <div className="gcn-globe-frame" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+              <span />
             </div>
           </div>
-
-          <div className="gcn-hero-index hero-anim" style={{ "--delay": "0.7s" } as CSSProperties}>
-            <span>01</span>
-            <span>Scroll to explore</span>
-          </div>
-        </div>
-      </div>
-
-      <div className="gcn-signal-rail" aria-label="GCN at a glance">
-        <div className="gcn-signal-track">
-          {[...SIGNALS, ...SIGNALS].map((signal, index) => (
-            <span key={`${signal}-${index}`}>
-              {signal}
-              <b aria-hidden="true">✦</b>
-            </span>
-          ))}
         </div>
       </div>
     </section>

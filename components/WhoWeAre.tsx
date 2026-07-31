@@ -48,23 +48,6 @@ export default function WhoWeAre() {
           {/* ── Heading column ── */}
           <Reveal delay={0}>
             <div className="relative">
-              {/* Oversized watermark numeral — restrained editorial texture, not a graphic */}
-              <span
-                aria-hidden="true"
-                className="absolute select-none pointer-events-none gcn-gradient-text"
-                style={{
-                  fontFamily: "var(--font-serif)",
-                  fontWeight: 700,
-                  fontSize: "clamp(7rem, 16vw, 12rem)",
-                  lineHeight: 1,
-                  opacity: 0.09,
-                  top: "-1.2rem",
-                  left: "-0.5rem",
-                  zIndex: 0,
-                }}
-              >
-                01
-              </span>
               <div className="relative" style={{ zIndex: 1 }}>
                 <SectionEyebrow num="01">Who We Are</SectionEyebrow>
                 <h2

@@ -39,21 +39,17 @@ export default function Navbar() {
     <header className={`gcn-navbar ${scrolled ? "is-scrolled" : ""}`}>
       <nav className="gcn-navbar-inner" aria-label="Main navigation">
         <Link
-          href="/"
+          href="/#hero"
           className="gcn-brand-lockup"
-          aria-label="Global Career Network — home"
+          aria-label="Back to Global Career Network hero"
           onClick={(event) => {
             if (pathname === "/") {
               event.preventDefault();
-              window.scrollTo({ top: 0, behavior: "smooth" });
+              document.getElementById("hero")?.scrollIntoView({ behavior: "smooth" });
             }
           }}
         >
           <Image src="/gcn.png" alt="" width={315} height={93} priority />
-          <span>
-            Global Career Network
-            <small>Arizona State University</small>
-          </span>
         </Link>
 
         <ul className="gcn-desktop-nav">

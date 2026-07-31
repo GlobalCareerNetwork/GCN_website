@@ -1,6 +1,7 @@
 import TeamCard from "@/components/TeamCard";
-import Reveal from "@/components/Reveal";
+import TeamMotionSection from "@/components/TeamMotionSection";
 import CountUp from "@/components/CountUp";
+import type { CSSProperties } from "react";
 import {
   teamData,
   getExecutiveBoard,
@@ -21,11 +22,11 @@ export default function OrgTree() {
   const allDepts = (Object.keys(DEPT_LABELS) as Exclude<Department, "Executive">[]);
 
   return (
-    <div className="gcn-team-page" style={{ background: "var(--color-surface)" }}>
+    <div className="gcn-team-page gcn-team-motion-field" style={{ background: "var(--color-surface)" }}>
 
       {/* ── Newspaper masthead header ── */}
       <div
-        className="gcn-page-masthead"
+        className="gcn-page-masthead gcn-team-hero-motion"
         style={{
           borderBottom: "2px solid var(--color-black-soft)",
           background: "var(--color-surface-white)",
@@ -61,7 +62,7 @@ export default function OrgTree() {
         {/* Masthead content */}
         <div className="mx-auto max-w-7xl px-6 py-10">
           <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-6 items-end">
-            <div>
+            <div className="gcn-team-hero-copy">
               <p
                 className="font-bold uppercase mb-2"
                 style={{ fontSize: "12px", letterSpacing: "0.2em", color: "var(--color-brand-red)" }}
@@ -82,7 +83,7 @@ export default function OrgTree() {
               </h1>
             </div>
             <p
-              className="text-sm max-w-xs"
+              className="gcn-team-hero-deck text-sm max-w-xs"
               style={{ color: "var(--color-gray-muted)", lineHeight: 1.6 }}
             >
               Student leaders who plan events, manage outreach, and build the
@@ -98,7 +99,7 @@ export default function OrgTree() {
 
         {/* ── Section eyebrow: Executive Board ── */}
         <div
-          className="flex items-center gap-4 mb-8"
+          className="gcn-team-section-rule flex items-center gap-4 mb-8"
           style={{ borderBottom: "1px solid var(--color-gray-border)", paddingBottom: "12px" }}
         >
           <span
@@ -117,22 +118,26 @@ export default function OrgTree() {
         </div>
 
         {/* ── Exec row: horizontal, left to right, all faces on one line ── */}
-        <div className="flex flex-row flex-wrap items-start gap-10 mb-16">
+        <TeamMotionSection className="gcn-team-assembly flex flex-row flex-wrap items-start gap-10 mb-16">
           {exec.map((member, i) => (
-            <Reveal key={member.id} delay={i * 120}>
+            <div
+              key={member.id}
+              className="gcn-team-motion-item"
+              style={{ "--gcn-team-delay": `${i * 90}ms` } as CSSProperties}
+            >
               <TeamCard member={member} size="large" priority={i === 0} />
-            </Reveal>
+            </div>
           ))}
-        </div>
+        </TeamMotionSection>
 
         {/* ── Department sections — stacked full-width, each a horizontal row ── */}
         {allDepts.map((dept, deptIdx) => {
           const members = getMembersByDepartment(dept);
           return (
-            <div key={dept} className="mb-16">
+            <TeamMotionSection key={dept} className="gcn-team-department mb-16">
               {/* Section eyebrow */}
               <div
-                className="flex items-center gap-4 mb-8"
+                className="gcn-team-section-rule flex items-center gap-4 mb-8"
                 style={{ borderBottom: "1px solid var(--color-gray-border)", paddingBottom: "12px" }}
               >
                 <span
@@ -151,14 +156,20 @@ export default function OrgTree() {
               </div>
 
               {/* Member row — left to right, tops aligned so no face sits higher than another */}
-              <Reveal delay={deptIdx * 80}>
-                <div className="flex flex-row flex-wrap items-start gap-8">
-                  {members.map((member) => (
-                    <TeamCard key={member.id} member={member} size="normal" />
+              <div className="gcn-team-assembly flex flex-row flex-wrap items-start gap-8">
+                {members.map((member, memberIdx) => (
+                  <div
+                    key={member.id}
+                    className="gcn-team-motion-item"
+                    style={{
+                      "--gcn-team-delay": `${deptIdx * 55 + memberIdx * 85}ms`,
+                    } as CSSProperties}
+                  >
+                    <TeamCard member={member} size="normal" />
+                  </div>
                   ))}
-                </div>
-              </Reveal>
-            </div>
+              </div>
+            </TeamMotionSection>
           );
         })}
 
