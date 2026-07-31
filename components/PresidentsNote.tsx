@@ -25,71 +25,98 @@ const LETTER_BODY = [
 const letterParaStyle = {
   fontSize: "16.5px",
   lineHeight: 1.85,
-  color: "var(--color-gray-text)",
+  color: "rgba(255,255,255,0.72)",
 } as const;
 
 // Full-width homepage section — "03 President's Note".
-// A genuine editorial letter (not a testimonial card): salutation, letter body,
-// and a text-only italic signature, set beside a restrained portrait + margin rule.
+// Inverted dark treatment (matches Footer / StatsBlock dark tiles) so this reads as a
+// distinct featured moment rather than another light editorial section. A genuine
+// editorial letter (not a testimonial card): salutation, letter body, and a text-only
+// italic signature, set beside a large portrait + letter-margin rule.
 export default function PresidentsNote() {
   return (
     <section
       style={{
-        borderTop: "1px solid var(--color-gray-border)",
-        borderBottom: "1px solid var(--color-gray-border)",
-        background: "var(--color-surface-white)",
+        borderTop: "1px solid rgba(255,255,255,0.08)",
+        borderBottom: "1px solid rgba(255,255,255,0.08)",
+        background: "var(--color-black-soft)",
       }}
       aria-labelledby="presidents-note-heading"
     >
       <div className="mx-auto max-w-5xl px-6 py-20 md:py-28">
         <Reveal>
-          <SectionEyebrow num="03">President&apos;s Note</SectionEyebrow>
+          <SectionEyebrow num="03" dark>
+            President&apos;s Note
+          </SectionEyebrow>
         </Reveal>
 
+        {/* ── Pull quote — the visual anchor of the section ── */}
         <Reveal delay={80}>
-          <h2
-            id="presidents-note-heading"
-            className="mb-12 md:mb-16"
-            style={{
-              fontFamily: "var(--font-serif)",
-              fontStyle: "italic",
-              fontWeight: 700,
-              fontSize: "clamp(1.9rem, 3.8vw, 2.75rem)",
-              lineHeight: 1.22,
-              letterSpacing: "-0.015em",
-              color: "var(--color-black-soft)",
-              maxWidth: "18ch",
-            }}
-          >
-            No student should have to navigate their{" "}
-            <span className="gcn-gradient-text">career journey</span> alone.
-          </h2>
+          <div className="relative mb-14 md:mb-20" style={{ maxWidth: "30rem" }}>
+            <span
+              aria-hidden="true"
+              className="block select-none"
+              style={{
+                fontFamily: "var(--font-serif)",
+                fontSize: "clamp(5rem, 11vw, 8rem)",
+                lineHeight: 0.5,
+                color: "var(--color-brand-red)",
+                opacity: 0.45,
+              }}
+            >
+              &ldquo;
+            </span>
+            <h2
+              id="presidents-note-heading"
+              style={{
+                fontFamily: "var(--font-serif)",
+                fontStyle: "italic",
+                fontWeight: 700,
+                fontSize: "clamp(2.25rem, 4.5vw, 3.5rem)",
+                lineHeight: 1.1,
+                letterSpacing: "-0.02em",
+                color: "#fff",
+              }}
+            >
+              No student should have to navigate their{" "}
+              <span className="gcn-gradient-text">career journey</span> alone.
+            </h2>
+          </div>
         </Reveal>
 
         <Reveal delay={160}>
-          <div className="grid grid-cols-1 md:grid-cols-[96px_1fr] gap-8 md:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-[190px_1px_1fr] gap-10 md:gap-14">
 
-            {/* ── Portrait + letter-margin rule ── */}
-            <div className="flex md:flex-col items-center md:items-stretch gap-4 h-full">
+            {/* ── Portrait — enlarged, given room to breathe ── */}
+            {/* align-self: start keeps this grid cell from stretching to the letter
+                column's height (default grid align-items: stretch), which is what was
+                forcing the aspect-ratio square into a tall vertical strip. */}
+            <div className="flex justify-center md:justify-start" style={{ alignSelf: "start" }}>
               <div
-                className="relative overflow-hidden shrink-0"
-                style={{ width: "96px", height: "96px", border: "1px solid var(--color-gray-border)" }}
+                className="relative overflow-hidden shrink-0 w-full"
+                style={{
+                  maxWidth: "190px",
+                  aspectRatio: "1 / 1",
+                  border: "1px solid rgba(255,255,255,0.15)",
+                }}
               >
                 <Image
                   src="/images/team/keshava.png"
                   alt="Keshava Olagappaa Subramanian, President of the Global Career Network"
                   fill
-                  sizes="96px"
+                  sizes="190px"
                   className="object-cover object-top"
                   style={{ filter: "grayscale(0.25) contrast(1.05)" }}
                 />
               </div>
-              <div
-                className="hidden md:block flex-1 w-px mx-auto"
-                style={{ background: "var(--color-gray-border)" }}
-                aria-hidden="true"
-              />
             </div>
+
+            {/* Letter-margin rule */}
+            <div
+              className="hidden md:block w-px"
+              style={{ background: "rgba(255,255,255,0.14)" }}
+              aria-hidden="true"
+            />
 
             {/* ── Letter body ── */}
             <article style={{ maxWidth: "64ch" }}>
@@ -109,7 +136,7 @@ export default function PresidentsNote() {
                     fontFamily: "var(--font-serif)",
                     fontStyle: "italic",
                     fontSize: "1.15rem",
-                    color: "var(--color-gray-text)",
+                    color: "rgba(255,255,255,0.75)",
                   }}
                 >
                   Warmly,
@@ -121,14 +148,14 @@ export default function PresidentsNote() {
                       fontStyle: "italic",
                       fontWeight: 700,
                       fontSize: "1.6rem",
-                      color: "var(--color-black-soft)",
+                      color: "#fff",
                     }}
                   >
                     Keshava Olagappaa Subramanian
                   </p>
                   <p
                     className="mt-1"
-                    style={{ fontSize: "13px", letterSpacing: "0.04em", color: "var(--color-gray-muted)" }}
+                    style={{ fontSize: "13px", letterSpacing: "0.04em", color: "rgba(255,255,255,0.55)" }}
                   >
                     President, Global Career Network
                   </p>

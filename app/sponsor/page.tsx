@@ -202,7 +202,7 @@ const IMPACT = [
   {
     title: "Expanding Network",
     description:
-      "Cultivating a rich ecosystem connecting over 2,000+ ambitious students and industry professionals across Arizona.",
+      "Since our founding in 2022, GCN has grown from a handful of international students into one of ASU's most active student-led professional communities, with new members and campus partnerships added every semester.",
   },
   {
     title: "Strategic Alliances",
@@ -333,10 +333,10 @@ export default function SponsorPage() {
         </div>
 
         {/* Masthead */}
-        <div className="mx-auto max-w-7xl px-6 py-10">
-          <div className="grid grid-cols-1 md:grid-cols-[1fr_1px_1fr] gap-0 items-stretch">
+        <div className="mx-auto max-w-7xl px-6 py-14 md:py-20">
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_1px_1fr] gap-10 md:gap-16 items-stretch">
             {/* Left: headline */}
-            <div className="md:pr-10">
+            <div>
               <p className="font-bold uppercase mb-2" style={{ fontSize: "12px", letterSpacing: "0.2em", color: "var(--color-brand-red)" }}>
                 2026 Sponsorship Listings
               </p>
@@ -367,11 +367,11 @@ export default function SponsorPage() {
             />
 
             {/* Right: quick stats — open, borderless dashboard-style grid with icons */}
-            <div className="md:pl-10 pt-6 md:pt-0">
+            <div>
               <p className="font-bold uppercase mb-4" style={{ fontSize: "12px", letterSpacing: "0.2em", color: "var(--color-gray-muted)" }}>
                 At a Glance
               </p>
-              <div className="grid grid-cols-2 gap-x-6 gap-y-5">
+              <div className="grid grid-cols-2 gap-x-8 gap-y-8">
                 {AT_A_GLANCE.map(({ value, label, icon }) => (
                   <div key={label} className="flex items-start gap-2.5">
                     <span className="mt-0.5 flex-shrink-0" style={{ color: "var(--color-brand-red)" }} aria-hidden="true">
@@ -403,11 +403,13 @@ export default function SponsorPage() {
         aria-labelledby="why-partner-heading"
       >
         <div className="mx-auto max-w-7xl px-6">
-          <SectionEyebrow num="01" label="Why Partner With GCN" right="Partnership Benefits" />
+          <div className="py-6">
+            <SectionEyebrow num="01" label="Why Partner With GCN" right="Partnership Benefits" />
+          </div>
 
-          <div className="grid md:grid-cols-[1fr_1px_1fr] gap-0 items-start py-10">
+          <div className="grid md:grid-cols-[1fr_1px_1fr] gap-12 md:gap-20 items-start py-14 md:py-16">
             {/* Left: article text */}
-            <div className="md:pr-10">
+            <div>
               <h2
                 id="why-partner-heading"
                 className="font-bold mb-4 leading-snug"
@@ -431,7 +433,7 @@ export default function SponsorPage() {
                 Connecting Talent with Opportunity
               </p>
               <p
-                className="gcn-body-col"
+                className="leading-relaxed"
                 style={{ fontSize: "15.5px", color: "var(--color-gray-text)" }}
               >
                 Global Career Network (GCN) actively bridges the gap between ambitious students,
@@ -440,8 +442,8 @@ export default function SponsorPage() {
                 next generation of global market leaders.{" "}
                 <strong>
                   <em>
-                    Partner with GCN to unlock direct access to highly motivated, elite talent
-                    engineered for growth.
+                    Partner with GCN to connect directly with motivated, high-quality student
+                    talent ready to contribute to your team.
                   </em>
                 </strong>
               </p>
@@ -451,15 +453,15 @@ export default function SponsorPage() {
             <div className="hidden md:block" style={{ background: "var(--color-gray-border)" }} aria-hidden="true" />
 
             {/* Right: benefits — 2-col x 3-row grid with badged icons */}
-            <div className="md:pl-10 pt-6 md:pt-0">
-              <div className="grid grid-cols-2 gap-x-5 gap-y-6">
+            <div>
+              <div className="grid grid-cols-2 gap-x-8 gap-y-9">
                 {BENEFITS.map(({ label, icon }) => (
                   <div key={label} className="flex items-center gap-3">
                     <span
                       className="flex items-center justify-center flex-shrink-0 rounded-full"
                       style={{
-                        width: "38px",
-                        height: "38px",
+                        width: "46px",
+                        height: "46px",
                         background: "var(--color-brand-red-light)",
                         color: "var(--color-brand-red)",
                       }}
@@ -483,7 +485,9 @@ export default function SponsorPage() {
         style={{ borderBottom: "1px solid var(--color-gray-border)" }}
       >
         <div className="mx-auto max-w-7xl px-6">
-          <SectionEyebrow num="02" label="Sponsorship Tiers: 2026 Season" right="Classified Listings" />
+          <div className="py-6">
+            <SectionEyebrow num="02" label="Sponsorship Tiers: 2026 Season" right="Classified Listings" />
+          </div>
 
           {/* Scope note */}
           <div
@@ -636,8 +640,10 @@ export default function SponsorPage() {
         aria-labelledby="programs-heading"
       >
         <div className="mx-auto max-w-7xl px-6">
-          <SectionEyebrow num="03" label="GCN Programs & Initiatives" right="What We Run" />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 overflow-hidden py-8 gap-0"
+          <div className="py-6">
+            <SectionEyebrow num="03" label="GCN Programs & Initiatives" right="What We Run" />
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 overflow-hidden py-10 md:py-12 gap-0"
             style={{ borderTop: "none" }}
           >
             {PROGRAMS.map(({ label, icon, items }, i) => (
@@ -679,18 +685,20 @@ export default function SponsorPage() {
         style={{ borderBottom: "1px solid var(--color-gray-border)" }}
       >
         <div className="mx-auto max-w-7xl px-6">
-          <SectionEyebrow num="04" label="Our Impact" right="Community Built on Real Outcomes" />
-          <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] gap-10 md:gap-14 my-10 items-center">
+          <div className="py-6">
+            <SectionEyebrow num="04" label="Our Impact" right="Community Built on Real Outcomes" />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] gap-10 md:gap-14 my-12 md:my-16 items-center">
             {/* Left: metric badge */}
             <div className="flex flex-col items-start justify-center">
               <p
                 className="font-extrabold leading-none"
                 style={{ fontFamily: "var(--font-serif)", fontSize: "clamp(3rem, 6vw, 4.5rem)", color: "var(--color-brand-red)" }}
               >
-                2,000+
+                3+
               </p>
               <p className="font-bold uppercase mt-2" style={{ fontSize: "12px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}>
-                Members &amp; Growing
+                Years Building the Community, Since 2022
               </p>
             </div>
 
@@ -713,7 +721,7 @@ export default function SponsorPage() {
 
       {/* ── CLOSING CTA ── */}
       <section
-        className="py-20"
+        className="py-20 md:py-24"
         style={{ background: "var(--color-black-soft)", borderTop: "none" }}
         aria-labelledby="cta-heading"
       >
@@ -795,23 +803,6 @@ export default function SponsorPage() {
               >
                 Visit GCN Website
               </Link>
-
-              {/* TODO: Cal.com booking — Stage 8 pending, awaiting CAL_COM_API_KEY + booking slug */}
-              <div
-                className="inline-flex items-center gap-2 px-4 py-2.5 text-xs self-start"
-                style={{
-                  background: "rgba(255,255,255,0.04)",
-                  border: "1px dashed rgba(255,255,255,0.15)",
-                  color: "rgba(255,255,255,0.62)",
-                }}
-                aria-label="Schedule a call (coming soon)"
-              >
-                <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
-                  <rect x="1" y="2" width="11" height="10" rx="1" stroke="currentColor" strokeWidth="1.2" />
-                  <path d="M1 5h11M4.5 1v1.5M8.5 1v1.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
-                </svg>
-                Schedule a call: booking link coming soon
-              </div>
 
               <p className="text-xs mt-2" style={{ color: "rgba(255,255,255,0.72)" }}>
                 globalcareernetwork.club@gmail.com · @gcn.asu · Arizona State University
