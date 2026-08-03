@@ -157,7 +157,7 @@ const rawEventsData = [
       "Structured networking session in partnership with ASU's Global Career Initiatives. Focused on building the on-campus network most students never intentionally develop.",
     outcome: "Second in a series of four GCI collab events, up from 1 the previous year.",
     highlightStat: null,
-    poster: null,
+    poster: "/images/events/build-your-asu-network-2026.jpeg",
     status: "past",
     category: "Networking",
     semester: "SPRING 2026",
@@ -245,7 +245,7 @@ const rawEventsData = [
     outcome:
       "Distinguished GCN from every other career-panel org on campus. Nobody else was doing debate format. Set up the ACEL partnership for future collabs.",
     highlightStat: null,
-    poster: null,
+    poster: "/images/events/debate-panel-2026.jpeg",
     status: "past",
     category: "Panel",
     semester: "SPRING 2026",
