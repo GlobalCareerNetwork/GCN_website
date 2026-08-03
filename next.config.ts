@@ -8,13 +8,15 @@ import type { NextConfig } from "next";
 // - blob:                    → Three.js WebGL worker scripts
 // - 'unsafe-eval'            → Three.js GLSL shader compilation (WebGL requirement)
 // - va.vercel-scripts.com    → Vercel Analytics script + event beacons
+// - www.googletagmanager.com → Google Analytics 4 script tag loader (@next/third-parties)
+// - www.google-analytics.com → Google Analytics 4 telemetry data collection endpoints
 const CSP = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://va.vercel-scripts.com", // unsafe-eval: Three.js shader compiler; unsafe-inline: Next.js RSC hydration payload scripts (no CSP nonce middleware configured — without this, the browser blocks every inline <script> tag Next.js emits for streaming/hydration, which silently breaks all client-side JS: the globe never mounts, scroll/flip handlers never attach)
+  "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://va.vercel-scripts.com https://www.googletagmanager.com", // unsafe-eval: Three.js shader compiler; unsafe-inline: Next.js RSC hydration payload scripts (no CSP nonce middleware configured — without this, the browser blocks every inline <script> tag Next.js emits for streaming/hydration, which silently breaks all client-side JS: the globe never mounts, scroll/flip handlers never attach)
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://api.fontshare.com",
   "font-src 'self' https://fonts.gstatic.com https://api.fontshare.com https://cdn.fontshare.com",
   "img-src 'self' data: blob:",
-  "connect-src 'self' https://va.vercel-scripts.com",
+  "connect-src 'self' https://va.vercel-scripts.com https://www.google-analytics.com https://*.google-analytics.com",
   "worker-src blob:",                           // Three.js WebGL worker
   "frame-ancestors 'none'",
   "base-uri 'self'",

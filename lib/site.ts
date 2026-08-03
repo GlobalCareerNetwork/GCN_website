@@ -15,6 +15,8 @@ export const SOCIAL_INSTAGRAM = "https://www.instagram.com/gcn.asu";
 
 export const SOCIAL_LINKEDIN = "https://www.linkedin.com/company/global-career-network";
 
+export const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-5M38N8KTSG';
+
 export const JOIN_SUNDEVIL_CENTRAL_URL =
   "https://sundevilcentral.eoss.asu.edu/globalcareernetwork/club_signup";
 
