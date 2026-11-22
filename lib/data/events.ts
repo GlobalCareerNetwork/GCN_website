@@ -6,10 +6,11 @@ export const EventSchema = z.object({
   id: z.string(),
   name: z.string(),
   date: z.string(),           // display string, e.g. "Oct 23, 2025"
-  isoDate: z.string(),        // ISO 8601 for sorting, e.g. "2025-10-23"
+  isoDate: z.string(),        // ISO 8601 for sorting, or "" when the date is unknown
   time: z.string(),           // e.g. "5:30-7:00 PM" or "" for past events
   location: z.string(),
   description: z.string(),
+  descriptionHighlights: z.array(z.string().min(1)).optional(),
   outcome: z.string().nullable(),       // impact/result paragraph — past events only
   highlightStat: z.string().nullable(), // headline stat, e.g. "280 hackers · 10 internship offers"
   poster: z.string().nullable(),        // path under /images/events/, or null if none exists yet
@@ -32,6 +33,76 @@ export const EventsDataSchema = z.array(EventSchema);
 // Poster assets copied from "GCN - Past Event Posters/" into public/images/events/.
 
 const rawEventsData = [
+  // Past events are listed in Chronicle display order.
+  {
+    id: "globe-connect-fall-2026",
+    name: "GlobeConnect 2026",
+    date: "Oct 19, 2026",
+    isoDate: "2026-10-19",
+    time: "4:30-7:30 PM",
+    location: "MU 220, Turquoise Hall",
+    attendanceMode: "in-person",
+    description:
+      "At GlobeConnect 2026, students from a wide range of majors met 25 industry specialists through round-robin networking. Each table brought together seven to eight students and two to three specialists, with a prompt to get the conversation started. Every eight minutes, the specialists moved to a new table, giving students a chance to hear perspectives from several fields.",
+    descriptionHighlights: ["25 industry specialists", "round-robin networking", "eight minutes"],
+    outcome:
+      "The round-robin gave students across majors a chance to compare career paths and ask specialists how to get started in different fields.",
+    highlightStat: "300 RSVPs",
+    poster: "/images/events/globeconnect-october-2026.jpg",
+    status: "past",
+    category: "Networking",
+    semester: "FALL 2026",
+    academicYear: "26-27",
+    attendeeCount: null,
+    registrationUrl: "",
+    icon: "fa-globe",
+  },
+  {
+    id: "career-fair-preparation-2026",
+    name: "Career Fair Preparation",
+    date: "Sep 10, 2026",
+    isoDate: "2026-09-10",
+    time: "4:30-6:30 PM",
+    location: "",
+    attendanceMode: "in-person",
+    description:
+      "Ahead of the major career fairs, GCN partnered with the Ira A. Fulton Schools of Engineering to help students prepare for conversations with recruiters. Students practiced their elevator pitches, got professional headshots, and received feedback on their LinkedIn profiles and résumés. The evening wrapped up with dinner and networking.",
+    descriptionHighlights: ["Ira A. Fulton Schools of Engineering", "elevator pitches", "professional headshots", "LinkedIn profiles", "résumés", "dinner and networking"],
+    outcome:
+      "Students headed into career fair season with a practiced introduction, professional headshots, and feedback they could use to strengthen their résumés and LinkedIn profiles.",
+    highlightStat: "100 participants",
+    poster: "/images/events/career-fair-preparation-2026.jpg",
+    status: "past",
+    category: "Workshop",
+    semester: "FALL 2026",
+    academicYear: "26-27",
+    attendeeCount: null,
+    registrationUrl: "",
+    icon: "fa-briefcase",
+  },
+  {
+    id: "careers-in-conversation-fall-2026",
+    name: "Careers in Conversation",
+    date: "Sep 3, 2026",
+    isoDate: "2026-09-03",
+    time: "",
+    location: "",
+    attendanceMode: "in-person",
+    description:
+      "At Careers in Conversation, professionals from Amazon, Wells Fargo, and Waymo took part in a moderated panel. The host asked how they simplify complex work, navigate change, and grow their careers. The evening ended with open networking, giving students a chance to continue the conversation one-on-one.",
+    descriptionHighlights: ["Amazon, Wells Fargo, and Waymo", "moderated panel", "open networking"],
+    outcome:
+      "The panel gave students practical perspectives on navigating change at work. Open networking gave them a chance to ask their own questions and follow up with the speakers.",
+    highlightStat: "3 employers represented",
+    poster: "/images/events/careers-in-conversation-fall-2026.png",
+    status: "past",
+    category: "Panel",
+    semester: "FALL 2026",
+    academicYear: "26-27",
+    attendeeCount: null,
+    registrationUrl: "",
+    icon: "fa-comments",
+  },
   // ── Fall 2025 ────────────────────────────────────────────────────────────
   {
     id: "welcome-week-tabling-series-2025",
@@ -300,88 +371,24 @@ const rawEventsData = [
 
   // ── Upcoming Events — AY 26-27 ───────────────────────────────────────────
   {
-    id: "resume-clinic-2026",
-    name: "Resume Clinic & ATS Prep",
-    date: "Sep 10, 2026",
-    isoDate: "2026-09-10",
-    time: "6:00-7:30 PM",
-    location: "Tempe Campus MU 220",
+    id: "globehack-upcoming",
+    name: "GlobeHack",
+    date: "Date TBD",
+    isoDate: "",
+    time: "",
+    location: "",
     attendanceMode: "in-person",
-    description:
-      "Get your resume reviewed by recruiters and learn how to optimize it for applicant tracking systems used by top employers.",
+    description: "",
     outcome: null,
     highlightStat: null,
     poster: null,
     status: "upcoming",
-    category: "Workshop",
-    semester: "FALL 2026",
+    category: "Hackathon",
+    semester: "",
     academicYear: "26-27",
     attendeeCount: null,
-    registrationUrl: "", // TODO: needs real link
-    icon: "fa-file-alt",
-  },
-  {
-    id: "linkedin-outreach-masterclass-2026",
-    name: "LinkedIn & Outreach Masterclass",
-    date: "Oct 8, 2026",
-    isoDate: "2026-10-08",
-    time: "5:30-7:00 PM",
-    location: "Virtual Zoom",
-    attendanceMode: "virtual",
-    description:
-      "Master LinkedIn's algorithm, cold outreach messaging, and how to build a recruiter-facing presence that converts.",
-    outcome: null,
-    highlightStat: null,
-    poster: null,
-    status: "upcoming",
-    category: "Workshop",
-    semester: "FALL 2026",
-    academicYear: "26-27",
-    attendeeCount: null,
-    registrationUrl: "", // TODO: needs real link
-    icon: "fa-linkedin",
-  },
-  {
-    id: "mock-interview-jam-2026",
-    name: "Mock Interview Jam Session",
-    date: "Nov 12, 2026",
-    isoDate: "2026-11-12",
-    time: "6:00-8:00 PM",
-    location: "Tempe Campus MU 242",
-    attendanceMode: "in-person",
-    description:
-      "Paired mock interviews across behavioral, case, and technical formats with feedback from GCN mentors and industry volunteers.",
-    outcome: null,
-    highlightStat: null,
-    poster: null,
-    status: "upcoming",
-    category: "Practice",
-    semester: "FALL 2026",
-    academicYear: "26-27",
-    attendeeCount: null,
-    registrationUrl: "", // TODO: needs real link
-    icon: "fa-comments",
-  },
-  {
-    id: "cpt-opt-filing-2026",
-    name: "CPT/OPT Filing & Regulations",
-    date: "Dec 3, 2026",
-    isoDate: "2026-12-03",
-    time: "5:00-6:30 PM",
-    location: "Tempe Campus WPC 101",
-    attendanceMode: "in-person",
-    description:
-      "DSO-led session on CPT/OPT application timelines, employer requirements, and common mistakes that delay work authorization.",
-    outcome: null,
-    highlightStat: null,
-    poster: null,
-    status: "upcoming",
-    category: "Info Session",
-    semester: "FALL 2026",
-    academicYear: "26-27",
-    attendeeCount: null,
-    registrationUrl: "", // TODO: needs real link
-    icon: "fa-passport",
+    registrationUrl: "",
+    icon: "fa-trophy",
   },
 ] as const;
 
@@ -404,6 +411,6 @@ export function getUpcomingEvents(): Event[] {
 
 export function getEventsSortedByDate(events: Event[]): Event[] {
   return [...events].sort(
-    (a, b) => new Date(a.isoDate).getTime() - new Date(b.isoDate).getTime()
+    (a, b) => Number(!a.isoDate) - Number(!b.isoDate) || a.isoDate.localeCompare(b.isoDate)
   );
 }

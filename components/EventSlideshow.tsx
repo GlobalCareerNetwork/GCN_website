@@ -12,6 +12,15 @@ const ANIMATION_MS = 900;
 const WHEEL_THRESHOLD = 28;
 const SWIPE_THRESHOLD = 42;
 
+function articleCanScroll(target: EventTarget | null, deltaY: number) {
+  const article = target instanceof Element ? target.closest("[data-event-article]") : null;
+  if (!article) return false;
+
+  return deltaY > 0
+    ? article.scrollTop + article.clientHeight < article.scrollHeight - 1
+    : article.scrollTop > 1;
+}
+
 export default function EventSlideshow({ events }: EventSlideshowProps) {
   const storyRef = useRef<HTMLDivElement>(null);
   const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -30,7 +39,7 @@ export default function EventSlideshow({ events }: EventSlideshowProps) {
       currentIndexRef.current = next;
       setCurrentIndex(next);
       slideRefs.current[next]?.scrollIntoView({
-        behavior: reducedMotionRef.current ? "auto" : "smooth",
+        behavior: reducedMotionRef.current ? "instant" : "smooth",
         block: "start",
       });
       window.setTimeout(
@@ -49,10 +58,12 @@ export default function EventSlideshow({ events }: EventSlideshowProps) {
 
     const story = storyRef.current;
     if (!story) return;
+    const navbar = document.querySelector(".gcn-navbar");
 
     function canControlScroll(deltaY: number) {
       const rect = story!.getBoundingClientRect();
-      const withinStory = rect.top <= 2 && rect.bottom >= window.innerHeight - 2;
+      const navHeight = navbar?.getBoundingClientRect().height ?? 0;
+      const withinStory = rect.top <= navHeight + 2 && rect.bottom >= window.innerHeight - 2;
       const movingUpFromFirst = currentIndexRef.current === 0 && deltaY < 0;
       const movingDownFromLast = currentIndexRef.current === events.length - 1 && deltaY > 0;
       return withinStory && !movingUpFromFirst && !movingDownFromLast;
@@ -61,7 +72,7 @@ export default function EventSlideshow({ events }: EventSlideshowProps) {
     function handleWheel(e: WheelEvent) {
       if (reducedMotionRef.current) return;
       if (Math.abs(e.deltaY) < WHEEL_THRESHOLD || isAnimatingRef.current) return;
-      if (!canControlScroll(e.deltaY)) return;
+      if (articleCanScroll(e.target, e.deltaY) || !canControlScroll(e.deltaY)) return;
       e.preventDefault();
       goToSlide(currentIndexRef.current + (e.deltaY > 0 ? 1 : -1));
     }
@@ -74,6 +85,10 @@ export default function EventSlideshow({ events }: EventSlideshowProps) {
       if (reducedMotionRef.current) return;
       if (isAnimatingRef.current || !touchStartYRef.current) return;
       const deltaY = touchStartYRef.current - e.touches[0].clientY;
+      if (articleCanScroll(e.target, deltaY)) {
+        touchStartYRef.current = e.touches[0].clientY;
+        return;
+      }
       if (Math.abs(deltaY) < SWIPE_THRESHOLD) return;
       if (!canControlScroll(deltaY)) return;
       e.preventDefault();
@@ -87,6 +102,7 @@ export default function EventSlideshow({ events }: EventSlideshowProps) {
       const prevKeys = ["ArrowUp", "ArrowLeft"];
       if (![...nextKeys, ...prevKeys].includes(e.key) || isAnimatingRef.current) return;
       const direction = nextKeys.includes(e.key) ? 1 : -1;
+      if ((e.key === "ArrowDown" || e.key === "ArrowUp") && articleCanScroll(e.target, direction)) return;
       if (!canControlScroll(direction)) return;
       e.preventDefault();
       goToSlide(currentIndexRef.current + direction);
@@ -109,6 +125,7 @@ export default function EventSlideshow({ events }: EventSlideshowProps) {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
+        if (isAnimatingRef.current) return;
         entries.forEach((entry) => {
           if (!entry.isIntersecting || entry.intersectionRatio < 0.58) return;
           const index = slideRefs.current.indexOf(entry.target as HTMLDivElement);

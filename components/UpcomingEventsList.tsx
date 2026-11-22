@@ -50,13 +50,14 @@ export default function UpcomingEventsList({ events }: UpcomingEventsListProps) 
               Tentative
             </span>
           )}
-          <p
-            className="w-full"
-            style={{ fontSize: "15px", lineHeight: 1.7, color: "var(--color-gray-text)" }}
-          >
-            {event.time ? `${event.time} · ` : ""}
-            {event.location} · {event.description}
-          </p>
+          {(event.time || event.location || event.description) && (
+            <p
+              className="w-full"
+              style={{ fontSize: "15px", lineHeight: 1.7, color: "var(--color-gray-text)" }}
+            >
+              {[event.time, event.location, event.description].filter(Boolean).join(" · ")}
+            </p>
+          )}
           {event.registrationUrl && (
             <a
               href={event.registrationUrl}

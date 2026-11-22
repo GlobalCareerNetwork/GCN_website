@@ -1,6 +1,5 @@
 import Image from "next/image";
-import Reveal from "@/components/Reveal";
-import SectionEyebrow from "@/components/SectionEyebrow";
+import { getExecutiveBoard } from "@/lib/data/team";
 
 const LETTER_BODY = [
   `My name is Keshava Olagappaa Subramanian, and I have the privilege of serving as the
@@ -24,36 +23,21 @@ const LETTER_BODY = [
 
 const letterParaStyle = {
   fontSize: "16.5px",
-  lineHeight: 1.85,
+  lineHeight: 1.65,
   color: "rgba(255,255,255,0.84)",
 } as const;
 
-// Full-width homepage section — "03 President's Note".
-// Inverted dark treatment (matches Footer / StatsBlock dark tiles) so this reads as a
-// distinct featured moment rather than another light editorial section. A genuine
-// editorial letter (not a testimonial card): salutation, letter body, and a text-only
-// italic signature, set beside a large portrait + letter-margin rule.
 export default function PresidentsNote() {
-  return (
-    <section
-      className="gcn-president-stage"
-      style={{
-        borderTop: "1px solid rgba(255,255,255,0.08)",
-        borderBottom: "1px solid rgba(255,255,255,0.08)",
-        background: "var(--color-black-soft)",
-      }}
-      aria-labelledby="presidents-note-heading"
-    >
-      <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
-        <Reveal>
-          <SectionEyebrow num="03" dark>
-            President&apos;s Note
-          </SectionEyebrow>
-        </Reveal>
+  const president = getExecutiveBoard().find(({ role }) => role === "President");
 
-        {/* ── Pull quote — the visual anchor of the section ── */}
-        <Reveal delay={80}>
-          <div className="gcn-president-quote relative mb-12 md:mb-16">
+  return (
+    <section id="sponsor-president" className="gcn-president-stage" aria-labelledby="presidents-note-label">
+      <div className="gcn-sponsor-shell">
+        <p id="presidents-note-label" className="py-4 font-bold leading-snug text-white">
+          President&apos;s Note
+        </p>
+        <div className="gcn-president-content">
+          <div className="gcn-president-quote relative mb-6 md:mb-8">
             <span
               aria-hidden="true"
               className="block select-none"
@@ -83,9 +67,7 @@ export default function PresidentsNote() {
               <span className="gcn-gradient-text">career journey</span> alone.
             </h2>
           </div>
-        </Reveal>
 
-        <Reveal delay={160}>
           <div className="gcn-president-letter-wrap">
 
             {/* ── Portrait — enlarged, given room to breathe ── */}
@@ -101,14 +83,19 @@ export default function PresidentsNote() {
                   border: "1px solid rgba(255,255,255,0.22)",
                 }}
               >
-                <Image
-                  src="/images/team/keshava.png"
-                  alt="Keshava Olagappaa Subramanian, President of the Global Career Network"
-                  fill
-                  sizes="230px"
-                  className="object-cover object-top"
-                  style={{ filter: "grayscale(0.25) contrast(1.05)" }}
-                />
+                {president?.photo && (
+                  <Image
+                    src={president.photo}
+                    alt="Keshava Olagappaa Subramanian, President of the Global Career Network"
+                    fill
+                    sizes="230px"
+                    className="object-cover object-top"
+                    style={{
+                      filter: "grayscale(0.25) contrast(1.05)",
+                      objectPosition: president.photoPosition,
+                    }}
+                  />
+                )}
               </div>
               <div className="gcn-president-id">
                 <p>Keshava Olagappaa Subramanian</p>
@@ -161,7 +148,7 @@ export default function PresidentsNote() {
               </div>
             </article>
           </div>
-        </Reveal>
+        </div>
       </div>
     </section>
   );

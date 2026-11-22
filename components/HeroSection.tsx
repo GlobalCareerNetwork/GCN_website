@@ -1,6 +1,8 @@
 import Link from "next/link";
 import GlobeWrapper from "@/components/GlobeWrapper";
 import type { CSSProperties } from "react";
+import { JOIN_SUNDEVIL_CENTRAL_URL } from "@/lib/site";
+import styles from "./HeroSection.module.css";
 
 const HIGHLIGHTS = [
   { value: "2,000+", label: "Students Connected" },
@@ -19,24 +21,14 @@ export default function HeroSection() {
       <div className="gcn-world-grid" aria-hidden="true" />
 
       <div className="gcn-hero-shell">
-        <div
-          className="gcn-hero-meta hero-anim"
-          style={{ "--delay": "0.04s" } as CSSProperties}
-        >
+        <div className={`${styles.meta} hero-anim`} style={{ "--delay": "0.04s" } as CSSProperties}>
           <span>ASU · Tempe, Arizona</span>
           <span>Student-led since 2022</span>
-          <span className="hidden sm:inline">33.42° N · 111.93° W</span>
+          <span>33.42° N · 111.93° W</span>
         </div>
 
         <div className="gcn-hero-stage">
           <div className="gcn-hero-copy">
-            <p
-              className="gcn-kicker hero-anim"
-              style={{ "--delay": "0.12s" } as CSSProperties}
-            >
-              Careers without borders
-            </p>
-
             <h1 id="hero-headline" className="gcn-hero-title">
               <span className="hero-word" style={{ "--delay": "0.18s" } as CSSProperties}>
                 <span className="gcn-hero-initial">G</span>lobal{" "}
@@ -54,9 +46,9 @@ export default function HeroSection() {
                 build professional networks, and launch successful careers.
               </p>
               <div className="gcn-hero-actions">
-                <Link href="/join" className="gcn-btn gcn-btn-primary gcn-action">
+                <a href={JOIN_SUNDEVIL_CENTRAL_URL} className="gcn-btn gcn-btn-primary gcn-action">
                   Join GCN <span aria-hidden="true">→</span>
-                </Link>
+                </a>
                 <Link href="/events" className="gcn-btn gcn-action gcn-action-ghost">
                   View events <span aria-hidden="true">→</span>
                 </Link>

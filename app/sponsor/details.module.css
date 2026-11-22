@@ -1,0 +1,27 @@
+.more :global(.gcn-sponsor-disclosure) {
+  color: #fff;
+  background: var(--color-brand-red);
+  border-color: var(--color-brand-red);
+}
+
+.more :global(.gcn-sponsor-summary),
+.more :global(.gcn-sponsor-detail-grid) h3 {
+  color: #fff;
+}
+
+.more :global(.gcn-sponsor-summary):hover {
+  background: var(--color-brand-red-dark);
+}
+
+.more :global(.gcn-sponsor-summary):focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: -4px;
+}
+
+.more :global(.gcn-sponsor-detail-body) {
+  border-color: rgba(255,255,255,0.25);
+}
+
+.more :global(.gcn-sponsor-list) li::marker {
+  color: #fff;
+}

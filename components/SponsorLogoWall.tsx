@@ -59,40 +59,21 @@ export default function SponsorLogoWall() {
   return (
     <section
       className="gcn-partner-rail py-14 overflow-hidden"
-      style={{
-        background: "var(--color-surface-white)",
-        borderTop: "1px solid var(--color-gray-border)",
-      }}
       aria-label="Our sponsors and partners"
     >
-      {/* Section label — editorial eyebrow */}
       <Reveal className="mb-8 px-6 mx-auto max-w-5xl">
-        <div className="flex items-center gap-4">
-          <div style={{ flex: 1, height: "1px", background: "rgba(12,12,14,0.16)" }} />
-          <p
-            className="font-black uppercase shrink-0"
-            style={{
-              fontSize: "12px",
-              letterSpacing: "0.24em",
-              color: "var(--color-brand-red)",
-            }}
-          >
-            Our Partners
-          </p>
-          <div style={{ flex: 1, height: "1px", background: "rgba(12,12,14,0.16)" }} />
-        </div>
-        <p
-          className="mt-3 text-center"
+        <h2
+          className="text-center"
           style={{
             fontFamily: "var(--font-serif)",
             fontWeight: 700,
             fontStyle: "italic",
-            fontSize: "15.5px",
+            fontSize: "clamp(1.35rem, 2.5vw, 1.8rem)",
             color: "var(--color-gray-text)",
           }}
         >
-          Organizations that invest in GCN&apos;s mission
-        </p>
+          Our partners
+        </h2>
       </Reveal>
 
       {/* Edge-faded marquee wrapper */}
@@ -100,7 +81,7 @@ export default function SponsorLogoWall() {
         <div
           className="gcn-partner-track relative flex items-center"
           style={{
-            animation: "gcn-marquee-reverse 35s linear infinite",
+            animation: "gcn-marquee 35s linear infinite",
             width: "max-content",
           }}
           onMouseEnter={(e) => {

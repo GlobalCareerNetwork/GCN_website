@@ -5,10 +5,6 @@ export default function ClosingStatement() {
   return (
     <section
       className="gcn-closing-stage relative overflow-hidden"
-      style={{
-        background: "var(--color-surface)",
-        borderTop: "1px solid var(--color-gray-border)",
-      }}
       aria-labelledby="closing-statement-heading"
     >
       <div aria-hidden="true" className="gcn-grain-overlay" />

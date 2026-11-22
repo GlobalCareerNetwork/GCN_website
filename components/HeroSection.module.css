@@ -1,0 +1,39 @@
+.meta {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  min-height: 42px;
+  color: var(--color-gray-muted);
+  border-bottom: 1px solid rgba(12,12,14,0.18);
+  font-size: 0.54rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.meta span:nth-child(2) {
+  text-align: right;
+}
+
+.meta span:last-child {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .meta {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    min-height: 48px;
+    font-size: 0.63rem;
+    letter-spacing: 0.16em;
+  }
+
+  .meta span:nth-child(2) {
+    text-align: center;
+  }
+
+  .meta span:last-child {
+    display: block;
+    text-align: right;
+  }
+}

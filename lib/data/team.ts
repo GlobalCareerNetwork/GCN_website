@@ -1,7 +1,5 @@
 import { z } from "zod";
 
-// ── Schema ──────────────────────────────────────────────────────────────────
-
 export const TeamMemberSchema = z.object({
   id: z.string(),
   name: z.string(),
@@ -14,211 +12,179 @@ export const TeamMemberSchema = z.object({
     "Finance",
     "Marketing",
   ]),
-  photo: z.string(),
+  photo: z.string().nullable(),
+  photoPosition: z.string().optional(),
   bio: z.string(),
-  hobby: z.string(),
   linkedinUrl: z.string(),
+  email: z.string(),
   major: z.string(),
-  year: z.enum(["Freshman", "Sophomore", "Junior", "Senior", "Graduate", "Alumni", ""]),
+  year: z.string(),
 });
 
 export type TeamMember = z.infer<typeof TeamMemberSchema>;
 
 export const TeamDataSchema = z.array(TeamMemberSchema);
 
-// ── Data ────────────────────────────────────────────────────────────────────
-// Source: static/js/team.js TEAM_DATA object (hero-globe-logo-updates branch)
-// Fields added: major, year
-// linkedinUrl left as "" with TODO where not available
-
 const rawTeamData = [
-  // ── Executive Leadership ──────────────────────────────────────────────────
   {
     id: "keshava-olagappaa-subramanian",
     name: "Keshava Olagappaa Subramanian",
     role: "President",
     department: "Executive",
-    photo: "/images/team/keshava.png",
-    bio: "Passionate about organizing impactful events that help students develop essential career skills.",
-    hobby: "I love hosting events and drinking Matcha!",
+    photo: "/images/team/keshava-portrait.webp",
+    photoPosition: "center 92%",
+    bio: "Does everything someone says no to.",
     linkedinUrl: "https://www.linkedin.com/in/keshava-olagappaa/",
+    email: "ksubra36@asu.edu",
     major: "Computer Science",
-    year: "Senior",
+    year: "Spring 2028",
   },
   {
-    id: "bao-nguyen",
-    name: "Bao Nguyen",
+    id: "pushkar-prasad",
+    name: "Pushkar Prasad",
     role: "Vice President",
     department: "Executive",
-    photo: "/images/team/bao.jpg",
-    bio: "Focused on building partnerships and scaling GCN's impact across campus and industry.",
-    hobby: "Playing basketball and discovering new ramen spots around Phoenix.",
-    linkedinUrl: "https://www.linkedin.com/in/quocnguyen-2203asu/",
-    major: "Business Administration",
-    year: "Senior",
-  },
-
-  // ── Operations ────────────────────────────────────────────────────────────
-  {
-    id: "angel-rosas",
-    name: "Angel Rosas",
-    role: "Team Lead",
-    department: "Operations",
-    photo: "/images/team/angel.jpg",
-    bio: "Leads logistics and coordination to keep GCN events seamless and impactful.",
-    hobby: "Photography and trying new coffee shops.",
-    linkedinUrl: "https://www.linkedin.com/in/angel-e-rosas/",
-    major: "Management",
-    year: "Junior",
+    photo: "/images/team/pushkar-portrait.webp",
+    photoPosition: "center 85%",
+    bio: "i am always sleep deprived",
+    linkedinUrl: "https://www.linkedin.com/in/pushkar1008/",
+    email: "pprasa15@asu.edu",
+    major: "Computer Science",
+    year: "Fall 2028",
   },
   {
-    id: "henry-tran",
-    name: "Henry Tran",
-    role: "Officer",
-    department: "Operations",
-    photo: "/images/team/henry.jpg",
-    bio: "Keeps club operations running smoothly and ensures events are executed flawlessly.",
-    hobby: "Cooking and exploring hiking trails.",
-    linkedinUrl: "https://www.linkedin.com/in/nhattran0812/",
-    major: "Supply Chain Management",
-    year: "Junior",
+    id: "kendra-pham-do",
+    name: "Pham (Kendra) Do",
+    role: "Vice President",
+    department: "Executive",
+    photo: "/images/team/kendra-portrait.webp",
+    photoPosition: "center 94%",
+    bio: "Making noise in the quietest way",
+    linkedinUrl: "https://www.linkedin.com/in/pham-do-409356360/",
+    email: "",
+    major: "Computer Information System and Supply Chain Management",
+    year: "Spring 2028",
   },
   {
     id: "mahi-brahmbhatt",
-    name: "Mahi Brahmbhatt",
-    role: "Intern",
+    name: "Mahi P. Brahmbhatt",
+    role: "Events, Outreach, & Marketing Intern",
     department: "Operations",
-    photo: "/images/team/mahi.png",
-    bio: "Supports operational tasks and is developing project management skills.",
-    hobby: "Dancing and binge-watching documentaries.",
+    photo: "/images/team/mahi-portrait.webp",
+    photoPosition: "center 85%",
+    bio: "I like to make food of different cuisines.",
     linkedinUrl: "https://www.linkedin.com/in/mahi-brahmbhatt/",
-    major: "Business",
-    year: "Sophomore",
+    email: "mbrambha@asu.edu",
+    major: "Mechanical Engineering",
+    year: "Spring 2027",
   },
-
-  // ── Outreach ──────────────────────────────────────────────────────────────
   {
     id: "tanu-magesh",
-    name: "Tanushri MageshSowmya",
-    role: "Team Lead",
+    name: "Tanushri Magesh Sowmya",
+    role: "Director of Outreach",
     department: "Outreach",
-    photo: "/images/team/tanu.jpeg",
-    bio: "Drives community outreach and builds GCN's presence across ASU.",
-    hobby: "Painting and attending cultural festivals.",
+    photo: "/images/team/tanushri-portrait.webp",
+    photoPosition: "center 88%",
+    bio: "Making it up as I go!",
     linkedinUrl: "https://www.linkedin.com/in/tanushri-magesh-sowmya-592bb42b6/",
-    major: "Marketing",
-    year: "Junior",
+    email: "tmageshs@asu.edu",
+    major: "Industrial Engineering",
+    year: "Spring 2027",
   },
   {
     id: "vishnu-uppalapati",
     name: "Vishnu Uppalapati",
-    role: "Intern",
+    role: "Outreach Intern",
     department: "Outreach",
-    photo: "/images/team/vishnu.jpeg",
-    bio: "Assists with outreach campaigns and student engagement initiatives.",
-    hobby: "Gaming and playing chess.",
+    photo: "/images/team/vishnu-portrait.webp",
+    photoPosition: "center 94%",
+    bio: "Running on four hours and hope.",
     linkedinUrl: "https://www.linkedin.com/in/vishnu-uppalapati/",
-    major: "Information Technology",
-    year: "Sophomore",
+    email: "vuppala6@asu.edu",
+    major: "Computer Science",
+    year: "Spring 2029",
   },
   {
     id: "harshith-vijayan",
     name: "Harshith Vijayan",
-    role: "Intern",
+    role: "Outreach Intern",
     department: "Outreach",
-    photo: "/images/team/harshith.jpg",
-    bio: "Supports outreach efforts and helps grow GCN's student network.",
-    hobby: "Cricket and watching Formula 1.",
-    linkedinUrl: "https://www.linkedin.com/in/harshith-vijayan-b36229326/",
+    photo: "/images/team/harshith-portrait.webp",
+    photoPosition: "center 86%",
+    bio: "Plays every sport. Masters none. Shows up anyway.",
+    linkedinUrl: "https://www.linkedin.com/in/harshithvijayan/",
+    email: "hvijayan@asu.edu",
     major: "Computer Science",
-    year: "Freshman",
-  },
-
-  // ── Technical ─────────────────────────────────────────────────────────────
-  {
-    id: "pushkar-prasad",
-    name: "Pushkar Prasad",
-    role: "Team Lead",
-    department: "Technical",
-    photo: "/images/team/pushkar.jpeg",
-    bio: "Leads technical development and maintains GCN's digital infrastructure.",
-    hobby: "Building side projects and playing badminton.",
-    linkedinUrl: "https://www.linkedin.com/in/pushkar1008/",
-    major: "Software Engineering",
-    year: "Junior",
+    year: "Spring 2028",
   },
   {
     id: "anhiti-vooturi",
     name: "Anhiti Vooturi",
-    role: "Intern",
+    role: "Technical Intern",
     department: "Technical",
-    photo: "/images/team/anhiti.jpeg",
-    bio: "Contributes to web development and digital tools for club operations.",
-    hobby: "Reading sci-fi novels and sketching.",
+    photo: "/images/team/anhiti-portrait.webp",
+    photoPosition: "center 88%",
+    bio: "Following Newton's laws by staying in motion :)",
     linkedinUrl: "https://www.linkedin.com/in/anhiti-vooturi-9892a7256/",
+    email: "avooturi@asu.edu",
     major: "Computer Science",
-    year: "Sophomore",
-  },
-
-  // ── Finance ───────────────────────────────────────────────────────────────
-  {
-    id: "kendra-pham-do",
-    name: "Kendra (Pham) Do",
-    role: "Team Lead",
-    department: "Finance",
-    photo: "/images/team/kendra.jpg",
-    bio: "Manages GCN's budget and ensures responsible financial planning for all events.",
-    hobby: "Baking and visiting art museums.",
-    linkedinUrl: "", // TODO: needs real link
-    major: "Finance",
-    year: "Junior",
+    year: "Spring 2028",
   },
   {
     id: "harry-yuan",
     name: "Harry Yuan",
-    role: "Intern",
+    role: "Finance Intern",
     department: "Finance",
-    photo: "/images/team/harry.png",
-    bio: "Supports financial tracking and learns club budgeting processes.",
-    hobby: "Playing piano and watching anime.",
+    photo: "/images/team/harry-portrait.webp",
+    photoPosition: "center 94%",
+    bio: "Always looking for my next trip",
     linkedinUrl: "https://www.linkedin.com/in/cheng-hsi/",
-    major: "Accountancy",
-    year: "Sophomore",
+    email: "cyuan127@asu.edu",
+    major: "Economics & Finance",
+    year: "Spring 2029",
   },
-
-  // ── Marketing ─────────────────────────────────────────────────────────────
   {
     id: "daksh-raghav",
-    name: "Daksh Raghav",
-    role: "Team Lead",
+    name: "Daksh Raghav Preetha",
+    role: "Marketing Director",
     department: "Marketing",
-    photo: "/images/team/daksh.jpg",
-    bio: "Leads brand strategy, social media, and promotional campaigns for GCN.",
-    hobby: "Graphic design and travelling.",
+    photo: "/images/team/daksh-portrait.webp",
+    photoPosition: "center 86%",
+    bio: "Probably watching F1 when I should be studying.",
     linkedinUrl: "https://www.linkedin.com/in/dakshraghav/",
-    major: "Marketing",
-    year: "Junior",
+    email: "dpreetha@asu.edu",
+    major: "Robotics Engineering",
+    year: "Spring 2028",
   },
   {
     id: "jennifer-phan",
     name: "Jennifer Phan",
-    role: "Intern",
+    role: "Marketing Intern",
     department: "Marketing",
     photo: "/images/team/jennifer.jpg",
-    bio: "Assists with content creation and digital marketing for GCN events.",
-    hobby: "Photography and DIY crafts.",
-    linkedinUrl: "", // TODO: needs real link
-    major: "Journalism and Mass Communication",
-    year: "Sophomore",
+    photoPosition: "center 25%",
+    bio: "Shenaned once, might shenanigan",
+    linkedinUrl: "https://www.linkedin.com/in/jenniferphan171/",
+    email: "nphan8@asu.edu",
+    major: "Marketing & BDA",
+    year: "Spring 2027",
+  },
+  {
+    id: "bonnie-cheng",
+    name: "Bonnie Cheng",
+    role: "Marketing Intern",
+    department: "Marketing",
+    photo: "/images/team/bonnie-portrait.webp",
+    photoPosition: "center 80%",
+    bio: "Professional daydreamer, part-time responsible adult.",
+    linkedinUrl: "https://www.linkedin.com/in/bonnie-cheng-asu/",
+    email: "cchen464@asu.edu",
+    major: "Accountancy",
+    year: "Spring 2028",
   },
 ] as const;
 
-// Validate at module load — type errors surface at build time, not runtime
-export const teamData: TeamMember[] = TeamDataSchema.parse(
-  rawTeamData.map((m) => ({ ...m }))
-);
-
-// ── Helpers ──────────────────────────────────────────────────────────────────
+export const teamData: TeamMember[] = TeamDataSchema.parse(rawTeamData);
 
 export const DEPARTMENTS = [
   "Executive",
@@ -232,7 +198,7 @@ export const DEPARTMENTS = [
 export type Department = (typeof DEPARTMENTS)[number];
 
 export function getMembersByDepartment(dept: Department): TeamMember[] {
-  return teamData.filter((m) => m.department === dept);
+  return teamData.filter((member) => member.department === dept);
 }
 
 export function getExecutiveBoard(): TeamMember[] {
@@ -240,5 +206,5 @@ export function getExecutiveBoard(): TeamMember[] {
 }
 
 export function getDepartmentLeads(): TeamMember[] {
-  return teamData.filter((m) => m.role === "Team Lead" || m.role === "Officer");
+  return teamData.filter((member) => member.role.startsWith("Director of ") || /\b(Lead|Officer|Director)$/.test(member.role));
 }

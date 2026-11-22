@@ -4,13 +4,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { JOIN_SUNDEVIL_CENTRAL_URL } from "@/lib/site";
 
 const NAV_LINKS = [
-  { href: "/", label: "Home", index: "01" },
-  { href: "/events", label: "Events", index: "02" },
-  { href: "/team", label: "Team", index: "03" },
-  { href: "/resources", label: "Resources", index: "04" },
-  { href: "/sponsor", label: "Sponsor", index: "05" },
+  { href: "/", label: "Home" },
+  { href: "/events", label: "Events" },
+  { href: "/team", label: "Team" },
+  { href: "/resources", label: "Resources" },
+  { href: "/sponsor", label: "Sponsor" },
 ];
 
 export default function Navbar() {
@@ -69,9 +70,9 @@ export default function Navbar() {
           })}
         </ul>
 
-        <Link href="/join" className="gcn-nav-cta">
+        <a href={JOIN_SUNDEVIL_CENTRAL_URL} className="gcn-nav-cta">
           Join GCN <span aria-hidden="true">↗</span>
-        </Link>
+        </a>
 
         <button
           type="button"
@@ -88,7 +89,7 @@ export default function Navbar() {
       <div className={`gcn-mobile-menu ${open ? "is-open" : ""}`} aria-hidden={!open}>
         <div className="gcn-mobile-menu-grid" aria-hidden="true" />
         <nav aria-label="Mobile navigation">
-          {NAV_LINKS.map(({ href, label, index }) => (
+          {NAV_LINKS.map(({ href, label }) => (
             <Link
               key={href}
               href={href}
@@ -96,16 +97,13 @@ export default function Navbar() {
               aria-current={isActive(href) ? "page" : undefined}
               onClick={() => setOpen(false)}
             >
-              <span>{index}</span>
               {label}
             </Link>
           ))}
-          <Link href="/join" tabIndex={open ? 0 : -1} onClick={() => setOpen(false)}>
-            <span>06</span>
+          <a href={JOIN_SUNDEVIL_CENTRAL_URL} tabIndex={open ? 0 : -1} onClick={() => setOpen(false)}>
             Join GCN
-          </Link>
+          </a>
         </nav>
-        <p>Careers without borders · Est. 2022</p>
       </div>
     </header>
   );
