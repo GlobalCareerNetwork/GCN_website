@@ -11,65 +11,55 @@ interface EventFeatureSlideProps {
   setRef: (el: HTMLDivElement | null) => void;
 }
 
+function renderDescription({ description, descriptionHighlights }: Event) {
+  if (!descriptionHighlights?.length) return description;
+
+  const phrases = descriptionHighlights.map((phrase) => phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+  const pattern = new RegExp(`(${phrases.join("|")})`, "g");
+
+  return description.split(pattern).map((text, index) =>
+    index % 2 === 0 ? text : (
+      <strong key={index} className="font-black" style={{ color: "var(--color-brand-red)" }}>
+        {text}
+      </strong>
+    )
+  );
+}
+
 export default function EventFeatureSlide({ event, index, total, isActive, setRef }: EventFeatureSlideProps) {
+  const eventDetails = [event.date || event.semester, event.time, event.location].filter(Boolean).join(" · ");
+
   return (
     <div
       ref={setRef}
-      className="relative w-full h-screen flex flex-col md:flex-row"
+      className="gcn-event-slide relative w-full flex flex-col md:flex-row"
       aria-label={`Event ${index + 1} of ${total}: ${event.name}`}
       style={{
         opacity: isActive ? 1 : 0.4,
         transition: "opacity 0.5s var(--ease-enter)",
-        background: "var(--color-surface)",
       }}
     >
+      <div
+        className={`gcn-event-timeline-divider${isActive ? " is-active" : ""}`}
+        aria-hidden="true"
+      >
+        <span />
+      </div>
+
       {/* ── Left half: framed, contained poster (flip card) ── */}
-      <div className="relative w-full md:w-1/2 h-[46vh] md:h-screen p-4 md:p-8">
+      <div className="gcn-event-poster-side relative w-full md:w-1/2 h-[46%] md:h-full shrink-0 p-4 md:p-8">
         <EventPosterFlip event={event} />
       </div>
 
       {/* ── Right half: newspaper article panel ── */}
       <div
-        className="relative w-full md:w-1/2 min-h-[54vh] md:h-screen flex flex-col"
-        style={{ borderLeft: "1px solid var(--color-gray-border)" }}
+        className="gcn-event-article-panel relative w-full md:w-1/2 min-h-0 flex flex-1 flex-col"
+        style={{
+          background: "var(--color-surface-white)",
+        }}
       >
-        <div className="gcn-grain-overlay" aria-hidden="true" />
-
-        {/* Three-column eyebrow masthead row */}
-        <div
-          className="relative flex items-center gap-4 px-6 md:px-10 py-3"
-          style={{ borderBottom: "1px solid var(--color-gray-border)" }}
-        >
-          <span
-            className="font-black uppercase shrink-0"
-            style={{ fontSize: "12px", letterSpacing: "0.22em", color: "var(--color-brand-red)" }}
-          >
-            GCN
-          </span>
-          <div style={{ flex: 1, height: "1px", background: "rgba(12,12,14,0.12)" }} />
-          <span
-            className="font-bold uppercase shrink-0"
-            style={{ fontSize: "12px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}
-          >
-            Event Chronicle
-          </span>
-          <div style={{ flex: 1, height: "1px", background: "rgba(12,12,14,0.12)" }} />
-          <span
-            className="font-bold uppercase shrink-0 hidden xl:block"
-            style={{ fontSize: "12px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}
-          >
-            Arizona State University
-          </span>
-        </div>
-
         {/* Article body */}
-        <div className="relative flex-1 flex flex-col px-8 md:pl-12 md:pr-20 py-8 overflow-y-auto">
-          <p
-            className="font-black uppercase mb-3"
-            style={{ fontSize: "12px", letterSpacing: "0.2em", color: "var(--color-brand-red)" }}
-          >
-            {event.semester}
-          </p>
+        <div data-event-article className="relative flex-1 flex flex-col px-8 md:pl-12 md:pr-20 py-8 overflow-y-auto">
           <h2
             className="leading-[1.05] mb-4"
             style={{
@@ -81,32 +71,35 @@ export default function EventFeatureSlide({ event, index, total, isActive, setRe
           >
             {event.name}
           </h2>
-          <p
-            className="uppercase"
-            style={{
-              fontFamily: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
-              fontSize: "12.5px",
-              letterSpacing: "0.1em",
-              color: "var(--color-gray-text)",
-            }}
-          >
-            {event.date}
-            {event.time ? ` · ${event.time}` : ""} · {event.location}
-          </p>
+          {eventDetails && (
+            <p
+              className="uppercase"
+              style={{
+                fontFamily: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
+                fontSize: "12.5px",
+                letterSpacing: "0.1em",
+                color: "var(--color-gray-text)",
+              }}
+            >
+              {eventDetails}
+            </p>
+          )}
 
-          <div className="gcn-rule-full my-5" />
+          {(event.description || event.outcome) && <div className="gcn-rule-full my-5" />}
 
           <div className="mx-auto w-full" style={{ maxWidth: "52ch" }}>
-            <p
-              className="gcn-body-article gcn-dropcap"
-              style={{ fontFamily: "var(--font-serif)", fontWeight: 700, color: "var(--color-black-soft)" }}
-            >
-              {event.description}
-            </p>
+            {event.description && (
+              <p
+                className="gcn-body-article gcn-dropcap"
+                style={{ fontFamily: "var(--font-serif)", fontWeight: 700, color: "var(--color-black-soft)" }}
+              >
+                {renderDescription(event)}
+              </p>
+            )}
 
             {event.outcome && (
               <>
-                <div className="gcn-rule-full my-5" />
+                {event.description && <div className="gcn-rule-full my-5" />}
                 <p
                   className="gcn-body-article"
                   style={{ fontFamily: "var(--font-serif)", fontWeight: 700, fontStyle: "italic", color: "var(--color-stats-ink)" }}

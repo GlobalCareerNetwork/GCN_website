@@ -55,19 +55,16 @@ export default function StatsBlock() {
       aria-labelledby="impact-ledger-heading"
     >
       <div className="gcn-impact-ledger-head">
-        <p className="gcn-kicker">The network in motion</p>
         <h2 id="impact-ledger-heading">
           A local community with
           <br />
           <em>global velocity.</em>
         </h2>
-        <span aria-hidden="true">04 / IMPACT</span>
       </div>
 
       <div className="gcn-impact-grid" role="list" aria-label="GCN impact statistics">
         {STATS.map(({ raw, suffix, label }, index) => (
           <div key={label} className="gcn-impact-stat" role="listitem">
-            <span className="gcn-impact-index">0{index + 1}</span>
             <p>
               {(counts?.[index] ?? raw).toLocaleString("en-US")}
               {suffix}

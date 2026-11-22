@@ -138,7 +138,7 @@ function buildEventJsonLd(event: Event): EventJsonLd {
   return jsonLd;
 }
 
-const eventsJsonLd = getUpcomingEvents().map(buildEventJsonLd);
+const eventsJsonLd = getUpcomingEvents().filter((event) => event.isoDate).map(buildEventJsonLd);
 
 export default function EventsPage() {
   return (

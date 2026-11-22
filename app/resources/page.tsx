@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/site";
 import { RESOURCES, type Resource } from "@/lib/data/resources";
-import SectionEyebrow from "@/components/SectionEyebrow";
 import {
   Card,
   CardAction,
@@ -99,27 +98,7 @@ export default function ResourcesPage() {
           background: "var(--color-surface-white)",
         }}
       >
-        <div
-          className="mx-auto max-w-7xl px-6 py-2.5 flex items-center gap-4"
-          style={{ borderBottom: "1px solid var(--color-gray-border)" }}
-        >
-          <span className="font-black uppercase shrink-0" style={{ fontSize: "12px", letterSpacing: "0.22em", color: "var(--color-brand-red)" }}>
-            GCN
-          </span>
-          <div style={{ flex: 1, height: "1px", background: "rgba(12,12,14,0.12)" }} />
-          <span className="font-bold uppercase shrink-0" style={{ fontSize: "12px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}>
-            Career &amp; Immigration Resources
-          </span>
-          <div style={{ flex: 1, height: "1px", background: "rgba(12,12,14,0.12)" }} />
-          <span className="font-bold uppercase shrink-0 hidden sm:block" style={{ fontSize: "12px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}>
-            Arizona State University
-          </span>
-        </div>
-
         <div className="mx-auto max-w-7xl px-6 py-10">
-          <p className="font-bold uppercase mb-2" style={{ fontSize: "12px", letterSpacing: "0.2em", color: "var(--color-brand-red)" }}>
-            Member Resource Directory
-          </p>
           <h1
             id="resources-heading"
             className="gcn-masthead-title mb-4"
@@ -147,12 +126,8 @@ export default function ResourcesPage() {
         aria-labelledby="resources-heading"
         style={{ borderBottom: "1px solid var(--color-gray-border)" }}
       >
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="py-6">
-            <SectionEyebrow num="01">Curated Career &amp; Immigration Tools</SectionEyebrow>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+        <div className="mx-auto max-w-7xl px-6 py-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {RESOURCES.map((resource) => (
               // Outer wrapper never transforms — it's what :hover binds to, so the
               // hover boundary stays fixed even as the Card lifts. Lifting the Card

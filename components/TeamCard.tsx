@@ -1,207 +1,102 @@
-"use client";
+﻿"use client";
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import Image from "next/image";
-import type { MouseEvent } from "react";
 import type { TeamMember } from "@/lib/data/team";
 
 interface TeamCardProps {
   member: TeamMember;
-  size?: "large" | "normal";
   priority?: boolean;
 }
 
-export default function TeamCard({ member, size = "normal", priority = false }: TeamCardProps) {
-  const [flipped, setFlipped] = useState(false);
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  const isLarge = size === "large";
-  const cardW = isLarge ? "w-[220px]" : "w-[180px]";
-  const cardH = isLarge ? "h-[300px]" : "h-[258px]";
-  // Fixed photo height — consistent across all cards regardless of name length
-  const photoH = isLarge ? 214 : 172;
-  // Room for a two-line name + role — long names (e.g. "Keshava Olagappaa Subramanian")
-  // wrap instead of truncating
-  const nameH = isLarge ? 86 : 86;
-
-  const resetTilt = () => {
-    const card = cardRef.current;
-    if (!card) return;
-    card.style.setProperty("--gcn-tilt-x", "0deg");
-    card.style.setProperty("--gcn-tilt-y", "0deg");
-    card.style.setProperty("--gcn-glare-x", "50%");
-    card.style.setProperty("--gcn-glare-y", "40%");
-  };
-
-  const handlePointerMove = (event: MouseEvent<HTMLDivElement>) => {
-    const card = cardRef.current;
-    if (!card) return;
-
-    const rect = card.getBoundingClientRect();
-    const x = (event.clientX - rect.left) / rect.width;
-    const y = (event.clientY - rect.top) / rect.height;
-    const rotateY = (x - 0.5) * 5;
-    const rotateX = (0.5 - y) * 4;
-
-    card.style.setProperty("--gcn-tilt-x", `${rotateX.toFixed(2)}deg`);
-    card.style.setProperty("--gcn-tilt-y", `${rotateY.toFixed(2)}deg`);
-    card.style.setProperty("--gcn-glare-x", `${(x * 100).toFixed(1)}%`);
-    card.style.setProperty("--gcn-glare-y", `${(y * 100).toFixed(1)}%`);
-  };
+export default function TeamCard({ member, priority = false }: TeamCardProps) {
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const detailsId = `team-card-details-${member.id}`;
+  const headingId = `${detailsId}-heading`;
+  const nameSize = member.name.length > 20 ? "compact" : member.name.length > 13 ? "long" : "normal";
+  const mobilePhotoSize = member.department === "Executive" ? "min(25vw, 148px)" : "min(38vw, 148px)";
+  const initials = member.name.split(/\s+/).slice(0, 2).map((word) => word[0]).join("");
 
   return (
-    <div
-      ref={cardRef}
-      className={`gcn-team-card ${cardW} ${cardH} cursor-pointer select-none`}
-      style={{
-        perspective: "900px",
-        transform: flipped
-          ? "translateY(-6px) rotateX(var(--gcn-tilt-x, 0deg)) rotateY(var(--gcn-tilt-y, 0deg))"
-          : "translateY(0) rotateX(var(--gcn-tilt-x, 0deg)) rotateY(var(--gcn-tilt-y, 0deg))",
-        transition: "transform 0.25s var(--ease-fast), box-shadow 0.25s var(--ease-fast)",
-        boxShadow: flipped
-          ? "0 20px 50px rgba(158,34,26,0.22), 0 8px 20px rgba(12,12,14,0.16)"
-          : undefined,
-      }}
-      onMouseEnter={() => setFlipped(true)}
-      onMouseMove={handlePointerMove}
-      onMouseLeave={() => {
-        setFlipped(false);
-        resetTilt();
-      }}
-      onClick={() => setFlipped((v) => !v)}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          setFlipped((v) => !v);
-        }
-      }}
-      role="button"
-      tabIndex={0}
-      aria-expanded={flipped}
-      aria-label={`${member.name}, ${member.role}, press Enter to reveal details`}
-    >
-      {/* Flip container */}
-      <div
-        className="relative w-full h-full"
-        style={{
-          transformStyle: "preserve-3d",
-          transition: "transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1)",
-          transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)",
+    <article className="gcn-team-tile">
+      <button
+        ref={triggerRef}
+        type="button"
+        className="gcn-team-profile-trigger"
+        aria-haspopup="dialog"
+        aria-controls={detailsId}
+        aria-label={`View profile for ${member.name}, ${member.role}`}
+        onClick={() => dialogRef.current?.showModal()}
+      >
+        <span className="gcn-team-photo-stage">
+          <span className="gcn-team-portrait">
+            {member.photo ? (
+              <Image
+                src={member.photo}
+                alt=""
+                fill
+                sizes={`(max-width: 767px) ${mobilePhotoSize}, (max-width: 1023px) 164px, 176px`}
+                priority={priority}
+                className="object-cover object-top"
+                style={{ objectPosition: member.photoPosition }}
+              />
+            ) : (
+              <span className="gcn-team-initials" aria-hidden="true">{initials}</span>
+            )}
+          </span>
+        </span>
+        <span className="gcn-team-caption">
+          <span className="gcn-team-caption-name" data-name-size={nameSize}>{member.name}</span>
+          <span className="gcn-team-caption-role">{member.role}</span>
+        </span>
+      </button>
+
+      <dialog
+        ref={dialogRef}
+        id={detailsId}
+        className="gcn-team-profile"
+        aria-labelledby={headingId}
+        onClose={() => triggerRef.current?.focus({ preventScroll: true })}
+        onClick={(event) => {
+          if (event.target === event.currentTarget) event.currentTarget.close();
         }}
       >
-        {/* ── FRONT ── */}
-        <div
-          className="gcn-team-card-front absolute inset-0 overflow-hidden flex flex-col"
-          style={{
-            backfaceVisibility: "hidden",
-            WebkitBackfaceVisibility: "hidden",
-            background: "#fff",
-            border: "1px solid var(--color-gray-border)",
-            boxShadow: "var(--shadow-soft)",
-          }}
-        >
-          {/* Photo — fixed height so all headshots are identical size */}
-          <div
-            className="relative flex-shrink-0 overflow-hidden"
-            style={{ height: `${photoH}px` }}
-          >
-            <Image
-              src={member.photo}
-              alt={member.name}
-              fill
-              sizes={isLarge ? "220px" : "180px"}
-              priority={priority}
-              className="object-cover object-top"
-              onError={(e) => {
-                (e.target as HTMLImageElement).src = "/images/team/placeholder.png";
-              }}
-            />
-            {/* Gradient overlay at bottom of photo */}
-            <div
-              className="absolute bottom-0 left-0 right-0 h-14"
-              style={{
-                background: "linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 100%)",
-                zIndex: 3,
-              }}
-            />
+        <div className="gcn-team-profile-panel">
+          <div className="gcn-team-profile-header">
+            <div>
+              <h2 id={headingId}>{member.name}</h2>
+              <p>{member.role}</p>
+            </div>
+            <form method="dialog">
+              <button type="submit" className="gcn-team-profile-close" aria-label="Close profile">&times;</button>
+            </form>
           </div>
 
-          {/* Name / role — fixed remaining height */}
-          <div
-            className="flex flex-col justify-center px-3 py-2"
-            style={{ height: `${nameH}px`, flexShrink: 0 }}
-          >
-            <p
-              className="font-semibold text-sm leading-snug"
-              style={{ color: "var(--color-black-soft)" }}
-            >
-              {member.name}
-            </p>
-            <p
-              className="text-xs mt-0.5"
-              style={{ color: "var(--color-brand-red)" }}
-            >
-              {member.role}
-            </p>
-          </div>
-        </div>
-
-        {/* ── BACK ── */}
-        <div
-          className="gcn-team-card-back absolute inset-0 flex flex-col justify-between p-4"
-          style={{
-            backfaceVisibility: "hidden",
-            WebkitBackfaceVisibility: "hidden",
-            transform: "rotateY(180deg)",
-            background: "var(--color-black-soft)",
-            border: "1px solid rgba(255,255,255,0.10)",
-            boxShadow: "var(--shadow-hover)",
-          }}
-        >
-          <div className="flex flex-col gap-2">
-            <p className="font-bold text-sm leading-tight text-white">
-              {member.name}
-            </p>
-            <p style={{ color: "var(--color-brand-red)", fontSize: "12px", fontWeight: 600 }}>
-              {member.role}
-            </p>
-            {member.major && (
-              <p className="text-xs" style={{ color: "rgba(245,241,232,0.55)" }}>
-                {member.major}
-                {member.year ? ` · ${member.year}` : ""}
-              </p>
+          <div className="gcn-team-profile-body">
+            {(member.major || member.year) && (
+              <dl className="gcn-team-profile-meta">
+                {member.major && <div><dt>Major</dt><dd>{member.major}</dd></div>}
+                {member.year && <div><dt>Expected graduation</dt><dd>{member.year}</dd></div>}
+              </dl>
             )}
-            <p
-              className="text-xs leading-relaxed mt-1"
-              style={{ color: "rgba(245,241,232,0.72)" }}
-            >
-              {member.bio}
-            </p>
+            {member.bio && (
+              <div className="gcn-team-profile-bio">
+                <h3>Short bio</h3>
+                <p>{member.bio}</p>
+              </div>
+            )}
+            {(member.linkedinUrl || member.email) && (
+              <div className="gcn-team-profile-links">
+                {member.linkedinUrl && (
+                  <a href={member.linkedinUrl} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                )}
+                {member.email && <a href={`mailto:${member.email}`}>{member.email}</a>}
+              </div>
+            )}
           </div>
-
-          {member.linkedinUrl ? (
-            <a
-              href={member.linkedinUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className="inline-flex items-center justify-center gap-1.5 w-full py-2 rounded-lg text-xs font-semibold transition-opacity hover:opacity-90"
-              style={{ background: "var(--color-brand-red)", color: "#fff" }}
-              aria-label={`${member.name} on LinkedIn`}
-            >
-              <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-              </svg>
-              LinkedIn
-            </a>
-          ) : (
-            <p className="text-xs text-center" style={{ color: "rgba(245,241,232,0.72)" }}>
-              No LinkedIn yet
-            </p>
-          )}
         </div>
-      </div>
-    </div>
+      </dialog>
+    </article>
   );
 }

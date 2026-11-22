@@ -11,14 +11,14 @@ type View = "past" | "future";
 export default function EventsTimeline() {
   const [view, setView] = useState<View>("past");
 
-  const pastEvents = getEventsSortedByDate(getPastEvents());
+  const pastEvents = getPastEvents();
   const upcomingEvents = getEventsSortedByDate(getUpcomingEvents());
 
   return (
-    <div className="gcn-events-page" style={{ background: "var(--color-surface)" }}>
+    <div className="gcn-events-page">
 
       {/* ── Newspaper masthead ── */}
-      <div className="gcn-page-masthead gcn-page-masthead-chronicle" style={{ background: "var(--color-surface-white)" }}>
+      <div className="gcn-page-masthead gcn-page-masthead-chronicle" style={{ background: "var(--color-brand-red)" }}>
         <div className="mx-auto max-w-5xl px-6 pt-12 pb-5 text-center">
           <h1
             className="gcn-masthead-title leading-none mb-3"
@@ -27,38 +27,21 @@ export default function EventsTimeline() {
               fontWeight: 700,
               fontSize: "clamp(2.6rem, 6vw, 4.4rem)",
               letterSpacing: "-0.02em",
-              color: "var(--color-black-soft)",
+              color: "#fff",
             }}
           >
             The GCN Chronicle
           </h1>
-          <p
-            className="font-semibold"
-            style={{
-              fontFamily: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
-              fontSize: "12px",
-              letterSpacing: "0.08em",
-              color: "var(--color-gray-muted)",
-            }}
-          >
-            Academic Year 2025-26 · Arizona State University
-          </p>
         </div>
 
         <div className="mx-auto max-w-5xl px-6">
           <div className="gcn-double-rule" />
         </div>
       </div>
-      <div style={{ height: "1px", background: "rgba(12,12,14,0.22)" }} />
+      <div style={{ height: "2px", background: "var(--color-brand-red)" }} />
 
       {/* ── Past / Future toggle ── */}
-      <div className="mx-auto max-w-5xl px-6 py-8 flex items-center gap-4">
-        <span
-          className="font-bold uppercase shrink-0"
-          style={{ fontSize: "12px", letterSpacing: "0.2em", color: "var(--color-gray-muted)" }}
-        >
-          View
-        </span>
+      <div className="mx-auto max-w-5xl px-6 py-8">
         <div className="inline-flex gap-0" role="group" aria-label="Toggle past or future events">
           {(["past", "future"] as View[]).map((v, i) => (
             <button
@@ -96,7 +79,8 @@ export default function EventsTimeline() {
           className="grid grid-cols-3 overflow-hidden"
           style={{
             border: "1px solid var(--color-gray-border)",
-            borderTop: "2px solid var(--color-black-soft)",
+            borderTop: "3px solid var(--color-brand-red)",
+            background: "var(--color-surface-white)",
           }}
         >
           {[

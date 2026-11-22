@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { pageMetadata, SOCIAL_INSTAGRAM, SOCIAL_LINKEDIN, JOIN_SUNDEVIL_CENTRAL_URL } from "@/lib/site";
-import SectionEyebrow from "@/components/SectionEyebrow";
 import {
   Card,
   CardContent,
@@ -99,27 +98,7 @@ export default function JoinPage() {
           background: "var(--color-surface-white)",
         }}
       >
-        <div
-          className="mx-auto max-w-7xl px-6 py-2.5 flex items-center gap-4"
-          style={{ borderBottom: "1px solid var(--color-gray-border)" }}
-        >
-          <span className="font-black uppercase shrink-0" style={{ fontSize: "12px", letterSpacing: "0.22em", color: "var(--color-brand-red)" }}>
-            GCN
-          </span>
-          <div style={{ flex: 1, height: "1px", background: "rgba(12,12,14,0.12)" }} />
-          <span className="font-bold uppercase shrink-0" style={{ fontSize: "12px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}>
-            Get Involved
-          </span>
-          <div style={{ flex: 1, height: "1px", background: "rgba(12,12,14,0.12)" }} />
-          <span className="font-bold uppercase shrink-0 hidden sm:block" style={{ fontSize: "12px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}>
-            Arizona State University
-          </span>
-        </div>
-
         <div className="mx-auto max-w-7xl px-6 py-10">
-          <p className="font-bold uppercase mb-2" style={{ fontSize: "12px", letterSpacing: "0.2em", color: "var(--color-brand-red)" }}>
-            Join The Network
-          </p>
           <h1
             id="join-heading"
             className="gcn-masthead-title mb-4"
@@ -147,12 +126,8 @@ export default function JoinPage() {
         aria-labelledby="join-heading"
         style={{ borderBottom: "1px solid var(--color-gray-border)" }}
       >
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="py-6">
-            <SectionEyebrow num="01">Ways To Connect</SectionEyebrow>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+        <div className="mx-auto max-w-7xl px-6 py-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {JOIN_OPTIONS.map((option) => (
               <Card key={option.id} className="gcn-card-hover h-full">
                 <CardHeader>

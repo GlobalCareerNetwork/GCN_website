@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type KeyboardEvent, type PointerEvent } from "react";
 import Image from "next/image";
 import type { Event } from "@/lib/data/events";
+import styles from "./EventPosterFlip.module.css";
 
 interface EventPosterFlipProps {
   event: Event;
@@ -10,24 +11,32 @@ interface EventPosterFlipProps {
 
 export default function EventPosterFlip({ event }: EventPosterFlipProps) {
   const [flipped, setFlipped] = useState(false);
+  const hasOutcome = Boolean(event.outcome || event.highlightStat);
+  const flipControls = hasOutcome ? {
+    onPointerEnter: (event: PointerEvent<HTMLDivElement>) => {
+      if (event.pointerType === "mouse") setFlipped(true);
+    },
+    onPointerLeave: (event: PointerEvent<HTMLDivElement>) => {
+      if (event.pointerType === "mouse") setFlipped(false);
+    },
+    onClick: () => setFlipped((value) => !value),
+    onKeyDown: (event: KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        setFlipped((value) => !value);
+      }
+    },
+    role: "button",
+    tabIndex: 0,
+    "aria-expanded": flipped,
+    "aria-label": `${event.name} poster, press Enter to reveal outcome`,
+  } : undefined;
 
   return (
     <div
-      className="relative w-full h-full cursor-pointer select-none"
+      className={`relative w-full h-full${hasOutcome ? " cursor-pointer select-none" : ""}`}
       style={{ perspective: "1800px" }}
-      onMouseEnter={() => setFlipped(true)}
-      onMouseLeave={() => setFlipped(false)}
-      onClick={() => setFlipped((v) => !v)}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          setFlipped((v) => !v);
-        }
-      }}
-      role="button"
-      tabIndex={0}
-      aria-expanded={flipped}
-      aria-label={`${event.name} poster, press Enter to reveal outcome`}
+      {...flipControls}
     >
       <div
         className="relative w-full h-full"
@@ -39,18 +48,19 @@ export default function EventPosterFlip({ event }: EventPosterFlipProps) {
       >
         {/* ── FRONT: framed poster (or typographic cover) ── */}
         <div
+          aria-hidden={flipped}
           className="absolute inset-0 flex items-center justify-center p-1"
           style={{
             backfaceVisibility: "hidden",
             WebkitBackfaceVisibility: "hidden",
-            background: "var(--color-surface)",
-            border: "2px solid var(--color-black-soft)",
+            background: "var(--color-surface-white)",
+            border: "1px solid var(--color-black-soft)",
           }}
         >
           <div
             className="relative w-full h-full flex items-center justify-center"
             style={{
-              border: "1px solid var(--color-gray-border)",
+              border: "1px solid rgba(12,12,14,0.18)",
               padding: "32px 24px",
             }}
           >
@@ -60,7 +70,7 @@ export default function EventPosterFlip({ event }: EventPosterFlipProps) {
                   src={event.poster}
                   alt={event.name}
                   fill
-                  sizes="50vw"
+                  sizes="(max-width: 767px) 100vw, 50vw"
                   className="object-contain"
                   style={{ filter: "sepia(0.5) contrast(1.1) brightness(0.94)" }}
                 />
@@ -87,54 +97,53 @@ export default function EventPosterFlip({ event }: EventPosterFlipProps) {
           </div>
 
           {/* Mobile-only interaction hint */}
-          <span
-            className="md:hidden absolute bottom-3 left-1/2 -translate-x-1/2 font-bold uppercase"
-            style={{ fontSize: "12px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}
-          >
-            Tap to flip
-          </span>
+          {hasOutcome && (
+            <span
+              className="md:hidden absolute bottom-3 left-1/2 -translate-x-1/2 font-bold uppercase"
+              style={{ fontSize: "12px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}
+            >
+              Tap to flip
+            </span>
+          )}
         </div>
 
-        {/* ── BACK: outcome / stats on aged paper ── */}
-        <div
-          className="absolute inset-0 flex flex-col justify-center gap-5 px-10 md:px-14"
-          style={{
-            backfaceVisibility: "hidden",
-            WebkitBackfaceVisibility: "hidden",
-            transform: "rotateY(180deg)",
-            background: "var(--color-surface)",
-            border: "2px solid var(--color-black-soft)",
-          }}
-        >
-          <div className="gcn-grain-overlay" aria-hidden="true" />
-          <p
-            className="font-black uppercase"
-            style={{ fontSize: "12px", letterSpacing: "0.22em", color: "var(--color-brand-red)" }}
+        {/* ── BACK: event outcome and highlight ── */}
+        {hasOutcome && (
+          <div
+            aria-hidden={!flipped}
+            data-event-article
+            className={`absolute inset-0 flex flex-col ${styles.outcome}`}
+            style={{
+              backfaceVisibility: "hidden",
+              WebkitBackfaceVisibility: "hidden",
+              transform: "rotateY(180deg)",
+              background: "var(--color-surface-white)",
+              border: "1px solid var(--color-black-soft)",
+            }}
           >
-            Outcome
-          </p>
-          {event.outcome && (
+            <div className="gcn-grain-overlay" aria-hidden="true" />
             <p
-              className="gcn-body-col"
-              style={{ fontFamily: "var(--font-serif)", fontWeight: 700, color: "var(--color-black-soft)", fontSize: "1.02rem" }}
+              className="font-black uppercase"
+              style={{ fontSize: "12px", letterSpacing: "0.22em", color: "var(--color-brand-red)" }}
             >
-              {event.outcome}
+              Outcome
             </p>
-          )}
-          {event.highlightStat && (
-            <p
-              className="font-bold leading-tight text-center"
-              style={{
-                fontFamily: "var(--font-serif)",
-                fontSize: "clamp(1.4rem, 2.6vw, 2rem)",
-                color: "var(--color-brand-red)",
-                textTransform: "capitalize",
-              }}
-            >
-              {event.highlightStat}
-            </p>
-          )}
-        </div>
+            {event.outcome && (
+              <p
+                className={styles.copy}
+              >
+                {event.outcome}
+              </p>
+            )}
+            {event.highlightStat && (
+              <p
+                className={styles.highlight}
+              >
+                {event.highlightStat}
+              </p>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
