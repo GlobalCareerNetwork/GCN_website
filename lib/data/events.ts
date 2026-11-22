@@ -12,6 +12,7 @@ export const EventSchema = z.object({
   description: z.string(),
   descriptionHighlights: z.array(z.string().min(1)).optional(),
   outcome: z.string().nullable(),       // impact/result paragraph — past events only
+  outcomePhotos: z.array(z.object({ src: z.string(), alt: z.string() })).optional(),
   highlightStat: z.string().nullable(), // headline stat, e.g. "280 hackers · 10 internship offers"
   poster: z.string().nullable(),        // path under /images/events/, or null if none exists yet
   status: z.enum(["past", "upcoming", "tentative"]),
@@ -47,6 +48,16 @@ const rawEventsData = [
     descriptionHighlights: ["25 industry specialists", "round-robin networking", "eight minutes"],
     outcome:
       "The round-robin gave students across majors a chance to compare career paths and ask specialists how to get started in different fields.",
+    outcomePhotos: [
+      { src: "/images/events/globeconnect-2026/photo-1.webp", alt: "Attendees fill the hall at round tables during GlobeConnect." },
+      { src: "/images/events/globeconnect-2026/photo-2.webp", alt: "Attendees talk and pass an item across table 6." },
+      { src: "/images/events/globeconnect-2026/photo-3.webp", alt: "A group poses together in the GlobeConnect event hall." },
+      { src: "/images/events/globeconnect-2026/photo-4.webp", alt: "Round tables and projection screens seen from the side of the hall." },
+      { src: "/images/events/globeconnect-2026/photo-5.webp", alt: "A view from a networking table toward the GlobeConnect presentation." },
+      { src: "/images/events/globeconnect-2026/photo-6.webp", alt: "Attendees gather for a conversation around table 1." },
+      { src: "/images/events/globeconnect-2026/photo-7.webp", alt: "A wide view across the hall during the round-robin discussions." },
+      { src: "/images/events/globeconnect-2026/photo-8.webp", alt: "Attendees sit and stand around tables along the side of the hall." },
+    ],
     highlightStat: "300 RSVPs",
     poster: "/images/events/globeconnect-october-2026.jpg",
     status: "past",
@@ -70,6 +81,14 @@ const rawEventsData = [
     descriptionHighlights: ["Ira A. Fulton Schools of Engineering", "elevator pitches", "professional headshots", "LinkedIn profiles", "résumés", "dinner and networking"],
     outcome:
       "Students headed into career fair season with a practiced introduction, professional headshots, and feedback they could use to strengthen their résumés and LinkedIn profiles.",
+    outcomePhotos: [
+      { src: "/images/events/career-fair-preparation-2026/photo-1.webp", alt: "A group poses together at Career Fair Preparation." },
+      { src: "/images/events/career-fair-preparation-2026/photo-2.webp", alt: "An attendee talks with someone working at the GCN table." },
+      { src: "/images/events/career-fair-preparation-2026/photo-3.webp", alt: "Attendees gather near the GCN table and banner by the windows." },
+      { src: "/images/events/career-fair-preparation-2026/photo-4.webp", alt: "Students and organizers mingle in a busy hall during the fair." },
+      { src: "/images/events/career-fair-preparation-2026/photo-5.webp", alt: "Students visit the GlobeConnect display at the GCN table." },
+      { src: "/images/events/career-fair-preparation-2026/photo-6.webp", alt: "Attendees talk across a table during Career Fair Preparation." },
+    ],
     highlightStat: "100 participants",
     poster: "/images/events/career-fair-preparation-2026.jpg",
     status: "past",
@@ -93,6 +112,22 @@ const rawEventsData = [
     descriptionHighlights: ["Amazon, Wells Fargo, and Waymo", "moderated panel", "open networking"],
     outcome:
       "The panel gave students practical perspectives on navigating change at work. Open networking gave them a chance to ask their own questions and follow up with the speakers.",
+    outcomePhotos: [
+      { src: "/images/events/careers-in-conversation-2026/photo-1.webp", alt: "A group photo at Careers in Conversation." },
+      { src: "/images/events/careers-in-conversation-2026/photo-2.webp", alt: "Four attendees chat together after the panel." },
+      { src: "/images/events/careers-in-conversation-2026/photo-3.webp", alt: "Panelists sit beneath a slide titled Closing Thoughts." },
+      { src: "/images/events/careers-in-conversation-2026/photo-4.webp", alt: "A panelist gestures while speaking to the audience." },
+      { src: "/images/events/careers-in-conversation-2026/photo-5.webp", alt: "Attendees mingle in front of the closing Thank You slide." },
+      { src: "/images/events/careers-in-conversation-2026/photo-6.webp", alt: "An organizer poses beside the Global Career Network table." },
+      { src: "/images/events/careers-in-conversation-2026/photo-7.webp", alt: "Two attendees smile as they hold microphones." },
+      { src: "/images/events/careers-in-conversation-2026/photo-8.webp", alt: "A student speaks with a panelist during open networking." },
+      { src: "/images/events/careers-in-conversation-2026/photo-9.webp", alt: "Attendees form small groups to talk after the panel." },
+      { src: "/images/events/careers-in-conversation-2026/photo-10.webp", alt: "Four attendees continue the conversation near the front row." },
+      { src: "/images/events/careers-in-conversation-2026/photo-11.webp", alt: "An attendee speaks with a panelist beside the closing slide." },
+      { src: "/images/events/careers-in-conversation-2026/photo-12.webp", alt: "Three seated panelists during the discussion." },
+      { src: "/images/events/careers-in-conversation-2026/photo-13.webp", alt: "The audience looks toward three speakers seated at the front." },
+      { src: "/images/events/careers-in-conversation-2026/photo-14.webp", alt: "The panel gathers beneath the Complexity Made Simple title slide." },
+    ],
     highlightStat: "3 employers represented",
     poster: "/images/events/careers-in-conversation-fall-2026.png",
     status: "past",
