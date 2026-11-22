@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type KeyboardEvent, type PointerEvent } from "react";
+import { useEffect, useId, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
 import Image from "next/image";
 import type { Event } from "@/lib/data/events";
 import styles from "./EventPosterFlip.module.css";
@@ -11,30 +11,64 @@ interface EventPosterFlipProps {
 
 export default function EventPosterFlip({ event }: EventPosterFlipProps) {
   const [flipped, setFlipped] = useState(false);
-  const hasOutcome = Boolean(event.outcome || event.highlightStat);
+  const [photoIndex, setPhotoIndex] = useState(0);
+  const frontButton = useRef<HTMLButtonElement>(null);
+  const backButton = useRef<HTMLButtonElement>(null);
+  const moveFocus = useRef(false);
+  const outcomeId = useId();
+  const photos = event.outcomePhotos ?? [];
+  const photo = photos[photoIndex];
+  const hasGallery = photos.length > 0;
+  const hasOutcome = Boolean(event.outcome || event.highlightStat || hasGallery);
+
+  useEffect(() => {
+    if (!moveFocus.current) return;
+    moveFocus.current = false;
+    (flipped ? backButton : frontButton).current?.focus({ preventScroll: true });
+  }, [flipped]);
+
+  function showFace(outcome: boolean) {
+    moveFocus.current = true;
+    setFlipped(outcome);
+  }
+
   const flipControls = hasOutcome ? {
     onPointerEnter: (event: PointerEvent<HTMLDivElement>) => {
-      if (event.pointerType === "mouse") setFlipped(true);
-    },
-    onPointerLeave: (event: PointerEvent<HTMLDivElement>) => {
-      if (event.pointerType === "mouse") setFlipped(false);
-    },
-    onClick: () => setFlipped((value) => !value),
-    onKeyDown: (event: KeyboardEvent<HTMLDivElement>) => {
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        setFlipped((value) => !value);
+      if (event.pointerType === "mouse" && (!hasGallery || !event.currentTarget.contains(document.activeElement))) {
+        setFlipped(true);
       }
     },
-    role: "button",
-    tabIndex: 0,
-    "aria-expanded": flipped,
-    "aria-label": `${event.name} poster, press Enter to reveal outcome`,
+    onPointerLeave: (event: PointerEvent<HTMLDivElement>) => {
+      if (event.pointerType === "mouse" && (!hasGallery || !event.currentTarget.contains(document.activeElement))) {
+        setFlipped(false);
+      }
+    },
+    ...(!hasGallery && {
+      onClick: () => setFlipped((value) => !value),
+      onKeyDown: (event: KeyboardEvent<HTMLDivElement>) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          setFlipped((value) => !value);
+        }
+      },
+      role: "button",
+      tabIndex: 0,
+      "aria-expanded": flipped,
+      "aria-label": `${event.name} poster, press Enter to reveal outcome`,
+    }),
   } : undefined;
+  const tapHint = (
+    <span
+      className="md:hidden absolute bottom-3 left-1/2 -translate-x-1/2 font-bold uppercase"
+      style={{ fontSize: "12px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}
+    >
+      Tap to flip
+    </span>
+  );
 
   return (
     <div
-      className={`relative w-full h-full${hasOutcome ? " cursor-pointer select-none" : ""}`}
+      className={`relative w-full h-full${hasOutcome && !hasGallery ? " cursor-pointer select-none" : ""}`}
       style={{ perspective: "1800px" }}
       {...flipControls}
     >
@@ -49,6 +83,7 @@ export default function EventPosterFlip({ event }: EventPosterFlipProps) {
         {/* ── FRONT: framed poster (or typographic cover) ── */}
         <div
           aria-hidden={flipped}
+          inert={hasGallery && flipped}
           className="absolute inset-0 flex items-center justify-center p-1"
           style={{
             backfaceVisibility: "hidden",
@@ -96,23 +131,28 @@ export default function EventPosterFlip({ event }: EventPosterFlipProps) {
             )}
           </div>
 
-          {/* Mobile-only interaction hint */}
-          {hasOutcome && (
-            <span
-              className="md:hidden absolute bottom-3 left-1/2 -translate-x-1/2 font-bold uppercase"
-              style={{ fontSize: "12px", letterSpacing: "0.18em", color: "var(--color-gray-muted)" }}
+          {hasGallery ? (
+            <button
+              ref={frontButton}
+              type="button"
+              className={styles.posterTrigger}
+              aria-label={`View ${event.name} outcome and photos`}
+              aria-controls={outcomeId}
+              onClick={() => showFace(true)}
             >
-              Tap to flip
-            </span>
-          )}
+              {tapHint}
+            </button>
+          ) : hasOutcome && tapHint}
         </div>
 
         {/* ── BACK: event outcome and highlight ── */}
         {hasOutcome && (
           <div
+            id={outcomeId}
             aria-hidden={!flipped}
+            inert={hasGallery && !flipped}
             data-event-article
-            className={`absolute inset-0 flex flex-col ${styles.outcome}`}
+            className={`absolute inset-0 flex flex-col ${styles.outcome}${hasGallery ? ` ${styles.outcomeWithPhotos}` : ""}`}
             style={{
               backfaceVisibility: "hidden",
               WebkitBackfaceVisibility: "hidden",
@@ -122,12 +162,24 @@ export default function EventPosterFlip({ event }: EventPosterFlipProps) {
             }}
           >
             <div className="gcn-grain-overlay" aria-hidden="true" />
-            <p
-              className="font-black uppercase"
-              style={{ fontSize: "12px", letterSpacing: "0.22em", color: "var(--color-brand-red)" }}
-            >
-              Outcome
-            </p>
+            <div className={hasGallery ? styles.outcomeHeading : undefined}>
+              <p
+                className="font-black uppercase"
+                style={{ fontSize: "12px", letterSpacing: "0.22em", color: "var(--color-brand-red)" }}
+              >
+                Outcome
+              </p>
+              {hasGallery && (
+                <button
+                  ref={backButton}
+                  type="button"
+                  className={styles.backButton}
+                  onClick={() => showFace(false)}
+                >
+                  View poster
+                </button>
+              )}
+            </div>
             {event.outcome && (
               <p
                 className={styles.copy}
@@ -141,6 +193,40 @@ export default function EventPosterFlip({ event }: EventPosterFlipProps) {
               >
                 {event.highlightStat}
               </p>
+            )}
+            {photo && (
+              <div className={styles.gallery} role="group" aria-label={`${event.name} photos`}>
+                <div className={styles.galleryPhoto}>
+                  <Image
+                    src={photo.src}
+                    alt={photo.alt}
+                    fill
+                    sizes="(max-width: 767px) 100vw, 50vw"
+                    className="object-contain"
+                  />
+                </div>
+                {photos.length > 1 && (
+                  <div className={styles.galleryControls}>
+                    <button
+                      type="button"
+                      aria-label="Previous photo"
+                      onClick={() => setPhotoIndex((index) => (index + photos.length - 1) % photos.length)}
+                    >
+                      <span aria-hidden="true">←</span>
+                    </button>
+                    <span aria-live="polite">
+                      <span className="sr-only">Photo </span>{photoIndex + 1} / {photos.length}
+                    </span>
+                    <button
+                      type="button"
+                      aria-label="Next photo"
+                      onClick={() => setPhotoIndex((index) => (index + 1) % photos.length)}
+                    >
+                      <span aria-hidden="true">→</span>
+                    </button>
+                  </div>
+                )}
+              </div>
             )}
           </div>
         )}
